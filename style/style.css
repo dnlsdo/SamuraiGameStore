@@ -1,8 +1,11 @@
 * {
   padding: 0px;
   margin: 0px;
+  border: 0px;
+  box-sizing: border-box;
 }
 
+/* MENU */
 a {
   text-decoration: none;
   color: #000000;
@@ -65,4 +68,103 @@ label {
   padding: 15px;
   position: absolute;
   z-index: 1;
+}
+
+/* FORMULARIO DE LOGIN */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
+body.container {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main.container {
+  position: absolute;
+  left: 40%;
+  top: 30%;
+  background-color: white;
+  max-width: 350px;
+  min-height: 30vh;
+  padding: 2rem;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+main h2 {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+}
+form.login {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  position: relative;
+}
+
+form .input-field:first-child {
+  margin-bottom: 1.5rem;
+}
+
+.input-field .underline::before {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  background: rgba(0, 0, 0, 2);
+}
+
+.input-field .underline::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  background: linear-gradient(to left, #ff0000, #ffb6c1);
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+  transform-origin: left;
+}
+
+.input-field input:focus ~ .underline::after {
+  transform: scaleX(1);
+}
+
+.input-field input {
+  outline: none;
+  font-size: 0.9rem;
+  color: #000000;
+}
+
+.input-field input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+form input[type="submit"] {
+  margin-top: 2rem;
+  padding: 0.4rem;
+  background: linear-gradient(to left, #dcdcdc, #1c1c1c);
+  cursor: pointer;
+  color: white;
+  font-size: 300;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+form input[type="submit"]:focus {
+  margin-top: 2rem;
+  padding: 0.4rem;
+  background: linear-gradient(to left, #ff0000, #ffb6c1);
+  cursor: pointer;
+  color: white;
+  font-size: 300;
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
