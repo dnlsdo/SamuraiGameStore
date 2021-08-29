@@ -24,7 +24,7 @@ ul {
 
 #logo {
   position: relative;
-  width: 75%;
+  width: 60%;
   left: 10%;
   top: 60%;
 }
@@ -186,4 +186,26 @@ form input[type="submit"]:focus {
   border-style: none;
   border-radius: 10px;
   border-color: blanchedalmond;
+}
+#usuario {
+  margin-left: auto;
+}
+#usuario img {
+  position: absolute;
+  width: 4%;
+  left: 82%;
+  margin-top: -4%;
+}
+#welcome {
+  position: absolute;
+  font-size: 10pt;
+  color: white;
+  left: 80.4%;
+  margin-top: 0.3%;
+}
+#logx {
+  position: absolute;
+  width: 7%;
+  right: 80%;
+  margin-top: -4%;
 }

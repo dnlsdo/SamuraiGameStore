@@ -8,7 +8,7 @@ nav.innerHTML = `
 
   <nav>
     <ul>
-      <li><a href="">HOME</a></li>
+      <li><a href="index.html">HOME</a></li>
       <li><a href="login.html">LOGIN</a></li>
       <li><a href="">VENDAS</a></li>
       <li><a href="">CADASTROS</a></li>
