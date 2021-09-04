@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
@@ -20,7 +20,7 @@
     <nav class="menu-lateral">
 
       <ul>
-        <li><a href="">HOME</a></li>
+        <li><a href="#">HOME</a></li>
         <li><a href="login.html">LOGIN</a></li>
         <li><a href="">VENDAS</a></li>
         <li><a href="">CADASTROS</a></li>
@@ -31,16 +31,17 @@
     </nav>
 
   <section class="container-fluid topo">
-    <div class="col brand">
-      <img src="images/brand.png" width="100px">
+    <div class="col-xs-0 col-sm-3 brand">
+      <img src="images/brand.png">
     </div>
     <div class="col pesquisa">
-      <input name="cadastro" name="text" id="cursor" placeholder=" Digite aqui o que você procura.." autofocus="">
+      <input name="cadastro" name="text" id="cursor" placeholder=" Buscar Produto..." autofocus="">
     </div>
-    <div class="col usuario">
-      <i class="far fa-user-circle"></i>
-      <div id="welcome">Olá Venderdor(a)</div>
-    </div>
+    <!-- Necessário alterar href quando outra view -->
+    <a href="views/user.html" class="col-3 usuario">
+        <span id="icon"><i  class="far fa-user-circle"></i></span> 
+        <div id="welcome">Olá Venderdor(a)</div>
+    </a>
   </section>
 
   <script src="plugins/bootstrap/js/bootstrap.min.js"></script>

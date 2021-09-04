@@ -31,16 +31,16 @@
     </nav>
   <!-- Navegador Superior -->
   <section class="container-fluid topo">
-    <div class="col brand">
-      <img src="../images/brand.png" width="100px">
+    <div class="col-xs-0 col-sm-3 brand">
+      <img src="../images/brand.png">
     </div>
     <div class="col pesquisa">
-      <input name="cadastro" name="text" id="cursor" placeholder=" Digite aqui o que você procura.." autofocus="">
+      <input name="cadastro" name="text" id="cursor" placeholder=" Buscar Produto..." autofocus="">
     </div>
-    <div class="col usuario">
-      <i class="far fa-user-circle"></i>
-      <div id="welcome">Olá Venderdor(a)</div>
-    </div>
+    <a href="user.html" style="color: white;" class="col-3 usuario">
+        <span id="icon"><i  class="fas fa-user-circle"></i></span> 
+        <div id="welcome">Olá Venderdor(a)</div>
+    </a>
   </section>
     
   <div class="user-parent">
@@ -84,46 +84,3 @@
   <script src="../plugins/fontawesome/js/all.min.js"></script>
 </body>
 </html>
-
-<!--
- <section class="user-data">
-        <h2>Dados Pessoais</h2>
-        <form>
-            <div class="input-field">
-                <label for="id">ID </label>
-                <input id="user-id" name="id" class="form-control-lg" type="text">
-            </div>  
-
-            <div class="input-field">
-                <label for="name">Nome</label>
-                <input id="ser-name"name="name" class="form-control-lg" type="text" placeholder="Nome Completo">
-            </div>  
-
-            <div class="input-field">
-                <label for="email">Email </label>
-                <input id="user-email"name="email" class="form-control-lg" type="email">
-            </div>  
-
-            <div class="input-field">
-                <label for="cargo">Cargo </label>
-                <input id="user-cargo"name="cargo" class="form-control-lg" type="text">
-            </div>  
-
-            <div class="input-field">
-                <label for="password">Senha </label>
-                <input id="user-password"name="password" class="form-control-lg" type="password">
-            </div>  
-
-            <div class="input-field">
-                <input type="submit" value="EDITAR  ">
-            </div> 
-            
-        </form>
-       
-      </section>
-      <section class="user-view">
-        <h2>Ultimas Vendas</h2>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit mollitia, ut, consectetur obcaecati cumque, nihil minus neque debitis voluptas veniam temporibus nobis. Recusandae minus quas molestiae consectetur a veritatis. Minus!
-      </section>
-
--->
