@@ -1,0 +1,60 @@
+/* MENU */
+
+.control-menu {
+    padding: 15px;
+    position: absolute;
+    z-index: 2;
+  }
+  
+  .control-menu img {
+    margin-top: 15px;
+    width: 40px;
+    padding: 0%;
+  }
+  
+  #logo {
+    position: relative;
+    width: 60%;
+    left: 10%;
+    top: 60%;
+  }
+  
+  #chec {
+    display: none;
+  }
+  
+  .menu-lateral {
+    z-index: 1;
+    background-color: #1c1c1c;
+    width: 350px;
+    left: -350px;
+    height: 100%;
+    position: absolute;
+    transition: all 0.5s;
+  }
+  #chec:checked ~ nav {
+    transform: translateX(350px);
+  }
+  
+  .menu-lateral ul {
+    list-style: none;
+    left: 4%;
+    top: 70px;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .menu-lateral a {
+    display: block;
+    padding: 20px 5px;
+    color: #d3d3d3;
+    text-decoration: none;
+  }
+  .menu-lateral a:hover {
+    background-color: #a52a2a;
+    color: #f5fffa;
+    transition: all 0.7s;
+    width: 90%;
+  }
+  
+  

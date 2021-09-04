@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+/*@import 'menu.css';*/
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: arial;
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    max-width: 600px;
+    flex-direction: column;
+    max-width: 350px;
+    min-height: 45vh;
+    background-color: white;
+    padding: 2rem;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.login-form h2 {
+    font-weight: 600;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.input-field {
+    position: relative;
+}
+
+form .input-field:first-child {
+    margin-bottom: 1.5rem;
+}
+
+.input-field .underline::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+    background: rgba(0, 0, 0, 2);
+}
+
+.input-field .underline::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(to left, #ff0000, #ffb6c1);
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+    transform-origin: left;
+}
+
+.input-field input:focus~.underline::after {
+    transform: scaleX(1);
+}
+
+.input-field input {
+    border:none;
+    outline: none;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.input-field input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+form input[type="submit"] {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 0.4rem;
+    background: linear-gradient(to left, #dcdcdc, #1c1c1c);
+    cursor: pointer;
+    color: white;
+    font-size: 300;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+form input[type="submit"]:focus {
+    margin-top: 2rem;
+    padding: 0.4rem;
+    background: linear-gradient(to left, #ff0000, #ffb6c1);
+    cursor: pointer;
+    color: white;
+    font-size: 300;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
