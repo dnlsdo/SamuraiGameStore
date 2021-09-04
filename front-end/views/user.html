@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/user.css">
+  <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+  
+<title>Samurai Games Store</title>
+</head>
+<body>
+  <!-- Menu Lateral -->
+  <input type="checkbox" id="chec">
+  <label for="chec" class="control-menu">
+      <img src="../images/controle.png" >
+  </label>
+
+    <nav class="menu-lateral">
+
+      <ul>
+        <li><a href="">HOME</a></li>
+        <li><a href="login.html">LOGIN</a></li>
+        <li><a href="">VENDAS</a></li>
+        <li><a href="">CADASTROS</a></li>
+        <li><a href="">RELATÓRIOS</a></li>
+      </ul>
+
+      <img src="../images/brand.png" id="logo">
+    </nav>
+  <!-- Navegador Superior -->
+  <section class="container-fluid topo">
+    <div class="col brand">
+      <img src="../images/brand.png" width="100px">
+    </div>
+    <div class="col pesquisa">
+      <input name="cadastro" name="text" id="cursor" placeholder=" Digite aqui o que você procura.." autofocus="">
+    </div>
+    <div class="col usuario">
+      <i class="far fa-user-circle"></i>
+      <div id="welcome">Olá Venderdor(a)</div>
+    </div>
+  </section>
+    
+  <div class="user-parent">
+     <section class="row user-data">
+       <h3>Dados Pessoal</h3>
+        <form>
+          <div class="row">
+            <div class="col-2 ">
+              <label for="user-id" class="form-label">ID</label>
+              <input readonly type="text" class="form-control" id="user-id" value="15">
+            </div>
+            <div class="col ">
+              <label for="user-name" class="form-label">NOME</label>
+              <input type="text" class="form-control" id="user-name" >
+            </div>
+          </div>
+          <div class="col">
+            <label for="user-email" class="form-label">E-MAIL</label>
+            <input type="email" class="form-control" id="user-email" >
+          </div>
+          <div class="col">
+            <label for="user-cargo" class="form-label">CARGO</label>
+            <input readonly type="text" class="form-control" id="user-cargo" >
+          </div>
+            <div class="col-auto">
+              <label for="user-password" class="col-form-label">SENHA</label>
+            </div>
+            
+            <div class="row g-3 space-betewen">
+              <div class="col-auto">
+                <input disabled type="password" id="user-password" class="form-control" value="NãoÉSenha">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Alterar</button>
+              </div>
+            </div>
+          </form>
+    </section>
+
+  <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../plugins/fontawesome/js/all.min.js"></script>
+</body>
+</html>
+
+<!--
+ <section class="user-data">
+        <h2>Dados Pessoais</h2>
+        <form>
+            <div class="input-field">
+                <label for="id">ID </label>
+                <input id="user-id" name="id" class="form-control-lg" type="text">
+            </div>  
+
+            <div class="input-field">
+                <label for="name">Nome</label>
+                <input id="ser-name"name="name" class="form-control-lg" type="text" placeholder="Nome Completo">
+            </div>  
+
+            <div class="input-field">
+                <label for="email">Email </label>
+                <input id="user-email"name="email" class="form-control-lg" type="email">
+            </div>  
+
+            <div class="input-field">
+                <label for="cargo">Cargo </label>
+                <input id="user-cargo"name="cargo" class="form-control-lg" type="text">
+            </div>  
+
+            <div class="input-field">
+                <label for="password">Senha </label>
+                <input id="user-password"name="password" class="form-control-lg" type="password">
+            </div>  
+
+            <div class="input-field">
+                <input type="submit" value="EDITAR  ">
+            </div> 
+            
+        </form>
+       
+      </section>
+      <section class="user-view">
+        <h2>Ultimas Vendas</h2>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit mollitia, ut, consectetur obcaecati cumque, nihil minus neque debitis voluptas veniam temporibus nobis. Recusandae minus quas molestiae consectetur a veritatis. Minus!
+      </section>
+
+-->

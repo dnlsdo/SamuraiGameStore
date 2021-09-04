@@ -1,0 +1,36 @@
+@import "style.css";
+
+.user-parent{
+    height: 82%;
+    background-color: #dfdfdf;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-data{
+    background-color: white;
+    box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+    margin-bottom: 50px;
+    padding: 20px; 
+
+}
+.user-view{
+    background-color: white;
+    box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+}
+
+.input-field input{
+    outline: none;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.space-betewen{
+    display: flex;
+    justify-content: space-between;
+}
+
