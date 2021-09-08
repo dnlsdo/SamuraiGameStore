@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/cadas.css">
+  <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+  
+  <title>Samurai Games Store</title>
+</head>
+<body>
+  <!-- Menu Lateral -->
+  <input type="checkbox" id="chec">
+  <label for="chec" class="control-menu">
+      <img src="../images/controle.png" >
+  </label>
+
+    <nav class="menu-lateral">
+
+      <ul>
+        <li><a href="#">HOME</a></li>
+        <li><a href="login.html">LOGIN</a></li>
+        <li><a href="">VENDAS</a></li>
+        <li><a href="">CADASTROS</a></li>
+        <li><a href="">RELATÓRIOS</a></li>
+      </ul>
+
+      <img src="../images/brand.png" id="logo">
+    </nav>
+
+  <section class="container-fluid topo">
+    <div class="col-xs-0 col-sm-3 brand">
+      <img src="../images/brand.png">
+    </div>
+    <div class="col pesquisa">
+      <input name="cadastro" name="text" id="cursor" placeholder=" Buscar Produto..." autofocus="">
+    </div>
+        <!-- Necessário alterar href quando outra view -->
+        <a href="../views/user.html" class="col-3 usuario">
+            <span id="icon"><i  class="far fa-user-circle"></i></span> 
+            <div id="welcome">Olá Venderdor(a)</div>
+        </a>
+    </section>
+
+
+    <!-- Nav menu funcinario, cliente e produtos-->
+    <form class="my-5">
+        <nav>
+            <ul class="nav justify-content-center">
+                  <li class="nav-item"><a class="nav-link" href="cadastroCliente.html" style="color:white">Cliente</a></li>
+                  <li class="nav-item"><a class="nav-link" href="cadastroProduto.html" style="color:white">Produtos</a></li>
+                  <li class="nav-item"><a class="nav-link" href="cadastroFuncionario.html" style="color:white">Funcionarios</a></li>
+            </ul>
+          </nav>
+          <!-- Input Fotografia, nome e descrição-->
+        <div class="container">
+            <div class="row align-items-start">
+              <div class="col">
+                <div class="mb-3">
+                    <label for="formFileSm" class="form-label">Escolha fotografia do jogo</label>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file">
+                </div>
+              </div>
+              <div class="col">
+                <label class="form-label">Nome do jogo:</label>
+                <input  type ="text" class="form-control "name="nome do jogo" placeholder="Digite o nome" required>
+              </div>
+              <div class="col">
+                <div class="row justify-content-end" >
+                    <div class= "col-8" >
+                        <label for="textarea-form" class="form-label">Descrição:</label>
+                        <textarea class="form-control" placeholder="Descrição do produto" rows="5" id="textarea-form"></textarea>
+                    </div>
+                </div>
+    </div>
+    </div>
+
+
+    <!-- Input Tipo, plataformna, quantidade e preço-->
+    <div class="row"> 
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+                <label class="form-label">Tipo:</label>
+                <input  type ="text" class="form-control "name="tipo" placeholder="Digite o tipo" required>
+            </div>
+        </div>
+        <div class="col-md-6 offset-md-3 mt-3">
+            <div class="form-group">
+                <label class="form-label">Plataforma:</label>
+                <input class="form-control" name="Plataforma" type="text" placeholder="Ex: PS4, Nintendo, etc..." aria-label="#" required>
+            </div>
+        </div>
+        <div class="col-md-6 offset-md-3 mt-4">
+            <label for="select-form" class="form-label">Quantidade:</label>
+            <select class="form-select" id="select-form">
+                <option selected disabled>Quantidade</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="3">4</option>
+                <option value="3">5</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 offset-md-3 mt-4">
+        <div class="input-group mb-3" >
+            <span class="input-group-text">R$</span>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+    </div>
+
+    <!-- Botão salvar -->
+        
+    <div class="row justify-content-center my-3">
+        <div class="col-8">
+            <button class="btn d-block btn-dark mx-auto mb-3" type="submit">Salvar</button>
+    </div>
+        
+    
+    </form>
+
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/fontawesome/js/all.min.js"></script>
+  </body>
+  </html>
