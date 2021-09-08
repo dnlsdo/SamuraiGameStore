@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/cadas.css">
+  <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+
+  
+  <title>Samurai Games Store</title>
+</head>
+<body>
+  <!-- Menu Lateral -->
+  <input type="checkbox" id="chec">
+  <label for="chec" class="control-menu">
+      <img src="../images/controle.png" >
+  </label>
+
+    <nav class="menu-lateral">
+
+      <ul>
+        <li><a href="#">HOME</a></li>
+        <li><a href="login.html">LOGIN</a></li>
+        <li><a href="">VENDAS</a></li>
+        <li><a href="">CADASTROS</a></li>
+        <li><a href="">RELATÓRIOS</a></li>
+      </ul>
+
+      <img src="../images/brand.png" id="logo">
+    </nav>
+
+  <section class="container-fluid topo">
+    <div class="col-xs-0 col-sm-3 brand">
+      <img src="../images/brand.png">
+    </div>
+    <div class="col pesquisa">
+      <input name="cadastro" name="text" id="cursor" placeholder=" Buscar Produto..." autofocus="">
+    </div>
+        <!-- Necessário alterar href quando outra view -->
+        <a href="../views/user.html" class="col-3 usuario">
+            <span id="icon"><i  class="far fa-user-circle"></i></span> 
+            <div id="welcome">Olá Venderdor(a)</div>
+        </a>
+    </section>
+
+    <main id="contato">
+        <section class="container">
+        <!-- MENU -->
+            <nav >
+                <div id="color">
+                    <ul class="nav justify-content-center">
+                            <li class="nav-item"><a class="nav-link" href="cadastroCliente.html" style="color:white">Cliente</a></li>
+                            <li class="nav-item"><a class="nav-link" href="cadastroProduto.html" style="color:white">Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link"  href="cadastroFuncionario.html" style="color:white">Funcionarios</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <form class="my-5">
+          <!-- DIV  nome e e-mail -->
+                <div class="row justify-content-center">
+                      <div class="col-8 col-sm-4 mb-2">
+                          <div class="form-group">
+                              <label for="nome-form" class="form-label">Nome:</label>
+                              <input type="text" class="form-control" name="name" placeholder="Nome" id="nome-form" required>
+                          </div>
+                      </div>
+                      <div class="col-8 col-sm-4 mb-2">
+                          <div class="form-group">
+                              <label for="email-form" class="form-label">E-mail:</label>
+                              <input type="email" class="form-control" name="email" placeholder="seuemail@provedor.com" id="email-form" required>
+                          </div>
+                      </div>
+                    
+
+                <!-- DIV Cargo e senha-->
+                  
+                  
+					<div class="col-8 col-sm-4 mb-2">
+						<div class="form-group">
+							<label  class="form-label">Cargo:</label>
+							<input class="form-control" name="cargo" placeholder="Digite seu cargo" required>
+						</div>
+					</div>
+                    <div class="col-8 col-sm-4 mb-2">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Senha:</label>
+                        <div class="form-group">
+                          <input type="password" class="form-control" id="inputPassword" required>
+                        </div>
+                      </div>
+				</div>
+                    <!--Botão  -->
+                <div class="row justify-content-center my-3">
+                    <div class="col-8">
+                    <button class="btn d-block btn-dark mx-auto mb-3" type="submit">Salvar</button>
+                </div>
+
+
+            </form>
+
+            </div>
+            </form>
+        </section>
+	</main>
+
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/fontawesome/js/all.min.js"></script>
+
+</body>
+</html>                
