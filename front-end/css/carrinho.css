@@ -1,0 +1,102 @@
+/* MENU */
+
+.control-menu {
+  padding: 5px;
+  position: absolute;
+  z-index: 2;
+}
+
+.control-menu img {
+  margin-top: 30px;
+  width: 40px;
+  padding: 0%;
+}
+#chec {
+  display: none;
+}
+
+.menu-lateral {
+  z-index: 1;
+  background-color: #696969;
+  width: 300px;
+  left: -300px;
+  height: 60%;
+  position: absolute;
+  transition: all 0.6s;
+}
+#chec:checked ~ nav {
+  transform: translateX(350px);
+}
+
+.btnCarrinho {
+  list-style: none;
+  left: 4%;
+  top: 88%;
+  position: absolute;
+  width: 100%;
+}
+.btnCarrinho input {
+  width: 45%;
+  height: 30px;
+  border-radius: 8%;
+}
+
+.btnCancelar {
+  background-color: #a52a2a;
+  color: #f5fffa;
+  cursor: pointer;
+}
+.btnProsseguir {
+  background-color: #32cd32;
+  cursor: pointer;
+}
+
+#carrinhoBtn {
+  position: absolute;
+  margin-top: 0px;
+  margin-top: 1%;
+  left: 48%;
+  width: 8%;
+}
+
+.totalCompras {
+  font-size: 13pt;
+  color: #f5fffa;
+  list-style: none;
+  left: 5%;
+  top: 80%;
+  position: absolute;
+}
+
+.info {
+  font-size: 14pt;
+  color: #f5fffa;
+  list-style: none;
+  left: 5%;
+  top: 10%;
+  position: absolute;
+}
+
+.fieldset {
+  position: absolute;
+  margin-top: 25%;
+  width: 265px;
+  height: 50%;
+  overflow: auto;
+  border-style: none;
+}
+.produtosCarrinho {
+  position: relative;
+  width: 80%;
+  font-size: 14pt;
+  border-radius: 5%;
+  padding-top: 1%;
+  color: #f5fffa;
+  left: 5%;
+  top: 0%;
+  position: absolute;
+  color: #000000;
+}
+#colorList {
+  background-color: #d3d3d3;
+}
