@@ -9,9 +9,17 @@ exports.login = async (req, res) =>{
     const login = new Login(req.body);
     await login.login();
     if(login.erros.length > 0){
-        res.send('MENSAGENS DE ERROS', login.erros);
-        return console.log('=-=-MENSAGENS DE ERROS=-=-=', login.erros);
-    } 
-
-    res.send(await login.user());    
+        req.flash('erros', login.erros);
+        req.session.save( function(){
+            console.log(login.erros)
+            return res.redirect('../login');
+        });
+        return;
+    }
+    req.flash('success', 'Você está logado');
+    req.session.user = Object.assign({}, login.user);
+    console.log('De sessao',req.session.user);
+    req.session.save( function(){
+        return res.redirect('/');
+    });         
 }

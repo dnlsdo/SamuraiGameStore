@@ -4,6 +4,7 @@ const routes = require('./routes');
 const db = require('./src/db/connection');
 const session = require('express-session');
 const flash = require('connect-flash');
+const { middlewareGlobal } = require('./src/middlewares/middlewares');
 let connection = 0;
 
 //Conecta com o banco antes de executar
@@ -28,6 +29,7 @@ app.use(express.static('front-end'));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
+app.use(middlewareGlobal);
 app.use(routes);
 
 app.on('go', ()=>{
