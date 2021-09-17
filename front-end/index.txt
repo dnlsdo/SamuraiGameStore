@@ -21,12 +21,16 @@
 
       <ul>
         <li><a href="#">HOME</a></li>
-        <li><a href="login.html">LOGIN</a></li>
+        <li><a href="views/login.html">LOGIN</a></li>
         <li><a href="">VENDAS</a></li>
-        <li><a href="">CADASTROS</a></li>
-        <li><a href="">RELATÓRIOS</a></li>
+        <li><a href="views/cadastroProduto.html">CADASTROS</a></li>
+        <li><a href="views/relatorioVendas.html">RELATÓRIOS</a></li>
       </ul>
-
+      <!--
+      <div class="alert alert-danger message" role="alert">
+        Usuário ou senha incorretos
+      </div> 
+      -->
       <img src="images/brand.png" id="logo">
     </nav>
 

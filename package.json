@@ -1,0 +1,33 @@
+{
+  "name": "samuraigamestore",
+  "version": "1.0.0",
+  "description": "Projeto desenvolvido para matéria interdisciplinar",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnlsdo/SamuraiGameStore.git"
+  },
+  "author": "Os Samurais",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dnlsdo/SamuraiGameStore/issues"
+  },
+  "homepage": "https://github.com/dnlsdo/SamuraiGameStore#readme",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mysql2": "^2.3.0",
+    "promise-mysql2": "^1.0.0",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

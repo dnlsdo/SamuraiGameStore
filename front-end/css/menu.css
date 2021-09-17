@@ -1,9 +1,16 @@
 /* MENU */
 
 .control-menu {
+    height: 100%;;
     padding: 15px;
     position: absolute;
     z-index: 2;
+  }
+
+  .message{
+    position: relative;
+    top: 60%;
+    margin-top: 10px;;
   }
   
   .control-menu img {
