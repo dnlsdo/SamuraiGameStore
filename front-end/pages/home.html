@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+  
+  <title>Samurai Games Store</title>
+</head>
+<body>
+  <!-- Menu Lateral -->
+  <input type="checkbox" id="chec">
+  <label for="chec" class="control-menu">
+      <img src="../images/controle.png" >
+  </label>
+
+    <nav class="menu-lateral">
+
+      <ul>
+        <li><a href="#">HOME</a></li>
+        <li><a href="login.html">LOGIN</a></li>
+        <li><a href="">VENDAS</a></li>
+        <li><a href="">CADASTROS</a></li>
+        <li><a href="">RELATÓRIOS</a></li>
+      </ul>
+
+      <img src="../images/brand.png" id="logo">
+    </nav>
+
+  <section class="container-fluid topo">
+    <div class="col-xs-0 col-sm-3 brand">
+      <img src="../images/brand.png">
+    </div>
+    <div class="col pesquisa">
+      <input name="cadastro" name="text" id="cursor" placeholder=" Buscar Produto..." autofocus="">
+    </div>
+    <!-- Necessário alterar href quando outra view -->
+    <a href="../views/user.html" class="col-3 usuario">
+        <span id="icon"><i  class="far fa-user-circle"></i></span> 
+        <div id="welcome">Olá Venderdor(a)</div>
+    </a>
+  </section>
+
+  <!--Carrossel-->
+<main>
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../images/samuraispreto.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Os maiores do ramo!</h5>
+          <p>Nossa loja conta com diversos produtos para você usufruir.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="../images/ggg.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Aqui você nunca perderá!</h5>
+          <p>Sempre vai estar com a melhor experiência gamer do mercado.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="../images/g5.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Vários itens exclusivos</h5>
+          <p>Você só encontra aqui!</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!--Texto de apresentação-->
+  <div class="container marketing">
+
+    <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Só os melhores!</h2>
+          <p class="lead">Jogos incríveis e diversão sem parar. Nunca houve época melhor para se divertir.</p>
+        </div>
+        <div class="col-md-5">
+          <img src="../images/jogos.jpg" class="d-block w-100" alt="...">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">Compre seu hardware, agora!</h2>
+          <p class="lead">Quando você tem a arquitetura de processador mais avançada do mundo para jogadores e criadores de conteúdo, as possibilidades são infinitas. Esteja você jogando os jogos mais recentes, projetando o próximo prédio ou processando dados, você precisa de um processador poderoso que possa lidar com tudo - e muito mais.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img src="../images/ryzen.jpg" class="d-block w-100" alt="...">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Sobre nós:</h2>
+          <p class="lead"> Nosso objetivo? queremos que você encontre a melhor plataforma 
+          para compra seus jogos, sem dificuldade e o mais rápido possível.</p>
+        </div>
+        <div class="col-md-5">
+          <img src="../images/venha.jpg" class="d-block w-100" alt="...">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+  </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="plugins/fontawesome/js/all.min.js"></script>
+
+
+</body>
+</html>

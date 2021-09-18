@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/user.css">
+  <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+  
+  <title>Samurai Games Store</title>
+</head>
+<body>
+
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+
+<div class="user-parent">
+    <section class="row user-data">
+      <h3>Dados Pessoal</h3>
+       <form>
+         <div class="row">
+           <div class="col-2 ">
+             <label for="user-id" class="form-label">ID</label>
+             <input value="<%- user.id_usuario %>" readonly type="text" class="form-control" id="user-id" value="15">
+           </div>
+           <div class="col ">
+             <label for="user-name" class="form-label">NOME</label>
+             <input value="<%- user.nome %>"  type="text" class="form-control" id="user-name" >
+           </div>
+         </div>
+         <div class="col">
+           <label for="user-email" class="form-label">E-MAIL</label>
+           <input value="<%- user.email %>" type="email" class="form-control" id="user-email" >
+         </div>
+         <div class="col">
+           <label for="user-cargo" class="form-label">CARGO</label>
+           <input value="<%- user.cargo %>" readonly type="text" class="form-control" id="user-cargo" >
+         </div>
+           <div class="col-auto">
+             <label for="user-password" class="col-form-label">SENHA</label>
+           </div>
+           
+           <div class="row g-3 space-betewen">
+             <div class="col-auto">
+               <input disabled type="password" id="user-password" class="form-control" value="NãoÉSenha">
+             </div>
+             <div class="col-auto">
+               <button type="submit" class="btn btn-primary">Alterar</button>
+             </div>
+           </div>
+         </form>
+   </section>
+
+   <%- include('./includes/footer') %>
