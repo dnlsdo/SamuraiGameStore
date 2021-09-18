@@ -5,6 +5,8 @@ exports.index = (req, res) =>{
 }
 
 
+//Servidor->Rotas(/algumaCoisa) → Controlador → Models(Classes buscam dados do banco)
+
 exports.login = async (req, res) =>{
     const login = new Login(req.body);
     await login.login();

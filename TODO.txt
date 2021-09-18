@@ -1,0 +1,3 @@
+/login se logado deslogar
+
+E middleware de autenticação, paginas 

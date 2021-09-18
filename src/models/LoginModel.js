@@ -42,8 +42,9 @@ Login.prototype.login = async function(){
     if(this.erros.length > 0) return
     
     const [rows, fields] = await db.connection.query(cmd_serch);
+    
     if(rows.length > 0) this.user = {... rows[0]};
-    console.log(this.user);
+
     if(!this.user) {
         this.erros.push('Email ou Senha Inválidos');
         return;

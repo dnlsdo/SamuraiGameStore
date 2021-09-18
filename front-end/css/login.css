@@ -83,6 +83,7 @@ form .input-field:first-child {
 }
 
 .input-field input {
+    width: 100%;
     border:none;
     outline: none;
     font-size: 0.9rem;
