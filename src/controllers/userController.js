@@ -1,3 +1,3 @@
 exports.index = (req, res) =>{
-    res.render('user');
+    return res.render('user');
 }

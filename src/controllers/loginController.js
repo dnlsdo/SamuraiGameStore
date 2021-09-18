@@ -1,6 +1,8 @@
+
 const Login = require('../models/LoginModel');
 
 exports.index = (req, res) =>{
+    if(req.session.user) req.session.destroy();
     res.render('login');
 }
 

@@ -9,7 +9,7 @@ const userController = require('./src/controllers/userController');
 router.get('/', homeController.index);
 router.get('/login', loginController.index);
 router.post('/login/login', loginController.login);
-router.get('/user', userController.index);
+router.get('/user', middleware.loginRequired, userController.index);
 
 
 router.get('/403', (req, res)=>{

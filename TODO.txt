@@ -1,3 +1,4 @@
-/login se logado deslogar
-
-E middleware de autenticação, paginas 
+LOGIN
+login se logado deslogar [FEITO]
+E middleware de autenticação, paginas [FEITO]
+Alter de usuario
