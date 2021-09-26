@@ -6,7 +6,7 @@ const senha2 = form.querySelector('#user-password2');
 console.log('oi')
 
 btnAlterar.addEventListener('click', function(e){
-        console.log('estive no alterar')
+    if(btnAlterar.textContent !== 'SALVAR'){
         const allInputs = form.querySelectorAll('.blocked');
         allInputs.forEach((input)=>{
             input.removeAttribute('hidden');
@@ -14,14 +14,30 @@ btnAlterar.addEventListener('click', function(e){
             input.removeAttribute('disabled');
         });
         btnAlterar.textContent = 'SALVAR';  
+        
+    }else{
         btnAlterar.setAttribute('type', 'submit');
+    }
 });
+
+function validarSenha(){
+    if(senha2.hasAttribute('hidden')) return true;
+    NovaSenha = senha.value;
+    CNovaSenha = senha2.value;
+    if (NovaSenha != CNovaSenha){ 
+         alert("SENHAS DIFERENTES!\nFAVOR DIGITAR SENHAS IGUAIS");
+         return false;
+    }
+    return true;
+}
+
 
 senha.addEventListener('focus', (e)=>{
     const lblsenha = form.querySelector("#lbl-pass2");
     lblsenha.removeAttribute('hidden');
     senha2.removeAttribute('hidden');
     senha.value = '';
+    senha.setAttribute('name','senha');
 })
 
     

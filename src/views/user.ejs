@@ -16,15 +16,15 @@
 <%- include('./includes/nav') %>
 
 <% if(user){ %>
-<div class="user-parent">
-    <section class="row user-data">
+<div class="container-fluid user-parent">
+    <section class="row user-data mt-4">
       <h3>Dados Pessoal</h3>
-       <form id="form-user" action="/login/alterar" method="POST">
+      <%- include ('./includes/message') %>
+       <form id="form-user" onsubmit="return validarSenha();" action="/user/alter" method="POST">
           <div class="row">
-            <input name="userId" value="<%- user.id_usuario %>"  type="hidden" id="user-id" >
             <div class="col ">
               <label for="user-name" class="form-label">NOME</label>
-              <input name="name" readonly value="<%- user.nome %>"  type="text" class="form-control blocked" id="user-name" >
+              <input name="nome" readonly value="<%- user.nome %>"  type="text" class="form-control blocked" id="user-name" >
             </div>
          </div>
          <div class="col">
@@ -53,14 +53,17 @@
            <div class="row g-3 space-betewen">
              <div class="col-4">
                <label  for="user-password" class="col-form-label">SENHA</label>
-               <input name="password" disabled type="password" id="user-password" class="form-control blocked" value="NãoÉSenha">
+               <input disabled type="password" id="user-password" class="form-control blocked" value="NãoÉSenha">
              </div>
              <div class="col-4">
               <label hidden id="lbl-pass2" for="user-password2" class="col-form-label">Confirmar</label>
-              <input hidden name="password2" type="password" id="user-password2" class="form-control" value="">
+              <input hidden type="password" id="user-password2" class="form-control" value="">
             </div>
-             <div class="col-auto mt-auto">
-               <button id="btn-alterar" type="button" class="btn btn-primary">Alterar</button>
+             <div class="col-3 mt-auto">
+                <div class="row row-cols-2 me-1">
+                  <div class="col"><a hidden id="btn-cancel" href="/user" class="btn btn-danger blocked"> Voltar </a></div>
+                  <div class="col"><button id="btn-alterar" type="button" class="btn btn-primary">Alterar</button></div>                  
+                </div>
              </div>
            </div>
          </form>

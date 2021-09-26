@@ -8,7 +8,7 @@ function Login (body){
     this.valida = function(){
         this.cleanUp();
         if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
-        if(this.body.password.length < 3 || this.body.password.length > 50 ) this.erros.push('Senha deve ter mais de 3 carácteres e menos de 50');
+        if(this.body.password.length <= 3 || this.body.password.length > 50 ) this.erros.push('Senha deve ter mais de 3 carácteres e menos de 50');
     }
 
     this.cleanUp = function(){
@@ -16,7 +16,7 @@ function Login (body){
             if(typeof this.body[key] !== 'string'){
                 this.body[key] ='';
             }
-    
+            //Validação de Senha em Alter
             this.body = {
                 password: this.body.password,
                 email: this.body.email
@@ -49,6 +49,40 @@ Login.prototype.cargos = async function(){
     return;
 }
 
+
+
+
+Login.prototype.alter = async function(){
+
+    if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
+    if(this.body.senha && (this.body.senha.length <= 3 || this.body.senha.length > 50)){
+        this.erros.push('Senha deve ter mais de 3 carácteres e menos de 50');
+    }
+
+    const cmd_put= `UPDATE usuario SET ? WHERE id_usuario = ${this.user.id_usuario}`;
+
+    console.log(`QUERY: ${cmd_put}, BODY:${this.body}`);
+    if(this.user.email !== this.body.email && await this.emailExists()) {
+       return  this.erros.push('Email já está sendo utilizado por outra conta.')
+    }
+    
+    await db.connection.query(cmd_put, this.body);
+    if(!this.body.senha) delete this.body.senha;
+    Object.assign(this.user, this.body);
+}
+
+
+
+
+Login.prototype.emailExists = async function(){
+    
+    const cmd_exists = `SELECT email FROM usuario WHERE email = '${this.body.email}'`;
+    const [rows, fields] = await db.connection.query(cmd_exists);
+    console.log('Alterado:',rows)
+    if(rows.length > 0) return true;
+    return false;
+}
+
 Login.prototype.login = async function(){
     const cmd_serch = `SELECT * FROM usuario WHERE email = '${this.body.email}' AND senha = md5('${this.body.password}')`;
     this.valida();
@@ -66,8 +100,5 @@ Login.prototype.login = async function(){
     return;
 }
 
-Login.prototype.alter = async function(){
-    const cmd_alter = ``
-}
 
 module.exports = Login;

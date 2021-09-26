@@ -10,7 +10,7 @@ router.get('/', homeController.index);
 router.get('/login', loginController.index);
 router.post('/login/login', loginController.login);
 router.get('/user', middleware.loginRequired, userController.index);
-
+router.post('/user/alter', middleware.loginRequired, loginController.alter);
 
 router.get('/404', (req, res)=>{
     res.render('404')
