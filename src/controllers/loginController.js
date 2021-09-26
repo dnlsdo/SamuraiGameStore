@@ -6,12 +6,20 @@ exports.index = (req, res) =>{
     res.render('login');
 }
 
+// exports.cargos = async (req, res) =>{
+//     const login = new Login();
+//     await login.cargos()
+//     res.send(login.user.cargos);
+// }
 
-//Servidor->Rotas(/algumaCoisa) → Controlador → Models(Classes buscam dados do banco)
 
 exports.login = async (req, res) =>{
     const login = new Login(req.body);
     await login.login();
+    await login.cargos()
+    //Buscar os cargos disponíveis             
+
+
     if(login.erros.length > 0){
         req.flash('erros', login.erros);
         req.session.save( function(){

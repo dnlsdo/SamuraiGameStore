@@ -19,38 +19,52 @@
 <div class="user-parent">
     <section class="row user-data">
       <h3>Dados Pessoal</h3>
-       <form>
-         <div class="row">
-           <div class="col-2 ">
-             <label for="user-id" class="form-label">ID</label>
-             <input value="<%- user.id_usuario %>" readonly type="text" class="form-control" id="user-id" value="15">
-           </div>
-           <div class="col ">
-             <label for="user-name" class="form-label">NOME</label>
-             <input value="<%- user.nome %>"  type="text" class="form-control" id="user-name" >
-           </div>
+       <form id="form-user" action="/login/alterar" method="POST">
+          <div class="row">
+            <input name="userId" value="<%- user.id_usuario %>"  type="hidden" id="user-id" >
+            <div class="col ">
+              <label for="user-name" class="form-label">NOME</label>
+              <input name="name" readonly value="<%- user.nome %>"  type="text" class="form-control blocked" id="user-name" >
+            </div>
          </div>
          <div class="col">
-           <label for="user-email" class="form-label">E-MAIL</label>
-           <input value="<%- user.email %>" type="email" class="form-control" id="user-email" >
+           <label name="" for="user-email" class="form-label">E-MAIL</label>
+           <input name="email" readonly value="<%- user.email %>" type="email" class="form-control blocked" id="user-email" >
          </div>
          <div class="col">
-           <label for="user-cargo" class="form-label">CARGO</label>
-           <input value="<%- user.cargo %>" readonly type="text" class="form-control" id="user-cargo" >
+            <label for="user-cargo" class="form-label">CARGO</label>
+            <select disabled name="cargo" id="user-cargo" class="form-control blocked">
+              <% user.cargos.forEach( (el) =>{
+                if(el === user.cargo){ %>
+
+                <option selected value="<%- el %>"> <%- el %> </option>
+
+              <% }else{ %>
+
+                <option value="<%- el %>"> <%- el %> </option>
+                
+              <% }}) %>
+            </select>
          </div>
-           <div class="col-auto">
-             <label for="user-password" class="col-form-label">SENHA</label>
-           </div>
+          <div class="col-auto">
+            
+          </div>
            
            <div class="row g-3 space-betewen">
-             <div class="col-auto">
-               <input disabled type="password" id="user-password" class="form-control" value="NãoÉSenha">
+             <div class="col-4">
+               <label  for="user-password" class="col-form-label">SENHA</label>
+               <input name="password" disabled type="password" id="user-password" class="form-control blocked" value="NãoÉSenha">
              </div>
-             <div class="col-auto">
-               <button type="submit" class="btn btn-primary">Alterar</button>
+             <div class="col-4">
+              <label hidden id="lbl-pass2" for="user-password2" class="col-form-label">Confirmar</label>
+              <input hidden name="password2" type="password" id="user-password2" class="form-control" value="">
+            </div>
+             <div class="col-auto mt-auto">
+               <button id="btn-alterar" type="button" class="btn btn-primary">Alterar</button>
              </div>
            </div>
          </form>
    </section>
+   <script src='./js/user.js'></script>
 <% } %>
    <%- include('./includes/footer') %>

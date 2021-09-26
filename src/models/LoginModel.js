@@ -23,6 +23,8 @@ function Login (body){
             }
         }
     }
+
+
     
 }
 
@@ -33,6 +35,18 @@ Login.prototype.allUser = async function(){
     
     const [rows, fields] = await db.connection.query('Select * from usuario');
     return rows;
+}
+
+Login.prototype.cargos = async function(){
+    const [rows, fields] = await db.connection.query('SELECT DISTINCT cargo FROM usuario')
+    const cargos = [];
+    rows.forEach(element => {
+        cargos.push(element.cargo);
+    });
+    if(!this.user) this.user = {};
+    this.user.cargos = cargos;
+    
+    return;
 }
 
 Login.prototype.login = async function(){
@@ -52,6 +66,8 @@ Login.prototype.login = async function(){
     return;
 }
 
-
+Login.prototype.alter = async function(){
+    const cmd_alter = ``
+}
 
 module.exports = Login;

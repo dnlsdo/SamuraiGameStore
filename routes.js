@@ -12,8 +12,8 @@ router.post('/login/login', loginController.login);
 router.get('/user', middleware.loginRequired, userController.index);
 
 
-router.get('/403', (req, res)=>{
-    res.render('403')
+router.get('/404', (req, res)=>{
+    res.render('404')
 });
 
 
