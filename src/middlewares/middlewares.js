@@ -7,6 +7,7 @@ exports.middlewareGlobal = (req, res, next) => {
 
 exports.loginRequired= (req, res, next) =>{
   if(!req.session.user) {
+    console.log('Login é requerido');
     res.status(403).render('403');
     return
   }

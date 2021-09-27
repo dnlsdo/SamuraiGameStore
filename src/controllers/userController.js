@@ -3,5 +3,5 @@ exports.index = (req, res) =>{
 }
 
 exports.cadastroFuncionario = (req, res) =>{
-    return res.render('');
+    return res.render('cadastroFuncionario');
 }

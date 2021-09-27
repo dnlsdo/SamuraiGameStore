@@ -6,9 +6,12 @@ function Login (body){
     this.erros = [];
     this.user = null;
     this.valida = function(){
-        this.cleanUp();
         if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
         if(this.body.password.length <= 3 || this.body.password.length > 50 ) this.erros.push('Senha deve ter mais de 3 carácteres e menos de 50');
+        if(this.body.nome){
+            if(this.body.nome.length <=4) this.erros.push('Nome precisa ter mais de 4 Carácteres');
+            if(this.body.nome.indexOf(' ') === -1) this.erros.push('Digite o Nome Completo');
+        }
     }
 
     this.cleanUp = function(){
@@ -16,7 +19,6 @@ function Login (body){
             if(typeof this.body[key] !== 'string'){
                 this.body[key] ='';
             }
-            //Validação de Senha em Alter
             this.body = {
                 password: this.body.password,
                 email: this.body.email
@@ -27,9 +29,6 @@ function Login (body){
 
     
 }
-
-
-
 
 Login.prototype.allUser = async function(){
     
@@ -45,16 +44,24 @@ Login.prototype.cargos = async function(){
     });
     if(!this.user) this.user = {};
     this.user.cargos = cargos;
-    
     return;
 }
 
+Login.prototype.create = async function(){
+    this.valida();
+    if(this.erros.length > 0) return
+    console.log(this.body);
+    const acesso = this.body.cargo === 'Gerente' ? 0 : 1;
+    
 
+    const cmd_insert = `INSERT INTO usuario (NOME, EMAIL, CARGO, SENHA, ACESSO)
+     VALUES ('${this.body.nome}', '${this.body.email}', '${this.body.cargo}', MD5('${this.body.password}'), ${acesso})`;
 
+    const result = await db.connection.query(cmd_insert);
+    console.log(result);
+}
 
 Login.prototype.alter = async function(){
-
-
 
     if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
     if(this.body.senha && (this.body.senha.length <= 3 || this.body.senha.length > 50)){
@@ -72,8 +79,11 @@ Login.prototype.alter = async function(){
     if(this.user.email !== this.body.email && await this.emailExists()) {
        return  this.erros.push('Email já está sendo utilizado por outra conta.')
     }
-    
-    await db.connection.query(cmd_put);
+       
+    if(this.body.erros > 0) return
+
+    const result = await db.connection.query(cmd_put);
+    console.log(result);
     if(!this.body.senha) delete this.body.senha;
     Object.assign(this.user, this.body);
 }
@@ -92,6 +102,7 @@ Login.prototype.emailExists = async function(){
 
 Login.prototype.login = async function(){
     const cmd_serch = `SELECT * FROM usuario WHERE email = '${this.body.email}' AND senha = md5('${this.body.password}')`;
+    this.cleanUp();
     this.valida();
     
     if(this.erros.length > 0) return

@@ -1,0 +1,63 @@
+<%- include('./includes/head') %>
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+    <main id="contato">
+        <section class="container">
+        <!-- MENU -->
+            <nav >
+                <div id="color">
+                    <ul class="nav justify-content-center">
+                            <li class="nav-item"><a class="nav-link" href="cadastroCliente.html" style="color:white">Cliente</a></li>
+                            <li class="nav-item"><a class="nav-link" href="cadastroProduto.html" style="color:white">Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link"  href="cadastroFuncionario.html" style="color:white">Funcionarios</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <form class="my-5">
+          <!-- DIV  nome e e-mail -->
+                <div class="row justify-content-center">
+                      <div class="col-8 col-sm-4 mb-2">
+                          <div class="form-group">
+                              <label for="nome-form" class="form-label">Nome:</label>
+                              <input type="text" class="form-control" name="name" placeholder="Nome" id="nome-form" required>
+                          </div>
+                      </div>
+                      <div class="col-8 col-sm-4 mb-2">
+                          <div class="form-group">
+                              <label for="email-form" class="form-label">E-mail:</label>
+                              <input type="email" class="form-control" name="email" placeholder="seuemail@provedor.com" id="email-form" required>
+                          </div>
+                      </div>
+                    
+
+                <!-- DIV Cargo e senha-->
+                  
+                  
+					<div class="col-8 col-sm-4 mb-2">
+						<div class="form-group">
+							<label  class="form-label">Cargo:</label>
+							<input class="form-control" name="cargo" placeholder="Digite seu cargo" required>
+						</div>
+					</div>
+                    <div class="col-8 col-sm-4 mb-2">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Senha:</label>
+                        <div class="form-group">
+                          <input type="password" class="form-control" id="inputPassword" required>
+                        </div>
+                      </div>
+				</div>
+                    <!--Botão  -->
+                <div class="row justify-content-center my-3">
+                    <div class="col-8">
+                    <button class="btn d-block btn-dark mx-auto mb-3" type="submit">Salvar</button>
+                </div>
+
+
+            </form>
+
+            </div>
+            </form>
+        </section>
+	</main>
+
+<%- include('./includes/footer') %>

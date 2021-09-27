@@ -6,11 +6,20 @@ exports.index = (req, res) =>{
     res.render('login');
 }
 
+exports.create = async (req, res) =>{
+    const user = new Login(req.body);
+    user.create();
+
+    if(user.erros.length > 0){
+        return console.log('Erros na Criação do Usuario: ', user.erros)
+    }
+    return res.send('usuario criado com sucesso');
+}
+
+
 exports.alter = async (req, res) =>{
     const login = new Login(req.body);
     login.user = req.session.user;
-
-    
 
     await login.alter();
 
