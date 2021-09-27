@@ -2,3 +2,10 @@ LOGIN
 login se logado deslogar [FEITO]
 E middleware de autenticação, paginas [FEITO]
 Alter de usuario
+    - Model: busca  cargos [FEITO]
+    - View: Select com os cargos disponíveis [FEITO]
+        -Checar se senhas são iguais [FEITO]
+        -Btn cancelar [FEITO]
+    - Controller: [FEITO]
+    - Model: validação da senha / email / nome + alterar [FEITO]
+    - Validação de acesso para alterar cargo

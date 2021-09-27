@@ -7,6 +7,8 @@ const flash = require('connect-flash');
 const { middlewareGlobal } = require('./src/middlewares/middlewares');
 let connection = 0;
 
+//Servidor -> Rotas(/algumaCoisa) → Controlador(render) → Models(Classes e dados do banco)
+
 //Conecta com o banco antes de executar
 db.connect.then((conn)=>{
 	connection = conn;

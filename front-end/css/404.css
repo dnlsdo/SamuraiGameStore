@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.seta{
+    font-family: 'VT323', monospace;
+    font-size: 16pt;
+    text-decoration: none;
+    color: black;
+}
+
+.seta:hover::before{
+    content: '\25BA';
+}
+
+
+.yes-no span{
+    padding: 0 15px;
+    width: 100px;
+}
