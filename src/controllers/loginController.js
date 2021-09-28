@@ -7,11 +7,20 @@ exports.index = (req, res) =>{
 }
 
 exports.create = async (req, res) =>{
+    // Validação de Acesso
+    const acesso = req.body.cargo === 'Gerente' ? 0 : 1;
+    req.body.acesso = acesso;
+
     const user = new Login(req.body);
-    user.create();
+    try{
+        await user.create();
+    }catch(e){
+        console.log('Erro ao tentar criar o usuário', e)
+    }
+    
 
     if(user.erros.length > 0){
-        return console.log('Erros na Criação do Usuario: ', user.erros)
+        return console.log('Erros de validação para Criação do Usuario: ', user.erros)
     }
     return res.send('usuario criado com sucesso');
 }

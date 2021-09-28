@@ -24,10 +24,7 @@ function Login (body){
                 email: this.body.email
             }
         }
-    }
-
-
-    
+    }    
 }
 
 Login.prototype.allUser = async function(){
@@ -47,18 +44,28 @@ Login.prototype.cargos = async function(){
     return;
 }
 
+Login.prototype.emailExists = async function(){
+    
+    const cmd_exists = `SELECT email FROM usuario WHERE email = '${this.body.email}'`;
+    const [rows] = await db.connection.query(cmd_exists);
+    console.log('Tamanho da Rows = ', rows.length,"Resultado da rows → " ,rows)
+    if(rows.length > 0) return true;
+    return false;
+}
+
+
 Login.prototype.create = async function(){
     this.valida();
+    if(await this.emailExists()) this.erros.push('E-mail já está sendo utilizado por outro usuário');
+
     if(this.erros.length > 0) return
     console.log(this.body);
-    const acesso = this.body.cargo === 'Gerente' ? 0 : 1;
     
-
     const cmd_insert = `INSERT INTO usuario (NOME, EMAIL, CARGO, SENHA, ACESSO)
-     VALUES ('${this.body.nome}', '${this.body.email}', '${this.body.cargo}', MD5('${this.body.password}'), ${acesso})`;
+     VALUES ('${this.body.nome}', '${this.body.email}', '${this.body.cargo}', MD5('${this.body.password}'), ${this.body.acesso})`;
 
-    const result = await db.connection.query(cmd_insert);
-    console.log(result);
+    const result = await db.connection.query(cmd_insert); 
+    console.log('→',result.affectedRows);
 }
 
 Login.prototype.alter = async function(){
@@ -86,18 +93,6 @@ Login.prototype.alter = async function(){
     console.log(result);
     if(!this.body.senha) delete this.body.senha;
     Object.assign(this.user, this.body);
-}
-
-
-
-
-Login.prototype.emailExists = async function(){
-    
-    const cmd_exists = `SELECT email FROM usuario WHERE email = '${this.body.email}'`;
-    const [rows, fields] = await db.connection.query(cmd_exists);
-    console.log('Alterado:',rows)
-    if(rows.length > 0) return true;
-    return false;
 }
 
 Login.prototype.login = async function(){

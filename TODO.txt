@@ -9,3 +9,13 @@ Alter de usuario
     - Controller: [FEITO]
     - Model: validação da senha / email / nome + alterar [FEITO]
     - Validação de acesso para alterar cargo
+
+
+Criação de Funcionario
+	- Controll [Feito]
+	- Model [Feito]
+	- View
+Criação de Cliente
+Criação de produto
+
+Criação de Venda
