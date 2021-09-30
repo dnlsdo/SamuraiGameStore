@@ -7,7 +7,12 @@ function Login (body){
     this.user = null;
     this.valida = function(){
         if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
-        if(this.body.password.length <= 3 || this.body.password.length > 50 ) this.erros.push('Senha deve ter mais de 3 carácteres e menos de 50');
+        if(this.body.password){
+            if(this.body.password.length <= 3 || this.body.password.length > 50 ){
+                this.erros.push('Senha deve ter mais de 3 carácteres e menos de 50');
+            }  
+        }
+        
         if(this.body.nome){
             if(this.body.nome.length <=4) this.erros.push('Nome precisa ter mais de 4 Carácteres');
             if(this.body.nome.indexOf(' ') === -1) this.erros.push('Digite o Nome Completo');
@@ -24,7 +29,9 @@ function Login (body){
                 email: this.body.email
             }
         }
-    }    
+    }
+    
+
 }
 
 Login.prototype.allUser = async function(){
@@ -48,7 +55,6 @@ Login.prototype.emailExists = async function(){
     
     const cmd_exists = `SELECT email FROM usuario WHERE email = '${this.body.email}'`;
     const [rows] = await db.connection.query(cmd_exists);
-    console.log('Tamanho da Rows = ', rows.length,"Resultado da rows → " ,rows)
     if(rows.length > 0) return true;
     return false;
 }
@@ -68,26 +74,26 @@ Login.prototype.create = async function(){
     console.log('→',result.affectedRows);
 }
 
+// Alterar dados do usuário
+
 Login.prototype.alter = async function(){
 
-    if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
-    if(this.body.senha && (this.body.senha.length <= 3 || this.body.senha.length > 50)){
-        this.erros.push('Senha deve ter mais de 3 carácteres e menos de 50');
-    }
-    //QUERY MD5 PARA SENHA
-    let cmd_put= `UPDATE usuario SET nome = '${this.body.nome}', email='${this.body.email}',
-     cargo='${this.body.cargo}'  WHERE id_usuario = ${this.user.id_usuario}`;
-    if(this.body.senha){
-        cmd_put = `UPDATE usuario SET nome = '${this.body.nome}', email='${this.body.email}',
-        cargo='${this.body.cargo}', senha = MD5('${this.body.senha}')  WHERE id_usuario = ${this.user.id_usuario}`;
-    }
-    
-
+    //Validações
+    this.valida();
     if(this.user.email !== this.body.email && await this.emailExists()) {
-       return  this.erros.push('Email já está sendo utilizado por outra conta.')
+        return  this.erros.push('Email já está sendo utilizado por outra conta.')
     }
+
+    //QUERY MD5 PARA SENHA
+    let cmd_put= `UPDATE usuario SET acesso = ${this.body.acesso}, nome = '${this.body.nome}', email='${this.body.email}',
+     cargo='${this.body.cargo}'  WHERE id_usuario = ${this.user.id_usuario}`;
+    if(this.body.password){
+        cmd_put = `UPDATE usuario SET acesso = ${this.body.acesso}, nome = '${this.body.nome}', email='${this.body.email}',
+        cargo='${this.body.cargo}', senha = MD5('${this.body.password}')  WHERE id_usuario = ${this.user.id_usuario}`;
+    }
+        
        
-    if(this.body.erros > 0) return
+    if(this.erros.length > 0) return
 
     const result = await db.connection.query(cmd_put);
     console.log(result);

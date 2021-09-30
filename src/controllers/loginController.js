@@ -30,6 +30,20 @@ exports.alter = async (req, res) =>{
     const login = new Login(req.body);
     login.user = req.session.user;
 
+    console.log('Login Session: ', login.user);
+    
+    const acesso = login.user.cargo === 'Gerente' ? 0 : 1;
+    login.body.acesso = acesso;
+    
+    console.log('LoginUser: ', login.user);
+    
+    //Regra de Negócio
+    if(login.body.cargo !== login.user.cargo && login.user.acesso === 0){
+        login.body.acesso = 1;
+    } else if (login.body.cargo !== login.user.cargo){
+        login.erros.push('Somente o gerente pode alterar um cargo');
+    }
+
     await login.alter();
 
     if(login.erros.length > 0){

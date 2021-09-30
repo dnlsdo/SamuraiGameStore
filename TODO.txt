@@ -8,8 +8,9 @@ Alter de usuario
         -Btn cancelar [FEITO]
     - Controller: [FEITO]
     - Model: validação da senha / email / nome + alterar [FEITO]
-    - Validação de acesso para alterar cargo
+    - Validação de acesso para alterar cargo [FEITO]
 
+!Criar Caso de Teste!
 
 Criação de Funcionario
 	- Controll [Feito]
