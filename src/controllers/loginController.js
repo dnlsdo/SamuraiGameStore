@@ -6,11 +6,43 @@ exports.index = (req, res) =>{
     res.render('login');
 }
 
+exports.create = async (req, res) =>{
+    // Validação de Acesso
+    const acesso = req.body.cargo === 'Gerente' ? 0 : 1;
+    req.body.acesso = acesso;
+
+    const user = new Login(req.body);
+    try{
+        await user.create();
+    }catch(e){
+        console.log('Erro ao tentar criar o usuário', e)
+    }
+    
+
+    if(user.erros.length > 0){
+        return console.log('Erros de validação para Criação do Usuario: ', user.erros)
+    }
+    return res.send('usuario criado com sucesso');
+}
+
+
 exports.alter = async (req, res) =>{
     const login = new Login(req.body);
     login.user = req.session.user;
 
+    console.log('Login Session: ', login.user);
     
+    const acesso = login.user.cargo === 'Gerente' ? 0 : 1;
+    login.body.acesso = acesso;
+    
+    console.log('LoginUser: ', login.user);
+    
+    //Regra de Negócio
+    if(login.body.cargo !== login.user.cargo && login.user.acesso === 0){
+        login.body.acesso = 1;
+    } else if (login.body.cargo !== login.user.cargo){
+        login.erros.push('Somente o gerente pode alterar um cargo');
+    }
 
     await login.alter();
 

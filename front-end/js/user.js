@@ -37,7 +37,7 @@ senha.addEventListener('focus', (e)=>{
     lblsenha.removeAttribute('hidden');
     senha2.removeAttribute('hidden');
     senha.value = '';
-    senha.setAttribute('name','senha');
+    senha.setAttribute('name','password');
 })
 
     
