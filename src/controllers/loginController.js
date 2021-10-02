@@ -20,9 +20,16 @@ exports.create = async (req, res) =>{
     
 
     if(user.erros.length > 0){
-        return console.log('Erros de validação para Criação do Usuario: ', user.erros)
+        req.flash('erros', user.erros);
+        req.session.save( function(){
+            return res.redirect('back');
+        });
+        return;
     }
-    return res.send('usuario criado com sucesso');
+    req.flash('success', 'Usuario criado com sucesso');
+    req.session.save( function(){
+        return res.redirect('back');
+    });
 }
 
 
@@ -83,3 +90,4 @@ exports.login = async (req, res) =>{
         return res.redirect('/');
     });         
 }
+

@@ -16,6 +16,7 @@ function Login (body){
         if(this.body.nome){
             if(this.body.nome.length <=4) this.erros.push('Nome precisa ter mais de 4 Carácteres');
             if(this.body.nome.indexOf(' ') === -1) this.erros.push('Digite o Nome Completo');
+            this.body.nome = toUpCamelCase(this.body.nome);
         }
     }
 
@@ -96,7 +97,7 @@ Login.prototype.alter = async function(){
     if(this.erros.length > 0) return
 
     const result = await db.connection.query(cmd_put);
-    console.log(result);
+    //Retirar Senha do body para não aparacer no usuario de sessao
     if(!this.body.senha) delete this.body.senha;
     Object.assign(this.user, this.body);
 }
@@ -119,5 +120,13 @@ Login.prototype.login = async function(){
     return;
 }
 
+function toUpCamelCase(str){
+    let res = "";
+    const vetStr = str.split(' ');
+    vetStr.forEach(word => {
+        res += word[0].toUpperCase() + word.slice(1) + " ";
+    });
+    return res.slice(0, -1);;
+}
 
 module.exports = Login;

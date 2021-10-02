@@ -15,8 +15,11 @@ Alter de usuario
 Criação de Funcionario
 	- Controll [Feito]
 	- Model [Feito]
-	- View
+	- View [Feito]
 Criação de Cliente
+	- Controll [Feito]
+	- Model [Feito]
+	- View [Feito]
 Criação de produto
 
 Criação de Venda

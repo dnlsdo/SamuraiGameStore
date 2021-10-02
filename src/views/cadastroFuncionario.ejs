@@ -7,19 +7,22 @@
             <nav >
                 <div id="color">
                     <ul class="nav justify-content-center">
-                            <li class="nav-item"><a class="nav-link" href="cadastroCliente.html" style="color:white">Cliente</a></li>
-                            <li class="nav-item"><a class="nav-link" href="cadastroProduto.html" style="color:white">Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link"  href="cadastroFuncionario.html" style="color:white">Funcionarios</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/cadastro/cliente" style="color:white">Cliente</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/cadastro/produto" style="color:white">Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link"  href="/cadastro/funcionario" style="color:white">Funcionarios</a></li>
                     </ul>
                 </div>
             </nav>
-            <form class="my-5">
+
+            <%- include('./includes/message') %>
+
+            <form class="my-5" action="/cadastro/funcionario" method="POST">
           <!-- DIV  nome e e-mail -->
                 <div class="row justify-content-center">
                       <div class="col-8 col-sm-4 mb-2">
                           <div class="form-group">
                               <label for="nome-form" class="form-label">Nome:</label>
-                              <input type="text" class="form-control" name="name" placeholder="Nome" id="nome-form" required>
+                              <input type="text" class="form-control" name="nome" placeholder="Nome" id="nome-form" required>
                           </div>
                       </div>
                       <div class="col-8 col-sm-4 mb-2">
