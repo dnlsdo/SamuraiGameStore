@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+
+    <title>Samurai Games Store</title>
+</head>
+
+<body>
+    <!-- Menu Lateral -->
+    <input type="checkbox" id="chec">
+    <label for="chec" class="control-menu">
+        <img src="../images/controle.png">
+    </label>
+
+    <nav class="menu-lateral">
+
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="../views/login.html">LOGIN</a></li>
+            <li><a href="">VENDAS</a></li>
+            <li><a href="../views/cadastroProduto.html">CADASTROS</a></li>
+            <li><a href="../views/relatorioVendas.html">RELATÓRIOS</a></li>
+        </ul>
+        <!--
+      <div class="alert alert-danger message" role="alert">
+        Usuário ou senha incorretos
+      </div> 
+      -->
+        <img src="../images/brand.png" id="logo">
+    </nav>
+
+    <section class="container-fluid topo">
+        <div class="col-xs-0 col-sm-3 brand">
+            <img src="../images/brand.png">
+        </div>
+        <div class="col pesquisa">
+            <input name="cadastro" name="text" id="cursor" placeholder=" Buscar Produto..." autofocus="">
+        </div>
+        <!-- Necessário alterar href quando outra view -->
+        <a href="../views/user.html" class="col-3 usuario">
+            <span id="icon"><i class="far fa-user-circle"></i></span>
+            <div id="welcome">Olá Vendedor(a)</div>
+        </a>
+    </section>
+
+    <div class="container">
+        <!--DIV filtro, input e button-->
+        <hr class="my-4" style="color:white;">
+        <div class="row align-items-start">
+            <div class="col">
+                <select class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+                    <option selected>Filtrar</option>
+                    <option value="1">ID</option>
+                    <option value="2">Nome</option>
+                    <option value="3">Plataforma</option>
+                    <option value="4">Tipo</option>
+                    <option value="5">Preço</option>
+                    <option value="6">Quantidade</option>
+                </select>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-grid gap-1 col-5 mx-auto">
+                    <button class="btn btn-danger" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-scroll" style=" height: 400px;"> 
+            <table class="table table-bordered" >
+              <thead class="table" style="background-color: tomato;">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Plataforma</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Preço</th>
+                  <th scope="col">Quantidade</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">82</th>
+                  <td>Halo 2</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">75</th>
+                  <td>Halo 3</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">34</th>
+                  <td>Halo 4</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">24</th>
+                  <td>Halo Infinite</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">56</th>
+                  <td>State of Decay 2</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>13</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">98</th>
+                  <td>Quantum Break</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>5</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">17</th>
+                  <td>Forza Horizon 4</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>74</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">15</th>
+                  <td>God of War</td>
+                  <td>Ps4</td>
+                  <td>Jogo</td>
+                  <td>R$100,14</td>
+                  <td>33</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">47</th>
+                  <td>alienware 15 R4 16GB</td>
+                  <td>PC</td>
+                  <td>PCgamer</td>
+                  <td>R$ 24.998,00</td>
+                  <td>08</td>
+                  <td>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning">editar</button>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+    </div>
+
+        <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="plugins/fontawesome/js/all.min.js"></script>
+</body>
+
+</html>
