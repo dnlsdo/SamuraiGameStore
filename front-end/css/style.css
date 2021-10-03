@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
-@import 'menu.css';
-@import '404.css';
-@import 'cadas.css';
+@import "menu.css";
+@import "404.css";
+@import "cadas.css";
+@import "carrinho.css";
 
 * {
   padding: 0px;
@@ -9,7 +10,8 @@
   border: 0px;
   box-sizing: border-box;
 }
-html, body{
+html,
+body {
   height: 100%;
 }
 
@@ -18,7 +20,7 @@ body {
   background-color: #a9a9a9;
 }
 
-.text-verde{
+.text-verde {
   color: green;
 }
 
@@ -35,11 +37,11 @@ body {
   justify-content: center;
   align-items: center;
 }
-.brand img{
-  width:100px;
+.brand img {
+  width: 100px;
 }
 
-.pesquisa{
+.pesquisa {
   margin-top: 1%;
   display: flex;
   flex-direction: row;
@@ -54,7 +56,7 @@ body {
   border-radius: 10px;
   border-color: blanchedalmond;
 }
-.usuario{
+.usuario {
   text-decoration: none;
   color: black;
   display: flex;
@@ -63,7 +65,7 @@ body {
   align-items: center;
   cursor: pointer;
 }
-#icon{
+#icon {
   font-size: 35px;
 }
 
@@ -71,14 +73,14 @@ body {
   color: white;
 }
 
-@media screen and (max-width: 576px){
-  .brand img{
+@media screen and (max-width: 576px) {
+  .brand img {
     width: 0px;
   }
-  .pesquisa{
+  .pesquisa {
     padding-top: 10%;
   }
-  .usuario{
+  .usuario {
     text-align: center;
   }
   .control-menu img {
