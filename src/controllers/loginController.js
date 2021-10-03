@@ -36,9 +36,7 @@ exports.create = async (req, res) =>{
 exports.alter = async (req, res) =>{
     const login = new Login(req.body);
     login.user = req.session.user;
-
-    console.log('Login Session: ', login.user);
-    
+   
     const acesso = login.user.cargo === 'Gerente' ? 0 : 1;
     login.body.acesso = acesso;
     

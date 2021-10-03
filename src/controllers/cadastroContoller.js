@@ -1,4 +1,5 @@
 const Cliente = require('../models/ClienteModel');
+const Produto = require('../models/ProdutoModel');
 
 exports.funcionario = (req, res) =>{
     return res.render('cadastroFuncionario');
@@ -28,6 +29,19 @@ exports.createCliente = async (req, res) =>{
     });
 }
 exports.createProduto = async (req, res) =>{
-    return res.send('OLÁ')
+    const produto = new Produto(req.body);
+    produto.create();
+
+    if(produto.erros.length > 0){
+        req.flash('erros', produto.erros);
+        req.session.save( function(){
+            return res.redirect('back');
+        });
+        return;
+    }
+    req.flash('success', 'Produto criado com sucesso');
+    req.session.save( function(){
+        return res.redirect('back');
+    });
 }
 
