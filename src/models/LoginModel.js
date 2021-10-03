@@ -66,13 +66,12 @@ Login.prototype.create = async function(){
     if(await this.emailExists()) this.erros.push('E-mail já está sendo utilizado por outro usuário');
 
     if(this.erros.length > 0) return
-    console.log(this.body);
     
     const cmd_insert = `INSERT INTO usuario (NOME, EMAIL, CARGO, SENHA, ACESSO)
      VALUES ('${this.body.nome}', '${this.body.email}', '${this.body.cargo}', MD5('${this.body.password}'), ${this.body.acesso})`;
 
     const result = await db.connection.query(cmd_insert); 
-    console.log('→',result.affectedRows);
+
 }
 
 // Alterar dados do usuário
