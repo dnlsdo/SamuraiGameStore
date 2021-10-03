@@ -1,0 +1,71 @@
+<%- include('./includes/head') %>
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+  <main id="contato">
+    <section class="container">
+      <!-- MENU -->
+      <nav>
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a class="nav-link" href="relatorioCliente.html" style="color:white">Cliente</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorioVendas.html" style="color:white">Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorioFuncionario.html" style="color:white">Funcionários</a>
+          </li>
+        </ul>
+      </nav>
+      <%- include('./includes/message') %>
+      <form class="my-5">
+        <label>Classificar Por: </label>
+
+        <select name="orderby" class="orderby" aria-label="Pedido da loja">
+          <option value="name" selected="selected">Ordenar por nome A-Z </option>
+          <option value="date">Ordenar por mais recente</option>
+          <option value="price">Ordenar por compra: menor para maior</option>
+          <option value="price-desc">Ordenar por compra: maior para menor</option>
+        </select>
+
+
+        <!-- DIV  Nome, E-mail, Nascimento, CPF e Total -->
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">CPF</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Data de Nascimento</th>
+                <th scope="col">Total em Compra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">123.456.789-19</th>
+                <td class="nome">Bianca Souza</td>
+                <td class="email">Bianca.souza@gmail.com</td>
+                <td class="nascimento">24/05/1983</td>
+                <td class="valor">R$458,97</td>
+                <td>
+                  <div class="btn btn-link" href="cadastroCliente.html"></a>
+                  <button type="button" class="btn btn-secondary btn-sm">Editar</button>
+                  </td>
+                </div>
+              <% clientes.forEach(cliente => { %>
+                <tr>
+                  <th scope="row"> <%- cliente.cpf %> </th>
+                  <td> <%- cliente.nome %> </td>
+                  <td> <%- cliente.email %> </td>
+                  <td> <% if(cliente.data_nasc){ %>
+                    <%- cliente.data_nasc.toLocaleDateString() %>
+                  <% } %> </td>
+                  <td></td>
+                  <td>
+                    <div class="btn btn-link" href="cadastroCliente.html"></a>
+                    <button type="button" class="btn btn-secondary btn-sm">Editar</button>
+                    </td>
+                  </div>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+
+ <%- include('./includes/footer') %>

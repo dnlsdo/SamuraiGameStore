@@ -9,17 +9,14 @@ Alter de usuario
     - Controller: [FEITO]
     - Model: validação da senha / email / nome + alterar [FEITO]
     - Validação de acesso para alterar cargo [FEITO]
-
-!Criar Caso de Teste!
-
-Criação de Funcionario
-	- Controll [Feito]
-	- Model [Feito]
-	- View [Feito]
-Criação de Cliente
-	- Controll [Feito]
-	- Model [Feito]
-	- View [Feito]
-Criação de produto
+Caso de Teste [Feito]
+Cadastros(produto, cliente, Funcionario) [Feito]
+Relatório
+    Popular Tabela
+        - Trazer Valores
+        - Calcular Valor Total de Compras
+    Filtrar Tabela
+    Editar Objeto
+    Gerar Relatório
 
 Criação de Venda
