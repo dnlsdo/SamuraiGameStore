@@ -20,6 +20,14 @@ body {
   background-color: #a9a9a9;
 }
 
+.left-parent{
+  margin-right:0%
+}
+
+.selected{
+  background-color: #a52a2a;
+}
+
 .text-verde {
   color: green;
 }

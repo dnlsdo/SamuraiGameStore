@@ -102,6 +102,11 @@
   position: absolute;
   color: #000000;
 }
-#colorList {
+
+.colorList {
   background-color: #d3d3d3;
+  cursor:pointer;
+}
+.colorList:hover{
+  background-color: #a52a2a;
 }
