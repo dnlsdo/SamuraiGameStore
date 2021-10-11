@@ -63,6 +63,17 @@ Cliente.prototype.create = async function(){
     }    
 }
 
+Cliente.prototype.allClientes = async function(){
+    const cmd_all = `SELECT * FROM cliente`;
+    try{
+        const [rows] = await db.connection.query(cmd_all);
+        console.log(rows);
+        return rows;
+    }catch(ex){
+        console.log('Erro na consulta do banco',ex.message);
+    }
+}
+
 Cliente.prototype.cpfExists = async function(){
     const cmd_exists = `SELECT cpf FROM cliente WHERE cpf = '${this.body.cpf}'`;
     const [rows] = await db.connection.query(cmd_exists);
@@ -168,6 +179,8 @@ function dateModel(date){
     vet.reverse();
     return vet.join('-');
 }
+
+
 
 function toUpCamelCase(str){
     let res = "";

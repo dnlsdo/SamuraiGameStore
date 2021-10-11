@@ -1,0 +1,137 @@
+<%- include('./includes/head') %>
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+
+<!-- CARRINHO DE COMPRAS -->
+<div class="test">
+    <input type="checkbox" id="checs">
+    <label for="checs" class="control-carrinho">
+      <img src="../images/carrinho-de-compras.png">
+    </label>
+  
+    <nav class="carrinho-lateral">
+    <div class="info">
+      CARRINHO
+    </div>
+    <fieldset class="fieldset">
+    <div class="produtosCarrinho">
+      <p class="colorList">12:Way Out - Xbox 2x R$ 360</p>
+      <p class="colorList">75:1234567890123456789012</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+     
+    </div>
+  </fieldset>
+      <div class="totalCompras">
+      Sub-Total: R$ <span id="sub-total">0.00</span>
+      </div>
+      <div class="btnCarrinho">
+        <a href="#"> <!-- Adicionar uma Rota para recarregar a pagina-->
+          <input  class="btnCancelar" type="submit" value=" X Cancelar">
+        </a>
+        
+        <img id="carrinhoBtn" src="../images/carrinhoBtn.png">
+        <input class="btnProsseguir" type="submit" value=" Prosseguir" >
+      </div>
+    </nav>
+  </div>
+
+  
+  <hr class="my-4" style="color:white;">
+
+  <!--Container Geral-->
+  <div class="container-fluid mx-0">
+    <div class="row">
+      <div class="col-8">
+        <!-- Filtro / Quantidade -->
+        <div class="row">
+          <div class="col-3">
+            <select class="form-select" aria-label=".form-select-sm example">
+              <option selected>Plataforma</option>
+              <option value="1">Xbox</option>
+              <option value="2">Ps4</option>
+              <option value="3">PCgamer</option>
+            </select>
+          </div>
+          <div class="col-4"></div>
+          <div class="col-3">
+            <input id="input-qtd" placeholder="Quantidade" class="form-control" type="number" value="Quantidade"  style="background-color: white;" >
+          </div>
+            <!--Aqui é o Botão adicionar-->
+          <div class=" col-2">
+            <button id="btnAdd" class="btn btn-danger" type="button">ADD</button>
+          </div>
+        </div>
+        
+        <!--Tabela-->
+ 
+        <div class="col mt-3 ">
+          <div class="overflow-auto" style=" height: 400px;"> 
+            <table class="table table-bordered table-hover table-venda" >
+              <thead class="table thead-fixo" style="background-color: tomato;">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Plataforma</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Preço</th>
+                  <th scope="col">Quantidade</th>
+                </tr>
+              </thead>
+              <tbody id="selecionavel">
+                <tr>
+                  <td>82</td>
+                  <td>Halo 2</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                </tr>
+                <% produtos.forEach(p => { %>
+                  <tr>
+                      <td><%- p.id_produto %></td>
+                      <td><%- p.nome %></td>
+                      <td><%- p.plataforma %></td>
+                      <td><%- p.tipo %></td>
+                      <td><%- p.preco %></td>
+                      <td><%- p.estoque %></td>
+                  </tr>  
+                <% });   %>
+              </tbody>
+            </table>
+            </div>
+        </div>        
+      </div>
+      <!-- Container Direita Formulario-->
+      <div class="col-4 align-self-end rightcontainer">
+          <div class="clientForm">
+            <form id="form" method="POST">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">CPF/CNPJ</label>
+                <input name="cpf" type="text" class="form-control" id="cpfcnpj" aria-describedby="documentHelp">
+                <div id="documentHelp" class="form-text">Digite sem separação ou pontuação</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Desconto</label>
+                <input name="desconto" id="input-desconto" type="range" class="form-range" value="0" min="0" max="50" oninput="this.nextElementSibling.value = this.value + '%'">
+                <output>0%</output>
+              </div>
+              <div class="mb-3">
+                <p class="lead">
+                  VALOR TOTAL: R$<span id="total">0.00</span>
+                </p>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-success">
+                    <span id="icon-cart"><i class="fas fa-cart-arrow-down"></i></span>
+                    Prosseguir
+                </button>
+              </div>              
+            </form>
+          </div>        
+      </div>
+    </div>
+  </div>
+
+
+<script src="./js/vendas.js"></script>
+<%- include('./includes/footer') %>

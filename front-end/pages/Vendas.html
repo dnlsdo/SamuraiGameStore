@@ -57,22 +57,20 @@
     </div>
     <fieldset class="fieldset">
     <div class="produtosCarrinho">
-      <p id="colorList">Way Out - Xbox 2x R$ 360</p>
-      <p id="colorList">Assassins. PS4 1x R$ 500</p>
-      <p id="colorList">X-Box One 1x      R$ 3.500</p>
-      <p id="colorList">X-Box One 1x      R$ 3.500</p>
-      <p id="colorList">X-Box One 1x      R$ 3.500</p>
-      <p id="colorList">X-Box One 1x      R$ 3.500</p>
-      <p id="colorList">X-Box One 1x      R$ 3.500</p>
-  
-  
+      <p class="colorList">12:Way Out - Xbox 2x R$ 360</p>
+      <p class="colorList">75:1234567890123456789012</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+     
     </div>
   </fieldset>
       <div class="totalCompras">
-      TOTAL: R$ 4.360,00
+      Sub-Total: R$ 4.360,00
       </div>
       <div class="btnCarrinho">
-        <input class="btnCancelar" type="submit" value=" X Cancelar">
+        <a href="#"> <!-- Adicionar uma Rota para recarregar a pagina-->
+          <input  class="btnCancelar" type="submit" value=" X Cancelar">
+        </a>
+        
         <img id="carrinhoBtn" src="../images/carrinhoBtn.png">
         <input class="btnProsseguir" type="submit" value=" Prosseguir" >
       </div>
@@ -80,133 +78,150 @@
   </div>
     <!--Aqui esta o filtro e quantidade-->
     <hr class="my-4" style="color:white;">
-    <div class="container">
-      <div class="row align-items-start">
-        <div class="col">
-          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Plataforma</option>
-            <option value="1">Xbox</option>
-            <option value="2">Ps4</option>
-            <option value="3">PCgamer</option>
-           
-          </select>
-        </div>
-        <div class="col">
-          <input class="form-control" type="number" value="Quantidade"  style="background-color: white;" >
-        </div>
-        <div class="col">
-         
-        </div>
-      </div>
-      <!--Aqui é o Botão adicionar-->
-      <div class="row align-items-center">
-        <div class="col">
-     
-        </div>
-        <div class="col">
-          <div class="d-grid gap-1 col-5 mx-auto">
-            <button class="btn btn-danger" type="button">ADD</button>
+  <div class="container-fluid mx-0">
+    <div class="row">
+      <div class="col-8">
+        
+        <div class="row">
+          <div class="col-3">
+            <select class="form-select" aria-label=".form-select-sm example">
+              <option selected>Plataforma</option>
+              <option value="1">Xbox</option>
+              <option value="2">Ps4</option>
+              <option value="3">PCgamer</option>
+            </select>
+          </div>
+          <div class="col-4"></div>
+          <div class="col-3">
+            <input id="input-qtd" placeholder="Quantidade" class="form-control" type="number" value="Quantidade"  style="background-color: white;" >
+          </div>
+            <!--Aqui é o Botão adicionar-->
+          <div class=" col-2">
+            <button id="btnAdd" class="btn btn-danger" type="button">ADD</button>
           </div>
         </div>
-        <div class="col">
         
-        </div>
-      </div>
-    <!--Aqui esta a tabela-->
+        <!--Aqui esta a tabela-->
  
-    <div class="row g-0">
-      <div class="col-sm-6 col-md-8">
-        <div class="overflow-scroll" style=" height: 400px;"> 
-        <table class="table table-bordered" >
-          <thead class="table" style="background-color: tomato;">
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Plataforma</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">Preço</th>
-              <th scope="col">Quantidade</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">82</th>
-              <td>Halo 2</td>
-              <td>Xbox</td>
-              <td>Jogo</td>
-              <td>R$200,14</td>
-              <td>44</td>
-            </tr>
-            <tr>
-              <th scope="row">75</th>
-              <td>Halo 3</td>
-              <td>Xbox</td>
-              <td>Jogo</td>
-              <td>R$200,14</td>
-              <td>44</td>
-            </tr>
-            <tr>
-              <th scope="row">34</th>
-              <td>Halo 4</td>
-              <td>Xbox</td>
-              <td>Jogo</td>
-              <td>R$200,14</td>
-              <td>44</td>
-            </tr>
-            <tr>
-              <th scope="row">24</th>
-              <td>Halo Infinite</td>
-              <td>Xbox</td>
-              <td>Jogo</td>
-              <td>R$200,14</td>
-              <td>44</td>
-            </tr>
-            <tr>
-              <th scope="row">56</th>
-              <td>State of Decay 2</td>
-              <td>Xbox</td>
-              <td>Jogo</td>
-              <td>R$200,14</td>
-              <td>13</td>
-            </tr>
-            <tr>
-              <th scope="row">98</th>
-              <td>Quantum Break</td>
-              <td>Xbox</td>
-              <td>Jogo</td>
-              <td>R$200,14</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <th scope="row">17</th>
-              <td>Forza Horizon 4</td>
-              <td>Xbox</td>
-              <td>Jogo</td>
-              <td>R$200,14</td>
-              <td>74</td>
-            </tr>
-            <tr>
-              <th scope="row">15</th>
-              <td>God of War</td>
-              <td>Ps4</td>
-              <td>Jogo</td>
-              <td>R$100,14</td>
-              <td>33</td>
-            </tr>
-            <tr>
-              <th scope="row">47</th>
-              <td>alienware 15 R4 16GB</td>
-              <td>PC</td>
-              <td>PCgamer</td>
-              <td>R$ 24.998,00</td>
-              <td>08</td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
+        <div class="col mt-3 ">
+          <div class="overflow-auto" style=" height: 400px;"> 
+            <table class="table table-bordered table-hover table-venda" >
+              <thead class="table thead-fixo" style="background-color: tomato;">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Plataforma</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Preço</th>
+                  <th scope="col">Quantidade</th>
+                </tr>
+              </thead>
+              <tbody id="selecionavel">
+                <tr>
+                  <td>82</td>
+                  <td>Halo 2</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                </tr>
+                <tr>
+                  <td>75</td>
+                  <td>Halo 3</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                </tr>
+                <tr>
+                  <td>34</td>
+                  <td>Halo 4</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                </tr>
+                <tr>
+                  <td>24</td>
+                  <td>Halo Infinite</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>44</td>
+                </tr>
+                <tr>
+                  <td>56</td>
+                  <td>State of Decay 2</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td>98</td>
+                  <td>Quantum Break</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>17</td>
+                  <td>Forza Horizon 4</td>
+                  <td>Xbox</td>
+                  <td>Jogo</td>
+                  <td>R$200,14</td>
+                  <td>74</td>
+                </tr>
+                <tr>
+                  <td>15</td>
+                  <td>God of War</td>
+                  <td>Ps4</td>
+                  <td>Jogo</td>
+                  <td>R$100,14</td>
+                  <td>33</td>
+                </tr>
+                <tr>
+                  <td>47</td>
+                  <td>alienware 15 R4 16GB</td>
+                  <td>PC</td>
+                  <td>PCgamer</td>
+                  <td>R$ 24.998,00</td>
+                  <td>08</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+        </div>        
       </div>
+      <div class="col-4 align-self-end rightcontainer">
+          <div class="clientForm">
+            <form>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">CPF/CNPJ</label>
+                <input type="text" class="form-control" id="cpfcnpj" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">Digite sem separação ou pontuação</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Desconto</label>
+                <input type="range" class="form-range" value="0" min="0" max="50" oninput="this.nextElementSibling.value = this.value + '%'">
+                <output>0%</output>
+              </div>
+              <div class="mb-3">
+                <p class="lead">
+                  VALOR TOTAL: R$<span>0.00</span>
+                </p>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-success">Prosseguir</button>
+              </div>              
+            </form>
+          </div>        
       </div>
     </div>
+  </div>
+
+    <script src="../js/vendas.js"></script>
 
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/all.min.js"></script>

@@ -41,6 +41,15 @@ body {
   width: 100px;
 }
 
+.left-parent{
+  margin-right:0%
+}
+
+.selected{
+  background-color: #a52a2a;
+}
+
+
 .pesquisa {
   margin-top: 1%;
   display: flex;
@@ -69,8 +78,26 @@ body {
   font-size: 35px;
 }
 
+#icon-cart {
+  font-size: 15px;
+}
+
 .usuario:hover {
   color: white;
+}
+
+.table-venda{
+  border-collapse: collapse; 
+}
+
+.thead-fixo{
+  position: sticky; 
+  top: 0; 
+  z-index: 1;
+}
+
+.rightcontainer{
+  width: 100%;
 }
 
 @media screen and (max-width: 576px) {

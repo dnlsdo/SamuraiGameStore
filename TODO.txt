@@ -9,17 +9,27 @@ Alter de usuario
     - Controller: [FEITO]
     - Model: validação da senha / email / nome + alterar [FEITO]
     - Validação de acesso para alterar cargo [FEITO]
+Caso de Teste [Feito]
+Cadastros(produto, cliente, Funcionario) [Feito]
 
-!Criar Caso de Teste!
+!Criação de Venda
+    →View
+        -Ajustar botão [Feitor]
+        -Lista selecionavel [Feito]
+        - Criar objeto venda [Feito]
+        -Adicionar item no carrinho [id, qtd, nome, precoTotal]
+        -Modelo de apresentação do item no carrinho [Feito]
+        -Excluir itens do carrinho [Feito ]
+        -Cancelar
+        ? Criar message para erros
+     →Popular Tabela
+        -Filtrar via map com um event-listner no jsp?
+    
+Relatório
+    Popular Tabela
+        - Trazer Valores
+        - Calcular Valor Total de Compras
+    Filtrar Tabela
+    Editar Objeto
+    Gerar Relatório
 
-Criação de Funcionario
-	- Controll [Feito]
-	- Model [Feito]
-	- View [Feito]
-Criação de Cliente
-	- Controll [Feito]
-	- Model [Feito]
-	- View [Feito]
-Criação de produto
-
-Criação de Venda

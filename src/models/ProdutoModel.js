@@ -22,6 +22,13 @@ function Produto(body){
     }
 }
 
+Produto.prototype.getProdutos = async function(){
+    const cmd_select = `SELECT * FROM produto`;
+    const [rows, fields] = await db.connection.query(cmd_select);
+    console.log(rows);
+    return rows;
+}
+
 Produto.prototype.create = async function(){
     this.valida();
     if(await this.produtoExists()) this.erros.push('Produto já está cadastrado no banco de dados');
