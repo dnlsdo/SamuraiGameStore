@@ -1,6 +1,9 @@
 const tabela = document.querySelector('#selecionavel');
 const linhas = tabela.querySelectorAll('tr');
-const carrinho = document.querySelector('.produtosCarrinho')
+const carrinho = document.querySelector('.produtosCarrinho');
+const form = document.querySelector('#form');
+const range = form.querySelector('#total')
+
 let itens = [];
 
 //Obejto Venda
@@ -73,6 +76,8 @@ function reloadCarrinho(){
         p.innerText = `${item.nome.slice(0, 11)} ${item.qtdItem}X - R$${item.totalVenda()}`
         carrinho.appendChild(p);
     })
+    const subTotal = document.querySelector('#sub-total');
+    subTotal.textContent = calculateSubTotal();
 }
 //Apaga itens do carrinho
 function deleteCarrinho(){
@@ -115,6 +120,14 @@ function addEstoque(id, qtd){
     })
 }
 
+function calculateSubTotal(){
+    let acc = 0.00;
+    itens.forEach( item =>{
+        acc += Number.parseFloat(item.totalVenda());
+    } )
+    return acc.toFixed(2);
+}
+
 
 //Formtação
 function currencyFormat(currency){
@@ -144,4 +157,9 @@ document.addEventListener('click', e=>{
         el.remove();
         
     }
+});
+//Atualizar Valor Total
+range.addEventListener('change', ()=>{
+    range.   
 })
+

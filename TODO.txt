@@ -19,19 +19,12 @@ Cadastros(produto, cliente, Funcionario) [Feito]
         - Criar objeto venda [Feito]
         -Adicionar item no carrinho [id, qtd, nome, precoTotal]
         -Modelo de apresentação do item no carrinho [Feito]
-        -Excluir itens do carrinho
+        -Excluir itens do carrinho [Feito ]
         -Cancelar
-        -Enviar Lista dos selecionados
-            -Input text hidden com os ids
-            -fetch api?
-        
-        - Como setar o Cpf Do cliente e Desconto 
-            -Nova Pagina com a lista dos produtos e input de desconto e CPF
-            -Alert de texto
-            - Um pop-up que bloqueia o fundo
-
         ? Criar message para erros
-
+     →Popular Tabela
+        -Filtrar via map com um event-listner no jsp?
+    
 Relatório
     Popular Tabela
         - Trazer Valores

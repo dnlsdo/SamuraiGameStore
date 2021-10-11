@@ -64,7 +64,7 @@
     </div>
   </fieldset>
       <div class="totalCompras">
-      TOTAL: R$ 4.360,00
+      Sub-Total: R$ 4.360,00
       </div>
       <div class="btnCarrinho">
         <a href="#"> <!-- Adicionar uma Rota para recarregar a pagina-->
@@ -78,9 +78,9 @@
   </div>
     <!--Aqui esta o filtro e quantidade-->
     <hr class="my-4" style="color:white;">
-  <div class="container ms-2">
+  <div class="container-fluid mx-0">
     <div class="row">
-      <div class="col-10">
+      <div class="col-8">
         
         <div class="row">
           <div class="col-3">
@@ -101,15 +101,14 @@
           </div>
         </div>
         
-      
-    <!--Aqui esta a tabela-->
+        <!--Aqui esta a tabela-->
  
-        <div class="col mt-3">
-          <div class="overflow-scroll" style=" height: 400px;"> 
-            <table class="table table-bordered table-hover" >
-              <thead class="table" style="background-color: tomato;">
+        <div class="col mt-3 ">
+          <div class="overflow-auto" style=" height: 400px;"> 
+            <table class="table table-bordered table-hover table-venda" >
+              <thead class="table thead-fixo" style="background-color: tomato;">
                 <tr>
-                  <th scope="col">ID</th>>
+                  <th scope="col">ID</th>
                   <th scope="col">Nome</th>
                   <th scope="col">Plataforma</th>
                   <th scope="col">Tipo</th>
@@ -194,6 +193,30 @@
             </table>
             </div>
         </div>        
+      </div>
+      <div class="col-4 align-self-end rightcontainer">
+          <div class="clientForm">
+            <form>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">CPF/CNPJ</label>
+                <input type="text" class="form-control" id="cpfcnpj" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">Digite sem separação ou pontuação</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Desconto</label>
+                <input type="range" class="form-range" value="0" min="0" max="50" oninput="this.nextElementSibling.value = this.value + '%'">
+                <output>0%</output>
+              </div>
+              <div class="mb-3">
+                <p class="lead">
+                  VALOR TOTAL: R$<span>0.00</span>
+                </p>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-success">Prosseguir</button>
+              </div>              
+            </form>
+          </div>        
       </div>
     </div>
   </div>
