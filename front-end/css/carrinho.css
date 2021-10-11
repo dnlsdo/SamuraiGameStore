@@ -28,8 +28,8 @@
   z-index: 1;
   top: 150px;
   background-color: #696969;
-  width: 330px;
-  left: 950px;
+  width: 380px;
+  left: 905px;
   height: 60%;
   position: absolute;
 }
@@ -41,27 +41,15 @@
   width: 100%;
 }
 .btnCarrinho input {
-  width: 45%;
+  width: 90%;
   height: 30px;
   border-radius: 8%;
 }
 
-.btnCancelar {
+.btnLimpar {
   background-color: #a52a2a;
   color: #f5fffa;
   cursor: pointer;
-}
-.btnProsseguir {
-  background-color: #32cd32;
-  cursor: pointer;
-}
-
-#carrinhoBtn {
-  position: absolute;
-  margin-top: 0px;
-  margin-top: 1%;
-  left: 48%;
-  width: 8%;
 }
 
 .totalCompras {
@@ -69,7 +57,7 @@
   color: #f5fffa;
   list-style: none;
   left: 5%;
-  top: 80%;
+  top: 78%;
   position: absolute;
 }
 
@@ -85,14 +73,14 @@
 .fieldset {
   position: absolute;
   margin-top: 25%;
-  width: 300px;
+  width: 370px;
   height: 50%;
   overflow: auto;
   border-style: none;
 }
 .produtosCarrinho {
   position: relative;
-  width: 80%;
+  width: 90%;
   font-size: 14pt;
   border-radius: 5%;
   padding-top: 1%;
@@ -105,8 +93,8 @@
 
 .colorList {
   background-color: #d3d3d3;
-  cursor:pointer;
+  cursor: pointer;
 }
-.colorList:hover{
+.colorList:hover {
   background-color: #a52a2a;
 }
