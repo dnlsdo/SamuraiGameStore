@@ -116,3 +116,11 @@ body {
     padding: 0%;
   }
 }
+
+#orderby{
+  display: inline; /* the default for span */
+  
+  border: 2px solid #000;
+  margin: 15px;
+  
+}
