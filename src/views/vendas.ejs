@@ -4,14 +4,39 @@
 
 <!-- CARRINHO DE COMPRAS -->
 <div class="test">
-  <input type="checkbox" id="checs">
-  <label for="checs" class="control-carrinho">
-    <img src="../images/carrinho-de-compras.png">
-  </label>
 
-  <nav class="carrinho-lateral">
-  <div class="info">
-    CARRINHO
+    <input type="checkbox" id="checs">
+    <label for="checs" class="control-carrinho">
+      <img src="../images/carrinho-de-compras.png">
+    </label>
+  
+    <nav class="carrinho-lateral">
+    <div class="info">
+      CARRINHO
+    </div>
+    <fieldset class="fieldset">
+    <div class="produtosCarrinho">
+      <p class="colorList">12:Way Out - Xbox 2x R$ 360</p>
+      <p class="colorList">75:1234567890123456789012</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+      <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+     
+    </div>
+  </fieldset>
+      <div class="totalCompras">
+      Sub-Total: R$ <span id="sub-total">0.00</span>
+      </div>
+      <div class="btnCarrinho">
+        <a href="#"> <!-- Adicionar uma Rota para recarregar a pagina-->
+          <input  class="btnLimpar" type="submit" value=" X Limpar">
+        </a>
+        
+    </nav>
+    
   </div>
   <fieldset class="fieldset">
   <div class="produtosCarrinho">
@@ -121,8 +146,10 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Desconto</label>
+
                 <input  id="input-desconto" type="range" class="form-range" value="0" min="0" max="50" oninput="this.nextElementSibling.value = this.value + '%'">
                 <output id="output-desconto">0%</output>
+
               </div>
               <div class="mb-3">
                 <p class="lead">
