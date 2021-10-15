@@ -4,6 +4,10 @@ function Produto(body){
     this.body = body;
     this.erros = [];
 
+    this.setId = function(id){
+        if(!this.body) this.body = {};
+        this.body.id = Number.parseInt(id);
+    }
     this.valida = function(){
         if(!(this.body.nome && this.body.tipo && this.body.plataforma && this.body.descricao && this.body.preco && this.body.qtd)){
             this.erros.push('Por favor preencher todos os parametros');
@@ -22,10 +26,44 @@ function Produto(body){
     }
 }
 
+Produto.prototype.subtractItens = async function(itens){
+    try{
+        console.log('Itens:', itens);
+        /*
+        itens é um vetor de objeto, cada item deve ter ao menos 2 propriedades: id e qtd
+        id: representa id do produto
+        qtdItem: quantidade a ser subtraido
+        */
+        itens.forEach(async (item) =>{
+            this.setId(item.id);
+                const result = await this.subtractQtd(item.qtdItem);
+                if(!result) throw new TypeError(`Erro ao subtair do item: ${item.id} a quantidade: ${item.qtdItem}`)
+        });
+    }catch(ex){
+        throw new TypeError(`Erro na subtração dos produtos > ${ex.message}`);
+    }
+}
+
+Produto.prototype.subtractQtd = async function(qtd){
+    try{
+        const produt_id = this.body.id;
+        const cmd_put = `UPDATE produto SET estoque = estoque - ? WHERE id_produto = ?`;
+        const result = await db.connection.query(cmd_put, [qtd, produt_id]);
+
+        if(result[0].affectedRows === 1){
+            console.log(`Subtraido ${qtd} do Produto de ID ${produt_id}`);
+            return true;
+        }else{
+            return false;
+        }
+    }catch(ex){
+        TypeError(`> Subtração do Item ${this.body.id}`)
+    }
+}
+
 Produto.prototype.getProdutos = async function(){
     const cmd_select = `SELECT * FROM produto`;
     const [rows, fields] = await db.connection.query(cmd_select);
-    console.log(rows);
     return rows;
 }
 
