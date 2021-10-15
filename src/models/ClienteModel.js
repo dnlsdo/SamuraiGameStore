@@ -7,6 +7,8 @@ function Cliente (body){
 
     this.valida = function(){
         this.cleanUp();
+        if(!this.body.cpf) return this.erros.push('Necessário informar CPF/CNPJ');
+
         if(this.body.email){
             if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
         }
@@ -14,7 +16,6 @@ function Cliente (body){
             if(this.body.nome.length <=4) this.erros.push('Nome precisa ter mais de 4 Carácteres');
             if(this.body.nome.indexOf(' ') === -1) this.erros.push('Digite o Nome Completo');
         }
-        if(!this.body.cpf) return this.erros.push('Necessário informar CPF/CNPJ');
         if(this.body.cpf.length === 11){ 
             if(!this.validaCpf(this.body.cpf)) this.erros.push('CPF inválido');
         }else if(this.body.cpf.length === 14){
@@ -40,11 +41,33 @@ function Cliente (body){
         
     }
 }
+//Register vale para Venda onde caso cliente não exista criar e retornar seu ID
+
+Cliente.prototype.register = async function(){
+    this.valida();
+    if(this.erros.length >0) return
+    if(!await this.cpfExists()){
+        await this.create();
+        console.log('Cliente Criado');
+    }
+    const id = await this.getId(this.body.cpf);
+    console.log('ID DO CLIENTE: ', id.id_cliente)
+    return id.id_cliente;
+}
+
+Cliente.prototype.getId = async function(cpf){
+    const cmd_select = `SELECT id_cliente FROM cliente where cpf = ?`
+    const [rows] = await db.connection.query(cmd_select, [cpf]);
+    return rows[0];
+}
+
 Cliente.prototype.create = async function(){
     this.valida();
+    //Verifica se há cpf informado no body
+    if(this.erros.length > 0) return 
+     //Checa se CPF/CNPJ já existe no banco
     if(await this.cpfExists()) this.erros.push('CPF/CNPJ já estão cadastrados');
     if(this.erros.length > 0) return 
-    //Checa se CPF/CNPJ já existe no banco
     
 
     //Criar query

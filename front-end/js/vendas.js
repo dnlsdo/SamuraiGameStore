@@ -2,8 +2,11 @@ const tabela = document.querySelector('#selecionavel');
 const linhas = tabela.querySelectorAll('tr');
 const carrinho = document.querySelector('.produtosCarrinho');
 const form = document.querySelector('#form');
-const range = form.querySelector('#total')
-
+const total = form.querySelector('#total');
+const mensagem = document.querySelector('#message');
+//Parametros
+const descontoInput = form.querySelector('#input-desconto');
+const cpfInput = form.querySelector('#cpfcnpj');
 let itens = [];
 
 //Obejto Venda
@@ -32,21 +35,26 @@ function selectRow(row){
 }
 //Cria objeto venda apartir da linha Selecionada
 function loadVenda(){
-    let qtd = document.querySelector('#input-qtd').value;
-    let [id, nome, plataforma, tipo, preco, estq]= sliceSelect();
-    console.log(estq, qtd, estq < qtd);
-    qtd = Number.parseInt(qtd);
-    estq = Number.parseInt(estq);
-    id = Number.parseInt(id);
-    preco = Number.parseFloat(currencyFormat(preco));
+    try{
+        let qtd = document.querySelector('#input-qtd').value;
+        let [id, nome, plataforma, tipo, preco, estq]= sliceSelect();
+        console.log(estq, qtd, estq < qtd);
+        qtd = Number.parseInt(qtd);
+        estq = Number.parseInt(estq);
+        id = Number.parseInt(id);
+        preco = Number.parseFloat(currencyFormat(preco));
 
-    if(estq < qtd) throw new TypeError('Quantidade acima do disponível em estoque');
-    subtractEstoque(qtd);
+        if(estq < qtd) throw new TypeError('Quantidade acima do disponível em estoque');
+        subtractEstoque(qtd);
 
-    const item = criaItemCarrinho(id,nome,plataforma,tipo,preco,qtd);
-    itens.push(item);
-    console.log(itens);
-    reloadCarrinho();
+        const item = criaItemCarrinho(id,nome,plataforma,tipo,preco,qtd);
+        itens.push(item);
+        console.log(itens);
+        reloadCarrinho();
+    }catch(e){
+        console.log(e.message);
+        showMessage('danger',e.message);
+    }
 }
 // captura as informações da linha selecionada
 function sliceSelect(){
@@ -76,8 +84,7 @@ function reloadCarrinho(){
         p.innerText = `${item.nome.slice(0, 11)} ${item.qtdItem}X - R$${item.totalVenda()}`
         carrinho.appendChild(p);
     })
-    const subTotal = document.querySelector('#sub-total');
-    subTotal.textContent = calculateSubTotal();
+    reloadSutTotal();
 }
 //Apaga itens do carrinho
 function deleteCarrinho(){
@@ -120,6 +127,16 @@ function addEstoque(id, qtd){
     })
 }
 
+function reloadSutTotal(){
+    const subTotal = document.querySelector('#sub-total');
+    const output = form.querySelector('#output-desconto')
+    valueTotal = calculateSubTotal();
+    subTotal.textContent  = valueTotal;
+    descontoInput.value = 0;
+    output.value = '0%';
+    total.textContent = valueTotal;    
+}
+
 function calculateSubTotal(){
     let acc = 0.00;
     itens.forEach( item =>{
@@ -127,9 +144,42 @@ function calculateSubTotal(){
     } )
     return acc.toFixed(2);
 }
+function calculateTotal(porcent){
+    let total = calculateSubTotal();
+    total *= 1-(porcent/100);
+    return total;
+    
+}
 
+function showMessage(type, message){
+    clearMessage();
+    mensagem.removeAttribute('hidden');
+    mensagem.classList.add(`alert-${type}`);
+    mensagem.textContent = message;
+}
+function clearMessage(){
+    mensagem.setAttribute('hidden',true);
+    mensagem.classList.remove('alert-danger', 'alert-success');
+    mensagem.textContent = '';
+}
+
+function clearForm(){
+    deleteCarrinho();
+    itens = [];
+    cpfInput.textContent = '';
+    reloadSutTotal();
+}
 
 //Formtação
+
+function discountItens(percent){
+    itens.forEach( (item, index) =>{
+        const discount = item.preco* (percent/100);
+        item.preco = Number.parseFloat(item.preco - discount).toFixed(2);
+        itens[index].desconto = discount.toFixed(2);
+    })
+}
+
 function currencyFormat(currency){
     let temp = currency.replace('R$', '');
     let value = temp.replace(',','.');
@@ -139,6 +189,7 @@ function currencyFormat(currency){
 //=-=-=- EventListener =-=-=-=
 //Lista Selecionaval
 tabela.addEventListener('click', e=>{
+    clearMessage();
     const el = e.target;
     const tr = el.parentElement;
     selectRow(tr);
@@ -147,6 +198,7 @@ tabela.addEventListener('click', e=>{
 document.addEventListener('click', e=>{
     const el = e.target;
     if(el.id === "btnAdd"){
+        clearMessage();
         loadVenda();
         selectRow(null);
     }
@@ -159,7 +211,31 @@ document.addEventListener('click', e=>{
     }
 });
 //Atualizar Valor Total
-range.addEventListener('change', ()=>{
-    range.   
+descontoInput.addEventListener('change', ()=>{
+    const desconto = descontoInput.value;
+    total.textContent = calculateTotal(desconto).toFixed(2);
 })
+// ENVIA FORMULARIO
+form.addEventListener('submit', async e=>{
+    e.preventDefault();
+    clearMessage();
 
+    const desconto = Number.parseFloat(descontoInput.value);
+    discountItens(desconto);
+    const cpf = cpfInput.value;
+
+    const obj = { itens: itens, cpf:cpf }
+    console.log(JSON.stringify(obj));
+
+    const result = await fetch('/vendas', {
+        method: 'POST',
+        body: JSON.stringify(obj),
+        redirect: 'follow',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+    })
+    const data = await result.json()
+    showMessage(data.type, data.message);
+    clearForm();
+})

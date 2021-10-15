@@ -4,6 +4,7 @@
 
 <!-- CARRINHO DE COMPRAS -->
 <div class="test">
+
     <input type="checkbox" id="checs">
     <label for="checs" class="control-carrinho">
       <img src="../images/carrinho-de-compras.png">
@@ -35,10 +36,41 @@
         </a>
         
     </nav>
+    
   </div>
+  <fieldset class="fieldset">
+  <div class="produtosCarrinho">
+    <p class="colorList">12:Way Out - Xbox 2x R$ 360</p>
+    <p class="colorList">75:1234567890123456789012</p>
+    <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+    <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+    <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+    <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+    <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+    <p class="colorList">10:X-Box One 1x - R$ 3.500</p>
+   
+  </div>
+</fieldset>
+    <div class="totalCompras">
+    Sub-Total: R$ <span id="sub-total">0.00</span>
+    </div>
+    <div class="btnCarrinho">
+      <a href="#"> <!-- Adicionar uma Rota para recarregar a pagina-->
+        <input  class="btnLimpar" type="submit" value=" X Limpar">
+      </a>
+      
+  </nav>
+</div>
 
-  
   <hr class="my-4" style="color:white;">
+
+  <div class="row justify-content-center">
+    <div class="col">
+        <div hidden id="message" class="alert"> 
+            MENSAGEM INVISIVEL
+        </div>
+    </div>
+  </div>
 
   <!--Container Geral-->
   <div class="container-fluid mx-0">
@@ -109,13 +141,15 @@
             <form id="form" method="POST">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">CPF/CNPJ</label>
-                <input name="cpf" type="text" class="form-control" id="cpfcnpj" aria-describedby="documentHelp">
+                <input  type="text" class="form-control" id="cpfcnpj" aria-describedby="documentHelp">
                 <div id="documentHelp" class="form-text">Digite sem separação ou pontuação</div>
               </div>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Desconto</label>
-                <input name="desconto" id="input-desconto" type="range" class="form-range" value="0" min="0" max="30" oninput="this.nextElementSibling.value = this.value + '%'">
-                <output>0%</output>
+
+                <input  id="input-desconto" type="range" class="form-range" value="0" min="0" max="50" oninput="this.nextElementSibling.value = this.value + '%'">
+                <output id="output-desconto">0%</output>
+
               </div>
               <div class="mb-3">
                 <p class="lead">
@@ -135,5 +169,5 @@
   </div>
 
 
-<script src="./js/vendas.js"></script>
+<script src="./js/vendas.js" ></script>
 <%- include('./includes/footer') %>

@@ -21,10 +21,17 @@ Cadastros(produto, cliente, Funcionario) [Feito]
         -Modelo de apresentação do item no carrinho [Feito]
         -Excluir itens do carrinho [Feito ]
         -Cancelar
-        ? Criar message para erros
-     →Popular Tabela
+        - Criar message para erros
+
+
+     →Popular Tabela Controller
         -Filtrar via map com um event-listner no jsp?
+        - Atualizar Carrinho (danilo)
     
+        Subtrair produtos
+        Os 2 filtros
+
+
 Relatório
     Popular Tabela
         - Trazer Valores

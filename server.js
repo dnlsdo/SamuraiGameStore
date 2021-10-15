@@ -25,6 +25,7 @@ app.use(session({
 }));
 app.use(flash());
 app.use(express.urlencoded( { extended: true} ));
+app.use(express.json({limit:'1mb'}));
 
 //Setando configurações de Views
 app.use(express.static('front-end'));
