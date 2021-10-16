@@ -20,16 +20,17 @@ Cadastros(produto, cliente, Funcionario) [Feito]
         -Adicionar item no carrinho [id, qtd, nome, precoTotal]
         -Modelo de apresentação do item no carrinho [Feito]
         -Excluir itens do carrinho [Feito ]
-        -Cancelar
-        - Criar message para erros
+        -Cancelar [Feito]
+        - Criar message para erros [Feito]
 
-
-     →Popular Tabela Controller
+     →Popular Tabela Controller [Feito]
+        Atualizar Carrinho (danilo) [Feito]
+        Subtrair produtos [Feito]
         -Filtrar via map com um event-listner no jsp?
-        - Atualizar Carrinho (danilo)
-    
-        Subtrair produtos
         Os 2 filtros
+            Serch precisa ser fetch API
+        Problema com sicronismo do banco, 
+            necessário validar no model se quantidade é menor que o disponível → Resolver pular
 
 
 Relatório
