@@ -13,3 +13,7 @@ exports.loginRequired= (req, res, next) =>{
   }
   next();
 }
+
+exports.notfoundError = (req, res, next) =>{ 
+  res.status(404).render('404'); 
+}

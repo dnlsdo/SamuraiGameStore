@@ -5,6 +5,7 @@ const db = require('./src/db/connection');
 const session = require('express-session');
 const flash = require('connect-flash');
 const { middlewareGlobal } = require('./src/middlewares/middlewares');
+const {notfoundError} = require('./src/middlewares/middlewares');
 let connection = 0;
 
 //Servidor -> Rotas(/algumaCoisa) → Controlador(render) → Models(Classes e dados do banco)
@@ -34,6 +35,8 @@ app.set('view engine', 'ejs');
 
 app.use(middlewareGlobal);
 app.use(routes);
+app.use(notfoundError);
+
 
 app.on('go', ()=>{
 	app.listen(3000, ()=>{

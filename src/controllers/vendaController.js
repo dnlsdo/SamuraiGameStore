@@ -25,3 +25,8 @@ exports.create = async function (req, res){
     }
     return res.json({type:'success', message:'Venda Realizada Com Sucesso'});
 }
+
+exports.serch = async function (req, res){
+    console.log('Fiz Serch')
+    res.send('Olá');
+}

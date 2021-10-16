@@ -56,7 +56,6 @@ Venda.prototype.newId = async function(){
 }
 
 function dateModel(date){
-  
     return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 }
 

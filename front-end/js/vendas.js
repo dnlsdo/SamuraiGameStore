@@ -219,6 +219,7 @@ descontoInput.addEventListener('change', ()=>{
 form.addEventListener('submit', async e=>{
     e.preventDefault();
     clearMessage();
+    
 
     const desconto = Number.parseFloat(descontoInput.value);
     discountItens(desconto);
