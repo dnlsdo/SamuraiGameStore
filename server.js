@@ -8,7 +8,6 @@ const { middlewareGlobal } = require('./src/middlewares/middlewares');
 const {notfoundError} = require('./src/middlewares/middlewares');
 let connection = 0;
 const port = process.env.PORT || 3000;
-
 //Servidor -> Rotas(/algumaCoisa) → Controlador(render) → Models(Classes e dados do banco)
 
 //Conecta com o banco antes de executar
