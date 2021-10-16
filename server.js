@@ -6,7 +6,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const { middlewareGlobal } = require('./src/middlewares/middlewares');
 let connection = 0;
-
+const port = process.env.PORT || 3000;
 //Servidor -> Rotas(/algumaCoisa) → Controlador(render) → Models(Classes e dados do banco)
 
 //Conecta com o banco antes de executar
@@ -36,7 +36,7 @@ app.use(middlewareGlobal);
 app.use(routes);
 
 app.on('go', ()=>{
-	app.listen(3000, ()=>{
+	app.listen(port, ()=>{
 		module.exports.connection = connection;
 		console.log('Rodando em http://localhost:3000/')
 	});
