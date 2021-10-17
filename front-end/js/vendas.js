@@ -1,9 +1,11 @@
-const tabela = document.querySelector('#selecionavel');
+let tabela = document.querySelector('#selecionavel');
 const linhas = tabela.querySelectorAll('tr');
 const carrinho = document.querySelector('.produtosCarrinho');
 const form = document.querySelector('#form');
 const total = form.querySelector('#total');
 const mensagem = document.querySelector('#message');
+const formSerch = document.querySelector('#serch');
+
 //Parametros
 const descontoInput = form.querySelector('#input-desconto');
 const cpfInput = form.querySelector('#cpfcnpj');
@@ -24,6 +26,32 @@ function criaItemCarrinho(id, nome, plataforma, tipo, preco, qtdItem){
             return value;
         }
     }
+}
+
+//Atualizar Tabela
+function loadTable(data){
+    clearTable();   
+    console.log('data',data);
+    data.forEach(item =>{   
+        delete item.descricao;
+        tabela.appendChild(insertInLine(item));
+    })
+}
+
+//Criar linha de conteudo
+function insertInLine(obj){
+    console.log(obj);
+    const tr = document.createElement('tr');
+    Object.values(obj).forEach( i =>{
+        const td = document.createElement('td');
+        td.textContent = i;
+        tr.appendChild(td);
+    })
+    return tr;
+}
+//Limpa tabela
+function clearTable(){
+    tabela.innerHTML = "";
 }
 
 // Lista Selecionavel Caso chamado sem parametro irá deselecionar todos
@@ -239,4 +267,22 @@ form.addEventListener('submit', async e=>{
     const data = await result.json()
     showMessage(data.type, data.message);
     clearForm();
+})
+
+formSerch.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const serchInput = formSerch.querySelector('.input-pesquisa')
+    let produto = serchInput.value;
+    //Necessário esse if?
+    if(window.location.pathname !== '/vendas') window.location.href = '/vendas';
+    if(produto === '') produto = 0;
+    const result = await fetch(`/search/${produto}`,{
+        method: 'GET'
+    });
+    const data = await result.json();
+    console.log(':',data);
+    if(result.status === 400) return showMessage(data.type, data.message);
+    loadTable(data);
+    
+    //TODO verificar o status da chamada caso 400 showMessage
 })

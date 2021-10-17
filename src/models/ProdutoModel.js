@@ -26,6 +26,29 @@ function Produto(body){
     }
 }
 
+Produto.prototype.getProdutos = async function(){
+    const cmd_select = `SELECT * FROM produto`;
+    const [rows, fields] = await db.connection.query(cmd_select);
+    return rows;
+}
+
+Produto.prototype.getByID = async function(id){
+    const cmd_select = 'SELECT * FROM produto WHERE id_produto = ?';
+    const [rows, fields] = await db.connection.query(cmd_select, [id]);
+    if(rows.length === 0) return this.erros.push('Nenhum produto encontrado com essas especificações');
+    return [rows[0]];
+}
+
+Produto.prototype.getByName = async function(name){
+    if(name.length < 3) return this.erros.push('Insira ao menos 3 carácteres para a pesquisa');
+
+    const cmd_select = `SELECT * FROM produto WHERE nome LIKE('%${name}%')`;
+    const [rows, fields] = await db.connection.query(cmd_select);
+    console.log(rows);
+    if(rows.length === 0) return this.erros.push('Nenhum produto encontrado com essas especificações');
+    return rows;
+}
+
 Produto.prototype.subtractItens = async function(itens){
     try{
         console.log('Itens:', itens);
@@ -59,12 +82,6 @@ Produto.prototype.subtractQtd = async function(qtd){
     }catch(ex){
         TypeError(`> Subtração do Item ${this.body.id}`)
     }
-}
-
-Produto.prototype.getProdutos = async function(){
-    const cmd_select = `SELECT * FROM produto`;
-    const [rows, fields] = await db.connection.query(cmd_select);
-    return rows;
 }
 
 Produto.prototype.create = async function(){

@@ -6,7 +6,6 @@ exports.index = async function (req, res){
     let produtos = [];
     const p = new Produto();
     produtos = await p.getProdutos();
-    
     res.render('vendas',{produtos});
 }
 
@@ -27,6 +26,18 @@ exports.create = async function (req, res){
 }
 
 exports.serch = async function (req, res){
-    console.log('Fiz Serch')
-    res.send('Olá');
+    const sProduto = req.params.produto;
+    const searchProduto = new Produto();
+    
+    let result = [];
+    if(isNaN(sProduto)){
+        result = await searchProduto.getByName(sProduto);
+    }else{
+        if(sProduto == 0) result = await searchProduto.getProdutos();
+        else result = await searchProduto.getByID(sProduto);
+    }
+    if(searchProduto.erros.length > 0){
+        return res.status(400).json({type: 'danger', message:searchProduto.erros[0]})
+    }
+    return res.status(200).json(result);
 }

@@ -23,9 +23,10 @@ router.post('/cadastro/cliente', middleware.loginRequired, cadastroController.cr
 router.get('/cadastro/produto', cadastroController.produto);
 router.post('/cadastro/produto', cadastroController.createProduto);
 //Vendas
-router.get('/vendas', middleware.loginRequired, vendaController.index);
-router.get('/vendas:produto', vendaController.serch);
+router.get('/vendas', vendaController.index);
 router.post('/vendas', middleware.loginRequired, vendaController.create);
+
+router.get('/search/:produto', vendaController.serch); 
 //Relatórios
 router.get('/relatorio/cliente', relatorioController.showClientes);
 
