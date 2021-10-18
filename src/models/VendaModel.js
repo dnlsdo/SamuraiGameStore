@@ -25,8 +25,9 @@ Venda.prototype.create = async function(){
 
         //Subtrai a quantidade vendida de cada item da tabela produto
         await produto.subtractItens(this.itens);
+        if(produto.erros.length > 0) return this.erros.push(produto.erros[0]);
+    
         //Cria INSERT de multiplas linhas com os itens
-
         let cmd_insert_multiple = 'INSERT INTO venda (id_venda, id_vendedor, id_cliente, id_produto, `data`, desconto, valor_unitario) VALUES';
         this.itens.forEach( item => {
             cmd_insert_multiple += `(${vendaId}, ${this.vendedor.id_usuario}, ${this.cliente.id_cliente}, ${item.id}, '${date}', ${item.desconto}, ${item.preco} ),`

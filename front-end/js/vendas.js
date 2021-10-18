@@ -1,17 +1,23 @@
-let tabela = document.querySelector('#selecionavel');
-const linhas = tabela.querySelectorAll('tr');
+const tabela = document.querySelector('#selecionavel');
 const carrinho = document.querySelector('.produtosCarrinho');
-const form = document.querySelector('#form');
+const form = document.querySelector('#form-carrinho');
 const total = form.querySelector('#total');
 const mensagem = document.querySelector('#message');
 const formSerch = document.querySelector('#serch');
+const plataforma = document.querySelector('#plataforma-input')
 
 //Parametros
 const descontoInput = form.querySelector('#input-desconto');
 const cpfInput = form.querySelector('#cpfcnpj');
+let linhas = tabela.querySelectorAll('tr');
 let itens = [];
+let tableItens = [];
+let tableFilter = [];
 
-//Obejto Venda
+
+
+//Objetos
+//Obejto itemCarrinho
 function criaItemCarrinho(id, nome, plataforma, tipo, preco, qtdItem){
     return{
         id,
@@ -27,33 +33,64 @@ function criaItemCarrinho(id, nome, plataforma, tipo, preco, qtdItem){
         }
     }
 }
+//Objeto Produto
+function criaProduto(id, nome, plataforma, tipo, preco, estoque){
+    return{
+        id_produto: id,
+        nome,
+        plataforma, 
+        tipo,
+        preco,
+        estoque
+    }
+}
 
+//Manipula dados da tabela, atualiza e limpa
+//Cria uma lista com os objetos da tabela
+function saveTable(){
+    const rows = tabela.querySelectorAll('tr');
+    rows.forEach( tr =>{
+        let [id, nome, plataforma, tipo, preco, estoque] = sliceSelect(tr);
+        const produto = criaProduto(id, nome, plataforma, tipo, preco, estoque);
+        tableItens.push(produto);
+    })
+    console.log(tableItens);
+}
 //Atualizar Tabela
 function loadTable(data){
     clearTable();   
     console.log('data',data);
     data.forEach(item =>{   
         delete item.descricao;
+        delete item.totalVenda;
         tabela.appendChild(insertInLine(item));
     })
+    linhas = tabela.querySelectorAll('tr');
 }
-
 //Criar linha de conteudo
 function insertInLine(obj){
     console.log(obj);
     const tr = document.createElement('tr');
-    Object.values(obj).forEach( i =>{
-        const td = document.createElement('td');
-        td.textContent = i;
-        tr.appendChild(td);
-    })
+    insertInCol(obj.id_produto, tr);
+    insertInCol(obj.nome, tr);
+    insertInCol(obj.plataforma, tr);
+    insertInCol(obj.tipo, tr);
+    insertInCol(obj.preco, tr);
+    insertInCol(obj.estoque, tr);
     return tr;
+}
+//Cria Coluna com conteudo
+function insertInCol(value, tr){
+    const td = document.createElement('td');
+    td.textContent = value;
+    tr.appendChild(td);
 }
 //Limpa tabela
 function clearTable(){
     tabela.innerHTML = "";
 }
 
+//Cria objeto a partir de seleção na tabela
 // Lista Selecionavel Caso chamado sem parametro irá deselecionar todos
 function selectRow(row){
     linhas.forEach((e) => {
@@ -65,8 +102,8 @@ function selectRow(row){
 function loadVenda(){
     try{
         let qtd = document.querySelector('#input-qtd').value;
-        let [id, nome, plataforma, tipo, preco, estq]= sliceSelect();
-        console.log(estq, qtd, estq < qtd);
+        if(qtd <= 0 ) throw new TypeError('Quantidade inválida'); 
+        let [id, nome, plataforma, tipo, preco, estq]= sliceSelect(getSelectedRow());
         qtd = Number.parseInt(qtd);
         estq = Number.parseInt(estq);
         id = Number.parseInt(id);
@@ -84,10 +121,9 @@ function loadVenda(){
         showMessage('danger',e.message);
     }
 }
-// captura as informações da linha selecionada
-function sliceSelect(){
+//Captura as informações da linha selecionada
+function sliceSelect(tr){
     const result = [];
-    let tr = getSelectedRow();
     if(typeof tr === 'undefined') throw new TypeError('É preciso selecionar um produto');
     const cols  = tr.querySelectorAll('td');
     cols.forEach( value =>{
@@ -103,6 +139,8 @@ function getSelectedRow(){
     });
     return tr;
 }
+
+//Gerencia o Carrinho
 //Atauliza carrinho com base na variavel itens
 function reloadCarrinho(){
     deleteCarrinho();
@@ -125,13 +163,7 @@ function createItem(){
     p.classList.add('colorList');
     return p;
 }
-//Retira qtd Estque da linha selecionada
-function subtractEstoque(qtd){
-    const row = getSelectedRow();
-    const estq = row.querySelectorAll('td')[5]
-    const currency = estq.textContent;
-    estq.textContent = currency - qtd;
-}
+
 //remove item da lista itens
 function removeItem(id){
     itens = itens.filter(obj=>{
@@ -142,6 +174,17 @@ function removeItem(id){
             return true;
         } 
     });
+    reloadSutTotal();
+}
+
+//Atualiza quantidade de itens na tabela
+
+//Retira qtd Estque da linha selecionada
+function subtractEstoque(qtd){
+    const row = getSelectedRow();
+    const estq = row.querySelectorAll('td')[5]
+    const currency = estq.textContent;
+    estq.textContent = currency - qtd;
 }
 
 function addEstoque(id, qtd){
@@ -155,6 +198,9 @@ function addEstoque(id, qtd){
     })
 }
 
+//Reset Formulário
+
+//Atualiza subTotal
 function reloadSutTotal(){
     const subTotal = document.querySelector('#sub-total');
     const output = form.querySelector('#output-desconto')
@@ -164,6 +210,29 @@ function reloadSutTotal(){
     output.value = '0%';
     total.textContent = valueTotal;    
 }
+
+//Limpa formulário de venda
+function clearForm(){
+    deleteCarrinho();
+    itens = [];
+    cpfInput.textContent = '';
+    reloadSutTotal();
+}
+
+// Mensagens
+function showMessage(type, message){
+    clearMessage();
+    mensagem.removeAttribute('hidden');
+    mensagem.classList.add(`alert-${type}`);
+    mensagem.textContent = message;
+}
+function clearMessage(){
+    mensagem.setAttribute('hidden',true);
+    mensagem.classList.remove('alert-danger', 'alert-success');
+    mensagem.textContent = '';
+}
+
+//Calculos
 
 function calculateSubTotal(){
     let acc = 0.00;
@@ -177,25 +246,6 @@ function calculateTotal(porcent){
     total *= 1-(porcent/100);
     return total;
     
-}
-
-function showMessage(type, message){
-    clearMessage();
-    mensagem.removeAttribute('hidden');
-    mensagem.classList.add(`alert-${type}`);
-    mensagem.textContent = message;
-}
-function clearMessage(){
-    mensagem.setAttribute('hidden',true);
-    mensagem.classList.remove('alert-danger', 'alert-success');
-    mensagem.textContent = '';
-}
-
-function clearForm(){
-    deleteCarrinho();
-    itens = [];
-    cpfInput.textContent = '';
-    reloadSutTotal();
 }
 
 //Formtação
@@ -215,6 +265,11 @@ function currencyFormat(currency){
 }
 
 //=-=-=- EventListener =-=-=-=
+window.onload = function(){
+    if(window.location.pathname !== '/vendas') return
+    saveTable();
+}
+
 //Lista Selecionaval
 tabela.addEventListener('click', e=>{
     clearMessage();
@@ -222,6 +277,15 @@ tabela.addEventListener('click', e=>{
     const tr = el.parentElement;
     selectRow(tr);
 });
+//Troca do Input Plataforma
+plataforma.addEventListener('change', ()=>{
+    if(plataforma.value == 0) return loadTable(tableItens);
+    tableFilter = tableItens.filter( produto=>{
+        return produto.plataforma == plataforma.value;
+    })
+    loadTable(tableFilter);
+})
+
 //Ação Botão Adicionar
 document.addEventListener('click', e=>{
     const el = e.target;
@@ -243,19 +307,22 @@ descontoInput.addEventListener('change', ()=>{
     const desconto = descontoInput.value;
     total.textContent = calculateTotal(desconto).toFixed(2);
 })
-// ENVIA FORMULARIO
+
+//COMUNICAÇÃO COM O SERVIDOR
+
+// ENVIA FORMULARIO criar venda
 form.addEventListener('submit', async e=>{
     e.preventDefault();
     clearMessage();
-    
 
     const desconto = Number.parseFloat(descontoInput.value);
     discountItens(desconto);
     const cpf = cpfInput.value;
+    
+    if(itens.length <= 0) return showMessage('danger', 'Necessário escolher ao menos um produto');
 
     const obj = { itens: itens, cpf:cpf }
-    console.log(JSON.stringify(obj));
-
+    
     const result = await fetch('/vendas', {
         method: 'POST',
         body: JSON.stringify(obj),
@@ -268,7 +335,7 @@ form.addEventListener('submit', async e=>{
     showMessage(data.type, data.message);
     clearForm();
 })
-
+//Ao Buscar um produto na serch bar
 formSerch.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const serchInput = formSerch.querySelector('.input-pesquisa')
@@ -283,6 +350,6 @@ formSerch.addEventListener('submit', async (e)=>{
     console.log(':',data);
     if(result.status === 400) return showMessage(data.type, data.message);
     loadTable(data);
-    
+    tableItens = data;
     //TODO verificar o status da chamada caso 400 showMessage
 })

@@ -3,11 +3,10 @@ const db = require('../../server');
 function Produto(body){
     this.body = body;
     this.erros = [];
+    // id | qtd
+    this.produtoAmount = [];
 
-    this.setId = function(id){
-        if(!this.body) this.body = {};
-        this.body.id = Number.parseInt(id);
-    }
+    
     this.valida = function(){
         if(!(this.body.nome && this.body.tipo && this.body.plataforma && this.body.descricao && this.body.preco && this.body.qtd)){
             this.erros.push('Por favor preencher todos os parametros');
@@ -24,6 +23,20 @@ function Produto(body){
         this.body.preco = currencyModel(this.body.preco);
         this.body.qtd = Number.parseInt(this.body.qtd);
     }
+}
+
+Produto.prototype.setId = function(id){
+    if(!this.body) this.body = {};
+    this.body.id = Number.parseInt(id);
+}
+
+Produto.prototype.getPlataforma = async function(){
+    const [rows, fields] = await db.connection.query('SELECT DISTINCT plataforma FROM produto')
+    const plataformas = [];
+    rows.forEach(element => {
+        plataformas.push(element.plataforma);
+    });
+    return plataformas;
 }
 
 Produto.prototype.getProdutos = async function(){
@@ -44,23 +57,35 @@ Produto.prototype.getByName = async function(name){
 
     const cmd_select = `SELECT * FROM produto WHERE nome LIKE('%${name}%')`;
     const [rows, fields] = await db.connection.query(cmd_select);
-    console.log(rows);
     if(rows.length === 0) return this.erros.push('Nenhum produto encontrado com essas especificações');
     return rows;
 }
+//Busca todas as quantidades id|quantidade
+Produto.prototype.getAllAmount = async function(){
+    const cmd_select = 'SELECT id_produto, estoque FROM produto';
+    const [rows] = await db.connection.query(cmd_select);
+    this.produtoAmount = rows; 
+}
+// Verifica se a quantidade de produto é menor que a que se deseja extrair, false para maior que o estoque
+Produto.prototype.checkAmount = function(id, qtd){
+    this.produtoAmount.forEach( p =>{
+        if(p.id_produto == id && p.estoque < qtd) return false;
+    })
+    return true;
+}
 
 Produto.prototype.subtractItens = async function(itens){
-    try{
-        console.log('Itens:', itens);
-        /*
+    /*
         itens é um vetor de objeto, cada item deve ter ao menos 2 propriedades: id e qtd
         id: representa id do produto
         qtdItem: quantidade a ser subtraido
-        */
+    */
+    await this.getAllAmount();
+    try{
         itens.forEach(async (item) =>{
             this.setId(item.id);
-                const result = await this.subtractQtd(item.qtdItem);
-                if(!result) throw new TypeError(`Erro ao subtair do item: ${item.id} a quantidade: ${item.qtdItem}`)
+            const result = await this.subtractQtd(item.qtdItem);
+            if(!result) throw new TypeError(`Erro ao subtair do item: ${item.id} a quantidade: ${item.qtdItem}`)
         });
     }catch(ex){
         throw new TypeError(`Erro na subtração dos produtos > ${ex.message}`);
@@ -68,11 +93,12 @@ Produto.prototype.subtractItens = async function(itens){
 }
 
 Produto.prototype.subtractQtd = async function(qtd){
+    if(!this.checkAmount(this.body.id, qtd)) return this.erros.push('Produto está fora de estoque, por favor atualize a página');
+
     try{
         const produt_id = this.body.id;
         const cmd_put = `UPDATE produto SET estoque = estoque - ? WHERE id_produto = ?`;
         const result = await db.connection.query(cmd_put, [qtd, produt_id]);
-
         if(result[0].affectedRows === 1){
             console.log(`Subtraido ${qtd} do Produto de ID ${produt_id}`);
             return true;

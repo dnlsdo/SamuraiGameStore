@@ -1,3 +1,28 @@
+Todas telas de Relatório
+	- Read
+	- Update
+	- Filtrar
+	- Editar
+Tela para Produtos
+	-Read
+	-Update
+Grafico
+
+FIX e FEATURES
+FIX: Totais em venda permanesce mesmo após itens serem deletados
+FIX: validação de Strings em cadastros
+FEATURE: Capacidade de inativar,'botar para dormir'usuarios.
+
+{
+    Relatório
+    Popular Tabela
+        - Trazer Valores
+        - Calcular Valor Total de Compras
+    Filtrar Tabela
+    Editar Objeto
+    Gerar Relatório
+}
+
 LOGIN
 login se logado deslogar [FEITO]
 E middleware de autenticação, paginas [FEITO]
@@ -27,17 +52,12 @@ Cadastros(produto, cliente, Funcionario) [Feito]
         Atualizar Carrinho (danilo) [Feito]
         Subtrair produtos [Feito]
         -Filtrar via map com um event-listner no jsp?
-        Os 2 filtros
-            Serch precisa ser fetch API
-        Problema com sicronismo do banco, 
+        -Os 2 filtros [feito]
+        Serch precisa ser fetch API
+        -Problema com sicronismo do banco, [feito]
             necessário validar no model se quantidade é menor que o disponível → Resolver pular
 
 
-Relatório
-    Popular Tabela
-        - Trazer Valores
-        - Calcular Valor Total de Compras
-    Filtrar Tabela
-    Editar Objeto
-    Gerar Relatório
+
+
 

@@ -31,7 +31,7 @@
   </div>
   
   <hr class="my-4" style="color:white;">
-
+<!-- MENSAGENS -->
   <div class="row justify-content-center">
     <div class="col">
         <div hidden id="message" class="alert"> 
@@ -46,19 +46,19 @@
       <div class="col-8">
         <!-- Filtro / Quantidade -->
         <div class="row">
-          <div class="col-3">
-            <select class="form-select" aria-label=".form-select-sm example">
-              <option selected>Plataforma</option>
-              <option value="1">Xbox</option>
-              <option value="2">Ps4</option>
-              <option value="3">PCgamer</option>
+          <div class="col-3">            
+            <select id="plataforma-input" class="form-select" aria-label=".form-select-sm example">
+              <option value ="0" selected>Todas Plataformas</option>
+              <% plataformas.forEach(item => { %>
+                <option value="<%- item %>"><%- item %></option>
+              <% }) %>
             </select>
           </div>
           <div class="col-4"></div>
           <div class="col-3">
             <input id="input-qtd" placeholder="Quantidade" class="form-control" type="number" value="Quantidade"  style="background-color: white;" >
           </div>
-            <!--Aqui é o Botão adicionar-->
+            <!--Botão ADICIONAR-->
           <div class=" col-2">
             <button id="btnAdd" class="btn btn-danger" type="button">ADD</button>
           </div>
@@ -98,7 +98,7 @@
       <!-- Container Direita Formulario-->
       <div class="col-4 align-self-end rightcontainer">
           <div class="clientForm">
-            <form id="form" method="POST">
+            <form id="form-carrinho" method="POST">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">CPF/CNPJ</label>
                 <input  type="text" class="form-control" id="cpfcnpj" aria-describedby="documentHelp">
@@ -127,6 +127,4 @@
     </div>
   </div>
 
-
-<script src="./js/vendas.js" ></script>
 <%- include('./includes/footer') %>
