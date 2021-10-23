@@ -37,18 +37,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">123.456.789-19</th>
-                <td class="nome">Bianca Souza</td>
-                <td class="email">Bianca.souza@gmail.com</td>
-                <td class="nascimento">24/05/1983</td>
-                <td class="valor">R$458,97</td>
-                <td>
-                  <div class="btn btn-link" href="cadastroCliente.html"></a>
-                  <button type="button" class="btn btn-secondary btn-sm">Editar</button>
-                  </td>
-                </div>
-              <% clientes.forEach(cliente => { %>
+                <% clientes.forEach(cliente => { %>
                 <tr>
                   <th scope="row"> <%- cliente.cpf %> </th>
                   <td> <%- cliente.nome %> </td>
@@ -68,4 +57,5 @@
           </table>
         </div>
 
+        <script src="/js/relatorios.js"></script>
  <%- include('./includes/footer') %>
