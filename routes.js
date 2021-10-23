@@ -29,6 +29,7 @@ router.post('/vendas', middleware.loginRequired, vendaController.create);
 router.get('/search/:produto', vendaController.serch); 
 //Relatórios
 router.get('/relatorio/cliente', relatorioController.showClientes);
+router.get('/relatorio/cliente/:order', relatorioController.orderClientes);
 
 router.get('/404', (req, res)=>{
     res.render('404')
