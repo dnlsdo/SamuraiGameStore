@@ -57,7 +57,16 @@ Cadastros(produto, cliente, Funcionario) [Feito]
         -Problema com sicronismo do banco, [feito]
             necessário validar no model se quantidade é menor que o disponível → Resolver pular
 
+Relatório   
+    View:
+        Pagina de detalhes
+        Edição de Funcionario
+            - Criação de senha ou NÂO
+        Edição de Produto
+        Edição de cliente
 
+    - Valor ficar com .tofixed(2)
 
+Produto
 
 

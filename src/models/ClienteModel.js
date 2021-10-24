@@ -88,13 +88,14 @@ Cliente.prototype.create = async function(){
 
 Cliente.prototype.allClientes = async function(){
     // IS NULL para deixar os nulls por ultimo
-    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor_unitario) AS totalCompra
+    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
     FROM cliente c
-    INNER JOIN venda v ON v.id_cliente = c.id_cliente
+    LEFT JOIN venda v ON v.id_cliente = c.id_cliente
     group by c.id_cliente
     ORDER BY nome IS NULL, nome;`;
     try{
         const [rows] = await db.connection.query(cmd_all);
+        console.log('DATA:',rows);
         return rows;
     }catch(ex){
         console.log('Erro na consulta do banco',ex.message);
@@ -102,10 +103,9 @@ Cliente.prototype.allClientes = async function(){
 }
 
 Cliente.prototype.allClientesBySoldDesc = async function(){
-    // IS NULL para deixar os nulls por ultimo
-    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor_unitario) AS totalCompra
+    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
     FROM cliente c
-    INNER JOIN venda v ON v.id_cliente = c.id_cliente
+    LEFT JOIN venda v ON v.id_cliente = c.id_cliente
     group by c.id_cliente
     ORDER BY totalCompra DESC;`;
     try{
@@ -117,10 +117,9 @@ Cliente.prototype.allClientesBySoldDesc = async function(){
 }
 
 Cliente.prototype.allClientesBySold = async function(){
-    // IS NULL para deixar os nulls por ultimo
-    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor_unitario) AS totalCompra
+    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
     FROM cliente c
-    INNER JOIN venda v ON v.id_cliente = c.id_cliente
+    LEFT JOIN venda v ON v.id_cliente = c.id_cliente
     group by c.id_cliente
     ORDER BY totalCompra;`;
     try{
@@ -133,9 +132,9 @@ Cliente.prototype.allClientesBySold = async function(){
 
 Cliente.prototype.allClientesByRecent = async function(){
     // IS NULL para deixar os nulls por ultimo
-    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor_unitario) AS totalCompra
+    const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
     FROM cliente c
-    INNER JOIN venda v ON v.id_cliente = c.id_cliente
+    LEFT JOIN venda v ON v.id_cliente = c.id_cliente
     group by c.id_cliente
     ORDER BY v.data DESC;`;
     try{

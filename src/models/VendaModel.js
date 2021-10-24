@@ -28,9 +28,10 @@ Venda.prototype.create = async function(){
         if(produto.erros.length > 0) return this.erros.push(produto.erros[0]);
     
         //Cria INSERT de multiplas linhas com os itens
-        let cmd_insert_multiple = 'INSERT INTO venda (id_venda, id_vendedor, id_cliente, id_produto, `data`, desconto, valor_unitario) VALUES';
+        let cmd_insert_multiple = 'INSERT INTO venda (id_venda, id_vendedor, id_cliente, id_produto, `data`, quantidade, desconto, valor) VALUES';
         this.itens.forEach( item => {
-            cmd_insert_multiple += `(${vendaId}, ${this.vendedor.id_usuario}, ${this.cliente.id_cliente}, ${item.id}, '${date}', ${item.desconto}, ${item.preco} ),`
+            const valorTotal = Number.parseFloat(item.preco * item.qtdItem).toFixed(2);
+            cmd_insert_multiple += `(${vendaId}, ${this.vendedor.id_usuario}, ${this.cliente.id_cliente}, ${item.id}, '${date}', ${item.qtdItem}, ${item.desconto}, ${valorTotal} ),`
         });
         cmd_insert_multiple = cmd_insert_multiple.slice(0, -1);
         console.log(cmd_insert_multiple);
@@ -49,6 +50,67 @@ Venda.prototype.create = async function(){
 
     
 }
+
+Venda.prototype.allVendas = async function(){
+    const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
+    FROM venda as v
+    INNER JOIN usuario as u ON  u.id_usuario = v.id_vendedor
+    INNER JOIN cliente as c ON c.id_cliente = v.id_cliente
+    GROUP BY v.id_venda
+    ORDER BY u.nome;`;
+    try{
+        const [rows] = await db.connection.query(cmd_all);
+        return rows;
+    }catch(ex){
+        console.log('Erro na consulta do banco',ex.message);
+    }
+}
+
+Venda.prototype.allVendasByRecent = async function(){
+    const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
+    FROM venda as v
+    INNER JOIN usuario as u ON  u.id_usuario = v.id_vendedor
+    INNER JOIN cliente as c ON c.id_cliente = v.id_cliente
+    GROUP BY v.id_venda
+    ORDER BY v.data DESC;`;
+    try{
+        const [rows] = await db.connection.query(cmd_all);
+        return rows;
+    }catch(ex){
+        console.log('Erro na consulta do banco',ex.message);
+    }
+}
+
+Venda.prototype.allVendasByValue = async function(){
+    const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
+    FROM venda as v
+    INNER JOIN usuario as u ON  u.id_usuario = v.id_vendedor
+    INNER JOIN cliente as c ON c.id_cliente = v.id_cliente
+    GROUP BY v.id_venda
+    ORDER BY valorTotal;`;
+    try{
+        const [rows] = await db.connection.query(cmd_all);
+        return rows;
+    }catch(ex){
+        console.log('Erro na consulta do banco',ex.message);
+    }
+}
+
+Venda.prototype.allVendasByValueDesc = async function(){
+    const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
+    FROM venda as v
+    INNER JOIN usuario as u ON  u.id_usuario = v.id_vendedor
+    INNER JOIN cliente as c ON c.id_cliente = v.id_cliente
+    GROUP BY v.id_venda
+    ORDER BY valorTotal DESC;`;
+    try{
+        const [rows] = await db.connection.query(cmd_all);
+        return rows;
+    }catch(ex){
+        console.log('Erro na consulta do banco',ex.message);
+    }
+}
+
 Venda.prototype.newId = async function(){
     //TODO gerar um novo id, com base no valor máximo já existente
     const cmd_new_id = `SELECT MAX(id_venda)+1 as id FROM venda`;
