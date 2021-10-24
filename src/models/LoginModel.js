@@ -35,31 +35,23 @@ function Login (body){
 
 }
 
-Login.prototype.allUser = async function(){
+Login.prototype.login = async function(){
+    const cmd_serch = `SELECT * FROM usuario WHERE email = '${this.body.email}' AND senha = md5('${this.body.password}')`;
+    this.cleanUp();
+    this.valida();
     
-    const [rows, fields] = await db.connection.query('Select * from usuario');
-    return rows;
-}
+    if(this.erros.length > 0) return
+    
+    const [rows, fields] = await db.connection.query(cmd_serch);
+    
+    if(rows.length > 0) this.user = {... rows[0]};
 
-Login.prototype.cargos = async function(){
-    const [rows, fields] = await db.connection.query('SELECT DISTINCT cargo FROM usuario')
-    const cargos = [];
-    rows.forEach(element => {
-        cargos.push(element.cargo);
-    });
-    if(!this.user) this.user = {};
-    this.user.cargos = cargos;
+    if(!this.user) {
+        this.erros.push('Email ou Senha Inválidos');
+        return;
+    }
     return;
 }
-
-Login.prototype.emailExists = async function(){
-    
-    const cmd_exists = `SELECT email FROM usuario WHERE email = '${this.body.email}'`;
-    const [rows] = await db.connection.query(cmd_exists);
-    if(rows.length > 0) return true;
-    return false;
-}
-
 
 Login.prototype.create = async function(){
     this.valida();
@@ -75,7 +67,6 @@ Login.prototype.create = async function(){
 }
 
 // Alterar dados do usuário
-
 Login.prototype.alter = async function(){
 
     //Validações
@@ -101,23 +92,86 @@ Login.prototype.alter = async function(){
     Object.assign(this.user, this.body);
 }
 
-Login.prototype.login = async function(){
-    const cmd_serch = `SELECT * FROM usuario WHERE email = '${this.body.email}' AND senha = md5('${this.body.password}')`;
-    this.cleanUp();
-    this.valida();
-    
-    if(this.erros.length > 0) return
-    
-    const [rows, fields] = await db.connection.query(cmd_serch);
-    
-    if(rows.length > 0) this.user = {... rows[0]};
 
-    if(!this.user) {
-        this.erros.push('Email ou Senha Inválidos');
-        return;
+Login.prototype.allUser = async function(){
+    const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
+    FROM usuario AS u
+    LEFT JOIN venda AS v ON u.id_usuario = v.id_vendedor
+    group by u.id_usuario
+    ORDER BY u.nome;`
+
+    try{
+        const [rows, fields] = await db.connection.query(cmd_all);
+        return rows;        
+    }catch(ex){
+        console.log(ex.message);
     }
+}
+
+Login.prototype.allUserByRecent = async function(){
+    const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
+    FROM usuario AS u
+    LEFT JOIN venda AS v ON u.id_usuario = v.id_vendedor
+    group by u.id_usuario
+    ORDER BY v.data DESC;`
+
+    try{
+        const [rows, fields] = await db.connection.query(cmd_all);
+        return rows;        
+    }catch(ex){
+        console.log(ex.message);
+    }
+}
+
+Login.prototype.allUserBySold= async function(){
+    const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
+    FROM usuario AS u
+    LEFT JOIN venda AS v ON u.id_usuario = v.id_vendedor
+    group by u.id_usuario
+    ORDER BY totalVenda;`
+
+    try{
+        const [rows, fields] = await db.connection.query(cmd_all);
+        return rows;        
+    }catch(ex){
+        console.log(ex.message);
+    }
+}
+
+Login.prototype.allUserBySoldDesc= async function(){
+    const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
+    FROM usuario AS u
+    LEFT JOIN venda AS v ON u.id_usuario = v.id_vendedor
+    group by u.id_usuario
+    ORDER BY totalVenda DESC;`
+
+    try{
+        const [rows, fields] = await db.connection.query(cmd_all);
+        return rows;        
+    }catch(ex){
+        console.log(ex.message);
+    }
+}
+
+Login.prototype.cargos = async function(){
+    const [rows, fields] = await db.connection.query('SELECT DISTINCT cargo FROM usuario')
+    const cargos = [];
+    rows.forEach(element => {
+        cargos.push(element.cargo);
+    });
+    if(!this.user) this.user = {};
+    this.user.cargos = cargos;
     return;
 }
+
+Login.prototype.emailExists = async function(){
+    
+    const cmd_exists = `SELECT email FROM usuario WHERE email = '${this.body.email}'`;
+    const [rows] = await db.connection.query(cmd_exists);
+    if(rows.length > 0) return true;
+    return false;
+}
+
 
 function toUpCamelCase(str){
     let res = "";

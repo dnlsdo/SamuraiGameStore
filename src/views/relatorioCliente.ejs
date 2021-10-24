@@ -6,23 +6,24 @@
       <!-- MENU -->
       <nav>
         <ul class="nav justify-content-center">
-          <li class="nav-item"><a class="nav-link" href="relatorioCliente.html" style="color:white">Cliente</a></li>
-          <li class="nav-item"><a class="nav-link" href="relatorioVendas.html" style="color:white">Vendas</a></li>
-          <li class="nav-item"><a class="nav-link" href="relatorioFuncionario.html" style="color:white">Funcionários</a>
+          <li class="nav-item"><a class="nav-link" href="/relatorio/cliente" style="color:white">Cliente</a></li>
+          <li class="nav-item"><a class="nav-link" href="/relatorio/venda" style="color:white">Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="/relatorio/funcionario" style="color:white">Funcionários</a>
           </li>
         </ul>
       </nav>
       <%- include('./includes/message') %>
-      <form class="my-5">
+      <form id="form-cliente" class="my-3" method="GET">
         <label>Classificar Por: </label>
 
-        <select name="orderby" class="orderby" aria-label="Pedido da loja">
+        <select style="width: 307px;" name="orderby" class="orderby" aria-label="Pedido da loja">
           <option value="name" selected="selected">Ordenar por nome A-Z </option>
           <option value="date">Ordenar por mais recente</option>
           <option value="price">Ordenar por compra: menor para maior</option>
           <option value="price-desc">Ordenar por compra: maior para menor</option>
         </select>
-
+        <button class="btn btn-secondary" type="submit"><span style="font-size: 15px;"><i class="fas fa-arrow-alt-circle-right"></i></span></button>
+      </form>
 
         <!-- DIV  Nome, E-mail, Nascimento, CPF e Total -->
         <div class="table-responsive">
@@ -36,19 +37,9 @@
                 <th scope="col">Total em Compra</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">123.456.789-19</th>
-                <td class="nome">Bianca Souza</td>
-                <td class="email">Bianca.souza@gmail.com</td>
-                <td class="nascimento">24/05/1983</td>
-                <td class="valor">R$458,97</td>
-                <td>
-                  <div class="btn btn-link" href="cadastroCliente.html"></a>
-                  <button type="button" class="btn btn-secondary btn-sm">Editar</button>
-                  </td>
-                </div>
-              <% clientes.forEach(cliente => { %>
+            <tbody class="table-relatorio">
+                <% clientes.forEach(cliente => { 
+                  const link = `/editar/cliente/${cliente.id_cliente}`%>
                 <tr>
                   <th scope="row"> <%- cliente.cpf %> </th>
                   <td> <%- cliente.nome %> </td>
@@ -56,16 +47,18 @@
                   <td> <% if(cliente.data_nasc){ %>
                     <%- cliente.data_nasc.toLocaleDateString() %>
                   <% } %> </td>
-                  <td></td>
+                  <td> <%- cliente.totalCompra %></td>
                   <td>
-                    <div class="btn btn-link" href="cadastroCliente.html"></a>
+                    <a class="btn btn-link" href="<%- link %>">
                     <button type="button" class="btn btn-secondary btn-sm">Editar</button>
+                  </a>
                     </td>
-                  </div>
                 </tr>
               <% }); %>
             </tbody>
           </table>
         </div>
-
+    </section>
+  </main>
+  <script src="/js/relatorios.js"></script>
  <%- include('./includes/footer') %>

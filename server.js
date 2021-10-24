@@ -4,6 +4,7 @@ const routes = require('./routes');
 const db = require('./src/db/connection');
 const session = require('express-session');
 const flash = require('connect-flash');
+const path = require('path');
 const { middlewareGlobal } = require('./src/middlewares/middlewares');
 const {notfoundError} = require('./src/middlewares/middlewares');
 let connection = 0;
@@ -30,7 +31,7 @@ app.use(express.json({limit:'1mb'}));
 
 //Setando configurações de Views
 app.use(express.static('front-end'));
-app.set('views', './src/views');
+app.set('views', path.resolve(__dirname, 'src','views'));
 app.set('view engine', 'ejs');
 
 app.use(middlewareGlobal);

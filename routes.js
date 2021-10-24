@@ -23,12 +23,17 @@ router.post('/cadastro/cliente', middleware.loginRequired, cadastroController.cr
 router.get('/cadastro/produto', cadastroController.produto);
 router.post('/cadastro/produto', cadastroController.createProduto);
 //Vendas
-router.get('/vendas', vendaController.index);
+router.get('/vendas', middleware.loginRequired, vendaController.index);
 router.post('/vendas', middleware.loginRequired, vendaController.create);
 
 router.get('/search/:produto', vendaController.serch); 
 //Relatórios
 router.get('/relatorio/cliente', relatorioController.showClientes);
+router.get('/relatorio/cliente/:order', relatorioController.orderClientes);
+router.get('/relatorio/funcionario', relatorioController.showFuncionario);
+router.get('/relatorio/funcionario/:order', relatorioController.orderFuncionario);
+router.get('/relatorio/venda', relatorioController.showVenda);
+router.get('/relatorio/venda/:order', relatorioController.orderVenda);
 
 router.get('/404', (req, res)=>{
     res.render('404')

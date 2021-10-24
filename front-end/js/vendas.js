@@ -176,6 +176,14 @@ function removeItem(id){
     });
     reloadSutTotal();
 }
+//remover todos os itens do carrinho
+function removeAllItens(){
+    itens.forEach( obj =>{
+        addEstoque(obj.id, obj.qtdItem);
+    });
+    itens = [];
+    reloadSutTotal();
+}
 
 //Atualiza quantidade de itens na tabela
 
@@ -286,7 +294,7 @@ plataforma.addEventListener('change', ()=>{
     loadTable(tableFilter);
 })
 
-//Ação Botão Adicionar
+//Ação Botão Adicionar + deletar item do Carrinho + btn limpar
 document.addEventListener('click', e=>{
     const el = e.target;
     if(el.id === "btnAdd"){
@@ -298,8 +306,12 @@ document.addEventListener('click', e=>{
     if(el.classList.contains('colorList')){
         let id = el.id;
         removeItem(id);
-        el.remove();
-        
+        el.remove(); 
+    }
+    // Botão limpar do carrinho
+    if(el.classList.contains('btnLimpar')){
+        removeAllItens();
+        carrinho.innerHTML ="";
     }
 });
 //Atualizar Valor Total
