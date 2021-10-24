@@ -43,11 +43,13 @@
                     <% funcionarios.forEach(funcionario => { 
                         const link = `/editar/funcionario/${funcionario.id_usuario}`%>
                     <tr>
-                        <th scope="row"> <%- funcionario.id_usuario %> </th>
+                        <td> <%- funcionario.id_usuario %> </td>
                         <td> <%- funcionario.nome %> </td>
                         <td> <%- funcionario.cargo %> </td>
                         <td> <%- funcionario.email %> </td>
-                        <td> <%- funcionario.totalVenda %></td>
+                        <td> <% if(funcionario.totalVenda){ %>
+                            <%- funcionario.totalVenda.toFixed(2) %>
+                        <% } %> </td>
                         <td>
                         <a class="btn btn-link" href="<%- link %>">
                         <button type="button" class="btn btn-secondary btn-sm">Editar</button>

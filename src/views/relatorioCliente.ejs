@@ -41,13 +41,15 @@
                 <% clientes.forEach(cliente => { 
                   const link = `/editar/cliente/${cliente.id_cliente}`%>
                 <tr>
-                  <th scope="row"> <%- cliente.cpf %> </th>
+                  <td> <%- cliente.cpf %> </th>
                   <td> <%- cliente.nome %> </td>
                   <td> <%- cliente.email %> </td>
                   <td> <% if(cliente.data_nasc){ %>
                     <%- cliente.data_nasc.toLocaleDateString() %>
                   <% } %> </td>
-                  <td> <%- cliente.totalCompra %></td>
+                  <td> <% if(cliente.totalCompra){ %>
+                    <%- cliente.totalCompra.toFixed(2) %>
+                  <% } %> </td>
                   <td>
                     <a class="btn btn-link" href="<%- link %>">
                     <button type="button" class="btn btn-secondary btn-sm">Editar</button>

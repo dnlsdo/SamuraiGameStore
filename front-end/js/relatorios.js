@@ -20,9 +20,10 @@ function writeTable(data, tipo){
 
 function createCliente(obj){
     //Deleta a propriedade ID de Cliente
-    const propId = Object.keys(obj)[0];
-    const id = obj[propId];
-    delete obj[propId];
+    const id = obj.id_cliente
+    delete obj.id_cliente
+
+    if(obj.totalCompra) obj.totalCompra = obj.totalCompra.toFixed(2);
 
     const tr = createDataRow(obj)
     tr.appendChild(createButtonEdit(id, 'cliente'));
@@ -31,6 +32,8 @@ function createCliente(obj){
 
 function createFuncionario(obj){
     const id = Object.values(obj)[0];
+    if(obj.totalVenda) obj.totalVenda = obj.totalVenda.toFixed(2);
+
     const tr = createDataRow(obj);
     tr.appendChild(createButtonEdit(id, 'funcionario'));
     table.appendChild(tr);
@@ -38,7 +41,8 @@ function createFuncionario(obj){
 
 function createVenda(obj){
     const id = Object.values(obj)[0];
-    console.log('id-',id);
+    obj.valorTotal = obj.valorTotal.toFixed(2);
+    
     const tr = createDataRow(obj);
     tr.appendChild(createButtonDetails(id));
     table.appendChild(tr);

@@ -7,6 +7,7 @@ const userController = require('./src/controllers/userController');
 const cadastroController = require('./src/controllers/cadastroContoller');
 const relatorioController = require('./src/controllers/relatorioController');
 const vendaController = require('./src/controllers/vendaController');
+const editarController = require('./src/controllers/editarController')
 
 router.get('/', homeController.index);
 //Login
@@ -34,6 +35,9 @@ router.get('/relatorio/funcionario', relatorioController.showFuncionario);
 router.get('/relatorio/funcionario/:order', relatorioController.orderFuncionario);
 router.get('/relatorio/venda', relatorioController.showVenda);
 router.get('/relatorio/venda/:order', relatorioController.orderVenda);
+//EDIÇÃO
+router.get('/editar/cliente/:id', editarController.editClienteIndex);
+router.post('/editar/cliente/:id', editarController.editCliente);
 
 router.get('/404', (req, res)=>{
     res.render('404')
