@@ -9,7 +9,7 @@ exports.editClienteIndex = async function(req, res){
 }
 exports.editCliente = async function(req, res){
     const body = Object.assign(req.params, req.body);
-    console.log('BODY:',req.params);
+    console.log('BODY:',body);
     const cliente = new Cliente(body);
     await cliente.alter();
 
@@ -22,6 +22,39 @@ exports.editCliente = async function(req, res){
         return;
     }
     req.flash('success', 'Cliente alterado com sucesso');
+    req.session.save( function(){
+        return res.redirect('back');
+    }); 
+}
+
+exports.editFuncionarioIndex = async function(req, res){
+    const body = Object.assign(req.params, req.body);
+    const funcionario = new Funcionario(body);
+    await funcionario.getByID();
+    return res.render('editarFuncionario', {funcionario});
+}
+
+exports.editFuncionario = async function(req, res){
+    const body = Object.assign(req.params, req.body);
+    console.log('BODY:',body);
+    const funcionario = new Funcionario(body);
+   
+    const acesso = funcionario.body.cargo === 'Gerente' ? 0 : 1;
+    funcionario.body.acesso = acesso;
+    
+    console.log('funcionarioUser: ', body);
+    
+    await funcionario.alter();
+
+    if(funcionario.erros.length > 0){
+        req.flash('erros', funcionario.erros);
+        req.session.save( function(){
+            console.log(funcionario.erros)
+            return res.redirect('back');
+        });
+        return;
+    }
+    req.flash('success', 'Usuario alterado com sucesso');
     req.session.save( function(){
         return res.redirect('back');
     }); 

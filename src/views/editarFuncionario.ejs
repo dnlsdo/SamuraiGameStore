@@ -1,0 +1,69 @@
+<%- include('./includes/head') %>
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+
+<main id="contato">
+	<section class="container">
+      <%- include('./includes/message') %>
+      <h2 class="text-center mt-3">EDITAR</h2>
+
+      <% if(funcionario){%>
+        <form class="my-5" action="/editar/funcionario/<%- funcionario.body.id_usuario %>" method="POST" >
+
+            <div class="row justify-content-center">
+                <div class="col-8 col-sm-4 mb-2">
+                    <div class="form-group">
+                        <label for="nome-form" class="form-label">Nome:</label>
+                        <input value="<%- funcionario.body.nome %>" type="text" class="form-control" name="nome" placeholder="Nome" id="nome-form" required>
+                    </div>
+                </div>
+                <div class="col-8 col-sm-4 mb-2">
+                    <div class="form-group">
+                        <label for="email-form" class="form-label">E-mail:</label>
+                        <input value="<%- funcionario.body.email %>" type="email" class="form-control" name="email" placeholder="seuemail@provedor.com" id="email-form" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center cargoclass">
+                <div class="col-8 col-sm-4 mb-2">
+                    <div class="form-group">
+                        <label  class="form-label">Cargo:</label>
+                        <select name="cargo" id="user-cargo" class="form-control" required>
+                            <% user.cargos.forEach( (el) =>{
+                              if(el === funcionario.body.cargo){ %>
+              
+                              <option selected value="<%- el %>"> <%- el %> </option>
+              
+                            <% }else{ %>
+              
+                              <option value="<%- el %>"> <%- el %> </option>
+                              
+                            <% }}) %>
+                          </select>
+                    </div>
+                </div>
+                <div class="col-8 col-sm-4 mb-2">
+                    <div class="form-group"></div>
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Senha:</label>
+                      <input disabled value="naoSenha" type="password" class="form-control" id="inputPassword">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="check-senha">
+                        <label  class="form-check-label" for="check-senha">
+                          Alterar Senha
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+                <!--Botão  -->
+            <div class="row justify-content-center my-3">
+                <div class="col-8">
+                <button class="btn d-block btn-dark mx-auto mb-3" type="submit">Salvar</button>
+            </div>
+
+        </form>
+      <% } %>
+    </section>
+</main>
+<script src="/js/edit.js"></script>
+<%- include('./includes/footer') %>

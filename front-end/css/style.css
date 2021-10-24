@@ -101,6 +101,10 @@ body {
   width: 100%;
 }
 
+.cargoclass{
+  align-items: baseline;
+}
+
 @media screen and (max-width: 576px) {
   .brand img {
     width: 0px;

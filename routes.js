@@ -38,6 +38,8 @@ router.get('/relatorio/venda/:order', relatorioController.orderVenda);
 //EDIÇÃO
 router.get('/editar/cliente/:id', editarController.editClienteIndex);
 router.post('/editar/cliente/:id', editarController.editCliente);
+router.get('/editar/funcionario/:id', editarController.editFuncionarioIndex);
+router.post('/editar/funcionario/:id', editarController.editFuncionario);
 
 router.get('/404', (req, res)=>{
     res.render('404')
