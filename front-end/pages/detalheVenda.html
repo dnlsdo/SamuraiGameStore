@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/detail.css">
+  <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+  
+<title>Samurai Games Store</title>
+</head>
+<body>
+  <!-- Menu Lateral -->
+  <input type="checkbox" id="chec">
+  <label for="chec" class="control-menu">
+      <img src="../images/controle.png" >
+  </label>
+
+    <nav class="menu-lateral">
+
+      <ul>
+        <li><a href="">HOME</a></li>
+        <li><a href="login.html">LOGIN</a></li>
+        <li><a href="">VENDAS</a></li>
+        <li><a href="">CADASTROS</a></li>
+        <li><a href="">RELATÓRIOS</a></li>
+        <li><a href="">PRODUTOS</a></li>
+        <li><a href="">DASHBOARD</a></li>
+      </ul>
+
+      <img src="../images/brand.png" id="logo">
+    </nav>
+  <!-- Navegador Superior -->
+  <section class="container-fluid topo">
+    <div class="col-xs-0 col-sm-3 brand">
+      <img src="../images/brand.png">
+    </div>
+    <div class="col pesquisa">
+      <input name="cadastro" name="text" id="cursor" placeholder=" Buscar Produto..." autofocus="">
+    </div>
+    <a href="user.html" style="color: white;" class="col-3 usuario">
+        <span id="icon"><i  class="fas fa-user-circle"></i></span> 
+        <div id="welcome">Olá Venderdor(a)</div>
+    </a>
+  </section>
+    
+  <main class="container-fluid parent">
+    <section class="basic infoParent">
+      <h3 class="text-center">Venda</h3>
+      <div class="parent-content">
+        <div class="content left">
+
+          <table class="descricao">
+            <tr><th scope="row">ID: 15</th scope="row"><th scope="row">DATA: 25/10/2021</th scope="row"></tr>
+            <tr><td>Itens:</td><td>12</td></tr>
+            <tr><td>Desconto:</td><td>R$25,00</td></tr>
+            <tr><td>Valor da Compra:</td><td>R$150,00</td></tr>
+          </table>
+        </div>
+        <div class="content">
+          <p>VENDEDOR: 25 - Luiz Gabriel Danilo de Caio</p>
+          <p>CLIENTE: Danilo Luiz de Caio</p>
+          <p>CPF: 152.246.312-54</p>
+        </div>
+      </div>
+    </section>
+    <section class="basic tableParent">
+      <h3 class="text-center">Produtos</h3>
+      <div class="overflow-auto" style="height:220px"> 
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">TIPO</th>
+                <th scope="col">Plataforma</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Preço</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>exemplo1</td>
+                <td>exemplo1@gmail.com</td>
+                <td>24/05/1983</td>
+                <td>R$458,97</td>
+                <td>R$458,97</td>          
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>exemplo2</td>
+                <td>exemplo2@gmail.com</td>
+                <td>25/09/1981</td>
+                <td>R$127,14</td>
+                <td>R$458,97</td>                   
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>exemplo3</td>
+                <td>exemplo3@gmail.com</td>
+                <td>12/04/2000</td>
+                <td>R$879,35</td>
+                <td>R$458,97</td> 
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>exemplo3</td>
+                <td>exemplo3@gmail.com</td>
+                <td>12/04/2000</td>
+                <td>R$879,35</td>
+                <td>R$458,97</td> 
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>exemplo3</td>
+                <td>exemplo3@gmail.com</td>
+                <td>12/04/2000</td>
+                <td>R$879,35</td>
+                <td>R$458,97</td> 
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>exemplo3</td>
+                <td>exemplo3@gmail.com</td>
+                <td>12/04/2000</td>
+                <td>R$879,35</td>
+                <td>R$458,97</td> 
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../plugins/fontawesome/js/all.min.js"></script>
+</body>
+</html>
+<!--
+  <span class="half">ID: 221</span>
+          <span class="half">DATA: 25/10/2021</span>
+          <div> Total de Itens: 12</div>
+          <div >Total da Compra: R$150,00</div>
+          <div>Desconto Aplicado: R$25,00</div>
+-->

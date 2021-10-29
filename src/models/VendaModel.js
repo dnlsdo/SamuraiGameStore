@@ -46,9 +46,37 @@ Venda.prototype.create = async function(){
 
     }catch(ex){
         console.log('Erro Critico no banco de Dados: ', ex.message);
-    }
+    }  
+}
 
-    
+Venda.prototype.generalDetails = async function(){
+    const cmd_detail = `
+    SELECT v.id_venda, v.data, Sum(v.quantidade) as quantidade, SUM(v.desconto) as desconto, SUM(v.valor) as total, u.id_usuario, u.nome as vendedor, c.cpf, c.nome as cliente
+    FROM venda as v
+    INNER JOIN usuario as u ON v.id_vendedor = u.id_usuario
+    INNER JOIN cliente as c ON v.id_cliente = c.id_cliente
+    WHERE v.id_venda = ?
+    GROUP BY v.id_venda;`
+    try{
+        const [rows] = await db.connection.query(cmd_detail, [this.id]);
+        return rows[0];
+    }catch(ex){
+        console.log('Erro na consulta do banco', ex.message);
+    }
+}
+
+Venda.prototype.productsDetails = async function(){
+    const cmd_details = `
+    SELECT p.id_produto, p.nome, p.tipo, p.plataforma, v.quantidade, p.preco
+    FROM venda as v
+    INNER JOIN produto as p ON v.id_produto = p.id_produto
+    WHERE v.id_venda = ?;`
+    try{
+        const [rows] = await db.connection.query(cmd_details, [this.id]);
+        return rows;
+    }catch(ex){
+        console.log('Erro na consulta do banco', ex.message);
+    }
 }
 
 Venda.prototype.allVendas = async function(){

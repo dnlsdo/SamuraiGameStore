@@ -1,0 +1,38 @@
+.parent{
+    background-color: #dfdfdf;
+    height: 82%;
+    padding: 20px 0px;
+}
+
+.basic{
+    background-color: white;
+    margin: 20px 8%;
+    box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.parent-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.content{
+    margin: 3px 15px 20px 10px;
+    width: 49%;
+}
+
+.text{
+    font-size: 15pt;
+}
+.half{
+    margin: 0px 20px 0 0;
+}
+.descricao td{
+    padding-right: 8px;
+}
+
+.productDetail{
+    text-align: center;
+}
