@@ -8,6 +8,7 @@ const cadastroController = require('./src/controllers/cadastroContoller');
 const relatorioController = require('./src/controllers/relatorioController');
 const vendaController = require('./src/controllers/vendaController');
 const editarController = require('./src/controllers/editarController')
+const detailController = require('./src/controllers/detailsController');
 
 router.get('/', homeController.index);
 //Login
@@ -40,6 +41,8 @@ router.get('/editar/cliente/:id', editarController.editClienteIndex);
 router.post('/editar/cliente/:id', editarController.editCliente);
 router.get('/editar/funcionario/:id', editarController.editFuncionarioIndex);
 router.post('/editar/funcionario/:id', editarController.editFuncionario);
+//Detelhe Venda
+router.get('/detalhe-venda/:id', detailController.index);
 
 router.get('/404', (req, res)=>{
     res.render('404')
