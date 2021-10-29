@@ -71,9 +71,20 @@ Login.prototype.alter = async function(){
 
     //Validações
     this.valida();
-    if(this.user.email !== this.body.email && await this.emailExists()) {
-        return  this.erros.push('Email já está sendo utilizado por outra conta.')
+    if(this.user){
+        if(this.user.email !== this.body.email && await this.emailExists()) {
+            return  this.erros.push('Email já está sendo utilizado por outra conta.')
+        }
     }
+    //Caso editando pelo relatório
+    else{
+        this.user = {id_usuario:this.body.id}
+        const tempId =  await this.getIDByEmail()
+        if(this.body.id != tempId && await this.emailExists()){
+            return this.erros.push('Email já está sendo utilizado em outra conta.')
+        } 
+    }
+    
 
     //QUERY MD5 PARA SENHA
     let cmd_put= `UPDATE usuario SET acesso = ${this.body.acesso}, nome = '${this.body.nome}', email='${this.body.email}',
@@ -85,13 +96,25 @@ Login.prototype.alter = async function(){
         
        
     if(this.erros.length > 0) return
-
-    const result = await db.connection.query(cmd_put);
+    console.log(cmd_put);
+    try{
+        const result = await db.connection.query(cmd_put);
+    }
+    catch(ex){ console.log(ex.message);}
     //Retirar Senha do body para não aparacer no usuario de sessao
-    if(!this.body.senha) delete this.body.senha;
+    if(!this.body.passoword) delete this.body.passowrd;
     Object.assign(this.user, this.body);
 }
 
+Login.prototype.getByID = async function(){
+    const cmd_select = `SELECT id_usuario, nome, cargo, email FROM usuario WHERE id_usuario = ?`
+    try{
+        const [rows] = await db.connection.query(cmd_select, this.body.id);
+        this.body = {... rows[0]};
+    }catch(ex){
+        console.log('Erro na consulta do banco',ex.message);
+    }
+}
 
 Login.prototype.allUser = async function(){
     const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
@@ -172,6 +195,12 @@ Login.prototype.emailExists = async function(){
     return false;
 }
 
+Login.prototype.getIDByEmail = async function(){
+    const cmd_exists = `SELECT id_usuario FROM usuario WHERE email = '${this.body.email}'`;
+    const [rows] = await db.connection.query(cmd_exists);
+    if(rows.length > 0) return rows[0].id_usuario
+    return false;
+}
 
 function toUpCamelCase(str){
     let res = "";

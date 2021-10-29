@@ -42,12 +42,12 @@
             <% vendas.forEach(venda => { 
                 const link = `/detalhe-venda/${venda.id_venda}`%>
             <tr>
-                <th> <%- venda.id_venda %> </th>
+                <td> <%- venda.id_venda %> </td>
                 <td> <%- venda.vendedor %> </td>
                 <td> <%- venda.cliente %> </td>
                 <td> <%- venda.data.toLocaleDateString('pt-BR') %> </td>
                 <td> <%- venda.quantidade %></td>
-                <td> <%- venda.valorTotal %></td>
+                <td> <%- venda.valorTotal.toFixed(2) %></td>
                 <td>
                 <a class="btn btn-link" href="<%- link %>">
                 <button type="button" class="btn btn-secondary btn-sm">Detalhe</button>

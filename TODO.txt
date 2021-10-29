@@ -62,10 +62,9 @@ Relatório
         Pagina de detalhes
         Edição de Funcionario
             - Criação de senha ou NÂO
-        Edição de Produto
-        Edição de cliente
+        Edição de cliente [Feito]
 
-    - Valor ficar com .tofixed(2)
+    - Valor ficar com .tofixed(2) [Feito]
 
 Produto
 

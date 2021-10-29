@@ -86,6 +86,29 @@ Cliente.prototype.create = async function(){
     }    
 }
 
+Cliente.prototype.alter = async function (){
+    const cmd_alter = `UPDATE cliente SET nome = ?, email = ?, data_nasc = ? WHERE id_cliente = ?`
+    this.valida();
+    if(this.erros.length > 0) return
+    try{
+        const result = await db.connection.query(cmd_alter, [this.body.nome, this.body.email, this.body.nascimento, this.body.id]);
+        if(result[0].affectedRows === 1) return
+        this.erros.push = 'Ocorreu um erro, cliente não foi atualizado';
+    }catch(ex){
+        console.log('Erro na atualização do Cliente');
+    }
+}
+
+Cliente.prototype.getClienteByID = async function(){
+    const cmd_select = `SELECT id_cliente, cpf, nome, email, data_nasc FROM cliente WHERE id_cliente = ?`
+    try{
+        const [rows] = await db.connection.query(cmd_select, this.body.id);
+        this.body = {... rows[0]};
+    }catch(ex){
+        console.log('Erro na consulta do banco',ex.message);
+    }
+}
+
 Cliente.prototype.allClientes = async function(){
     // IS NULL para deixar os nulls por ultimo
     const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
@@ -95,7 +118,6 @@ Cliente.prototype.allClientes = async function(){
     ORDER BY nome IS NULL, nome;`;
     try{
         const [rows] = await db.connection.query(cmd_all);
-        console.log('DATA:',rows);
         return rows;
     }catch(ex){
         console.log('Erro na consulta do banco',ex.message);

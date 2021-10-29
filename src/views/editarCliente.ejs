@@ -4,30 +4,24 @@
 
 <main id="contato">
 	<section class="container">
-      <!-- MENU -->
-        <nav>
-            <ul class="nav justify-content-center">
-                <li class="nav-item"><a class="nav-link" href="/cadastro/cliente" style="color:white">Cliente</a></li>
-                <li class="nav-item"><a class="nav-link" href="/cadastro/produto" style="color:white">Produtos</a></li>
-                <li class="nav-item"><a class="nav-link" href="/cadastro/funcionario" style="color:white">Funcionarios</a></li>
-            </ul>
-        </nav>
       <%- include('./includes/message') %>
+		<!-- FORM de Edição-->
+		<h2 class="text-center mt-3">EDITAR</h2>
+<% if(cliente){%>
 
-		<!-- FORM de Cadastro-->
-		<form class="my-5" action="/cadastro/cliente" method="POST" >
+		<form class="my-5" action="/editar/cliente/<%- cliente.body.id_cliente %>" method="POST" >
         <!-- DIV  nome e e-mail -->
 			<div class="row justify-content-center">
 				<div class="col-8 col-sm-4 mb-2">
 					<div class="form-group">
 						<label for="nome-form" class="form-label">Nome:</label>
-						<input type="text" class="form-control" name="nome" placeholder="nome" id="nome-form" required>
+						<input value="<%- cliente.body.nome %>" type="text" class="form-control" name="nome" placeholder="nome" id="nome-form" required>
 					</div>
 				</div>
                 <div class="col-8 col-sm-4 mb-2">
 			        <div class="form-group">
 			        	<label for="email-form" class="form-label">E-mail:</label>
-				    	<input type="email" class="form-control" name="email" placeholder="seuemail@provedor.com" id="email-form" required>
+				    	<input value="<%- cliente.body.email %>" type="email" class="form-control" name="email" placeholder="seuemail@provedor.com" id="email-form">
 		        	</div>
 			    </div>
 			</div>
@@ -36,24 +30,28 @@
 				<div class="col-8 col-sm-4 mb-2">
 					<div class="form-group">
 						<label for="input-nasc" class="form-label">Nascimento:</label>
-						<input class="form-control" name="nascimento" id="input-nasc" placeholder="dia/mês/ano" required>
+						<% if(cliente.body.data_nasc){%>
+						<input value="<%- cliente.body.data_nasc.toLocaleDateString('pt-BR')%>"  class="form-control" name="nascimento" id="input-nasc" placeholder="dia/mês/ano" >
+						<% }else{ %>
+							<input class="form-control" name="nascimento" id="input-nasc" placeholder="dia/mês/ano">
+						<% } %>
 					</div>
 				</div>
                 <div class="col-8 col-sm-4 mb-2">
 					<div class="form-group">
 						<label for="input-cpf"  class="form-label">CPF:</label>
-						<input  class="form-control" name="cpf" id="input-cpf"placeholder="CPF"required>
+						<input readonly value="<%- cliente.body.cpf %>" class="form-control" name="cpf" id="input-cpf"placeholder="CPF">
 					</div>
 				</div>
 			</div>
         <!-- Botão -->
 			<div class="row justify-content-center my-3">
 				<div class="col-8">
-					<button class="btn d-block btn-dark mx-auto mb-3" type="submit">Salvar</button>
+					<button class="btn d-block btn-dark mx-auto mb-3" type="submit">Editar</button>
 				</div>
 			</div>
 		</form>
-
+<% } %>
 	</section>
 </main>
 
