@@ -1,18 +1,17 @@
-const form = document.querySelector('#form-carrinho');
-if(form){
-    const tabela = document.querySelector('#selecionavel');
-    const carrinho = document.querySelector('.produtosCarrinho');
-    const plataforma = document.querySelector('#plataforma-input')
-    const total = form.querySelector('#total');
-    const mensagem = document.querySelector('#message');
-}
+const formCarrinho = document.querySelector('#form-carrinho');
+const tabela = document.querySelector('#selecionavel');
+const carrinho = document.querySelector('.produtosCarrinho');
+const plataforma = document.querySelector('#plataforma-input')
+const total = formCarrinho.querySelector('#total');
+const mensagem = document.querySelector('#message');
+
 
 const formSerch = document.querySelector('#serch');
 
 
 //Parametros
-const descontoInput = form.querySelector('#input-desconto');
-const cpfInput = form.querySelector('#cpfcnpj');
+const descontoInput = formCarrinho.querySelector('#input-desconto');
+const cpfInput = formCarrinho.querySelector('#cpfcnpj');
 let linhas = tabela.querySelectorAll('tr');
 let itens = [];
 let tableItens = [];
@@ -215,7 +214,7 @@ function addEstoque(id, qtd){
 //Atualiza subTotal
 function reloadSutTotal(){
     const subTotal = document.querySelector('#sub-total');
-    const output = form.querySelector('#output-desconto')
+    const output = formCarrinho.querySelector('#output-desconto')
     valueTotal = calculateSubTotal();
     subTotal.textContent  = valueTotal;
     descontoInput.value = 0;
@@ -327,7 +326,7 @@ descontoInput.addEventListener('change', ()=>{
 //COMUNICAÇÃO COM O SERVIDOR
 
 // ENVIA FORMULARIO criar venda
-form.addEventListener('submit', async e=>{
+formCarrinho.addEventListener('submit', async e=>{
     e.preventDefault();
     clearMessage();
 
