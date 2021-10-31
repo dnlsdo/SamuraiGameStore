@@ -1,5 +1,6 @@
 const Cliente = require('../models/ClienteModel');
 const Funcionario = require('../models/LoginModel');
+const Produto = require('../models/ProdutoModel');
 
 exports.editClienteIndex = async function(req, res){
     const cliente = new Cliente(req.params);
@@ -55,6 +56,42 @@ exports.editFuncionario = async function(req, res){
         return;
     }
     req.flash('success', 'Usuario alterado com sucesso');
+    req.session.save( function(){
+        return res.redirect('back');
+    }); 
+}
+
+exports.editProdutoIndex = async (req, res)=>{
+    const p = new Produto();
+    console.log('Params', req.params);
+    const result = await p.getByID(req.params.id);
+    let produto = {... result[0] };
+    if(p.erros.length > 0){
+        produto = undefined
+        req.flash('erros', p.erros);
+        req.session.save( function(){
+            console.log('Erros:',p.erros)
+            return res.redirect('back');
+        });
+        return
+    }
+    console.log('Produtos:', produto);
+    return res.render('editarProduto', {produto});
+}
+exports.editProduto = async (req, res)=>{
+    const p = new Produto(req.body);
+    
+    await p.alter();
+
+    if(p.erros.length > 0){
+        req.flash('erros', p.erros);
+        req.session.save( function(){
+            console.log(p.erros)
+            return res.redirect('back');
+        });
+        return;
+    }
+    req.flash('success', 'Produto alterado com sucesso');
     req.session.save( function(){
         return res.redirect('back');
     }); 

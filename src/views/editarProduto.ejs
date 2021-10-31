@@ -1,0 +1,65 @@
+<%- include('./includes/head') %>
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+
+<div class="container mt-3">
+    <h1 class="display-5">EDITAR</h1>
+    <%- include('./includes/message') %>
+    <% if(produto){ %> 
+    <form action="/editar/produto/<%- produto.id_produto %>" method="POST">
+        <input type="hidden" name="id_produto" value="<%- produto.id_produto %>">
+        <!-- Input nome e descrição-->
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">                      
+                    <div class="mt-3">
+                        <label class="form-label">Nome do Produto:</label>
+                        <input value="<%- produto.nome %>" type ="text" class="form-control " name="nome" placeholder="Digite o nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Plataforma:</label>
+                        <input value="<%- produto.plataforma %>" name="plataforma" class="form-control" type="text" placeholder="Ex: PS4, Nintendo, etc..." aria-label="#" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tipo:</label>
+                        <input value="<%- produto.tipo %>" name="tipo" type ="text" class="form-control"  placeholder="Digite o tipo" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row justify-content-end" >
+                    <div class= "col-12 mt-3" >
+                        <label for="textarea-form" class="form-label">Descrição:</label>
+                        <textarea name="descricao" class="form-control" placeholder="Descrição do produto" maxlength="700" rows="6" cols='60' id="textarea-form">  <%- produto.descricao %> </textarea>
+                    </div>
+                </div>
+            </div>             
+        </div>  
+    <!-- Input quantidade e preço-->
+    <div class="row justify-content-evenly"> 
+        <div class="col-auto">
+            <label for="qtd-input" class="col-form-label">Quantidade:</label>
+        </div>
+        <div class="col-auto">
+            <input value="<%- produto.estoque %>" name="qtd" type="number" id="qtd-input"  class="form-control" required>
+        </div>
+        <div class="col-auto">
+            <label for="preco-input" class="col-form-label">Preço:</label>
+        </div>
+        <div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text">R$</span>
+                <input value="<%- produto.preco %>" id="preco-input" name="preco" type="text" class="form-control"  placeholder="150.99" aria-label="Valor em Reais" required>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão salvar -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-3">
+            <button class="btn d-block btn-dark form-control" type="submit">Salvar</button>
+        </div>      
+    </form>
+    <% } %> 
+</div>
+<%- include('./includes/footer') %>

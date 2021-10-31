@@ -42,7 +42,7 @@ Cadastros(produto, cliente, Funcionario) [Feito]
         -Ajustar botão [Feitor]
         -Lista selecionavel [Feito]
         - Criar objeto venda [Feito]
-        -Adicionar item no carrinho [id, qtd, nome, precoTotal]
+        -Adicionar item no carrinho [id, qtd, nome, precoTotal] [FEITO]
         -Modelo de apresentação do item no carrinho [Feito]
         -Excluir itens do carrinho [Feito ]
         -Cancelar [Feito]
@@ -51,26 +51,26 @@ Cadastros(produto, cliente, Funcionario) [Feito]
      →Popular Tabela Controller [Feito]
         Atualizar Carrinho (danilo) [Feito]
         Subtrair produtos [Feito]
-        -Filtrar via map com um event-listner no jsp?
         -Os 2 filtros [feito]
-        Serch precisa ser fetch API
+        Serch precisa ser fetch API [Feito]
         -Problema com sicronismo do banco, [feito]
-            necessário validar no model se quantidade é menor que o disponível → Resolver pular
-
+            necessário validar no model se quantidade é menor que o disponível 
 Relatório   
     View:
-        Pagina de detalhes
-        Edição de Funcionario
-            - Criação de senha ou NÂO
+        Pagina de detalhes [Feito]
+        Edição de Funcionario [FEITO]
         Edição de cliente [Feito]
 
     - Valor ficar com .tofixed(2) [Feito]
 
 Produto
+    -VIEW feito
+    -PESQUISAR
+    -EDITAR
 
 |=-=-=-=-=-=-=-=-=-=-=-= TO DO =-=-=-=-=-=-=-=-=-=-=-=-=|
 |1. Gerar JSON XML                                      |
-|2. Produto Relatório (vermelho caso em falta)          |
+|2. Produto Relatório (amarelo caso em falta)           |
 |3. Gráfico                                             |
 |4. Limpeza de BUGS                                     |
 |5. Bloquear links para usuários vendedor               |
