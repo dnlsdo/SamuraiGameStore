@@ -1,10 +1,14 @@
-const tabela = document.querySelector('#selecionavel');
-const carrinho = document.querySelector('.produtosCarrinho');
 const form = document.querySelector('#form-carrinho');
-const total = form.querySelector('#total');
-const mensagem = document.querySelector('#message');
+if(form){
+    const tabela = document.querySelector('#selecionavel');
+    const carrinho = document.querySelector('.produtosCarrinho');
+    const plataforma = document.querySelector('#plataforma-input')
+    const total = form.querySelector('#total');
+    const mensagem = document.querySelector('#message');
+}
+
 const formSerch = document.querySelector('#serch');
-const plataforma = document.querySelector('#plataforma-input')
+
 
 //Parametros
 const descontoInput = form.querySelector('#input-desconto');

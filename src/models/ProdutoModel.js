@@ -30,6 +30,28 @@ Produto.prototype.setId = function(id){
     this.body.id = Number.parseInt(id);
 }
 
+Produto.prototype.getByFieldValue = async function(field, value){
+    const cmd_search = `SELECT * FROM produto WHERE ${field} LIKE('%${value}%')`;
+    try{
+        const [rows] = await db.connection.query(cmd_search);
+        console.log('DATA:', rows);
+        return rows;
+    }catch(ex){
+        console.log('Campo desconhecido', ex.message);
+    }
+}
+
+Produto.prototype.getProdutoByPrice = async function(inicial, final){
+    const cmd_search = `SELECT * FROM produto WHERE preco >= ? AND preco <= ? `;
+    try{
+        const [rows] = await db.connection.query(cmd_search, [inicial, final]);
+        console.log('DATA:', rows);
+        return rows;
+    }catch(ex){
+        console.log('Erro na consulta de produtos por preço', ex.message);
+    }
+}
+
 Produto.prototype.getPlataforma = async function(){
     const [rows, fields] = await db.connection.query('SELECT DISTINCT plataforma FROM produto')
     const plataformas = [];
@@ -39,10 +61,23 @@ Produto.prototype.getPlataforma = async function(){
     return plataformas;
 }
 
+Produto.prototype.getTipo = async function(){
+    const [rows] = await db.connection.query('SELECT DISTINCT tipo FROM produto')
+    const tipos = [];
+    rows.forEach(element => {
+        tipos.push(element.tipo);
+    });
+    return tipos;
+}
+
 Produto.prototype.getProdutos = async function(){
     const cmd_select = `SELECT * FROM produto`;
-    const [rows, fields] = await db.connection.query(cmd_select);
-    return rows;
+    try{
+        const [rows] = await db.connection.query(cmd_select);
+        return rows;
+    }catch(ex){
+        console.log('Ocorreu um erro na consulta de Produtos',ex.message);
+    }
 }
 
 Produto.prototype.getByID = async function(id){

@@ -52,35 +52,77 @@
 
     <div class="container">
         <!--DIV filtro, input e button-->
-        <hr class="my-4" style="color:white;">
-        <div class="row align-items-start">
-            <div class="col">
-                <select class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-                    <option selected>Filtrar</option>
-                    <option value="1">ID</option>
-                    <option value="2">Nome</option>
-                    <option value="3">Plataforma</option>
-                    <option value="4">Tipo</option>
-                    <option value="5">Preço</option>
-                    <option value="6">Quantidade</option>
+        <h1 class="display-5 my-3">Produtos</h1>
+        <form id="serchProduto" class="row align-items-start">
+            <div class="col-3">
+                <select id="serchBy" name="serchBy" class="form-control" type="text">
+                    <option selected value="id_produto">ID</option>
+                    <option value="nome">Nome</option>
+                    <option value="plataforma">Plataforma</option>
+                    <option value="tipo">Tipo</option>
+                    <option value="preco">Faixa de Preço</option>
                 </select>
             </div>
-            <div class="col">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="" aria-label="Username"
-                        aria-describedby="basic-addon1">
+            <div class="col-4">
+              <div class="row" id="id-name">
+                <div class="col-10 mb-3">
+                  <input name="value" type="text" class="form-control">
                 </div>
+              </div>
+
+                <div hidden class="row" id="plataform">
+                  <div class="col-10 mb-3">
+                    <select name="plataforma" class="form-control" type="text">
+                      <option selected value="id_produto">ID</option>
+                      <option value="nome">Nome</option>
+                      <option value="plataforma">Plataforma</option>
+                      <option value="tipo">Tipo</option>
+                      <option value="preco">Faixa de Preço</option>
+                  </select>
+                  </div>
+                </div>
+
+                <div hidden class="row" id="type">
+                  <div class="col-10 mb-3">
+                    <select name="tipo" class="form-control" type="text">
+                      <option selected value="id_produto">ID</option>
+                      <option value="nome">Nome</option>
+                      <option value="plataforma">Plataforma</option>
+                      <option value="tipo">Tipo</option>
+                      <option value="preco">Faixa de Preço</option>
+                  </select>
+                  </div>
+                </div>
+
+              <div hidden class="row" id="prices">
+                <div class="col-5 mb-3">
+                  <div class="input-group" >
+                    <span class="input-group-text">R$</span>
+                    <input name="precoInicial" type="text" class="form-control" >
+                  </div> 
+                </div>
+                <div class="col-2 text-center my-auto">até</div>
+                <div class="col-5 mb-3">
+                  <div class="input-group" >
+                    <span class="input-group-text">R$</span>
+                    <input name="precoFinal" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" >
+                  </div>
+                </div>
+            </div>
             </div>
             <div class="col">
                 <div class="d-grid gap-1 col-5 mx-auto">
-                    <button class="btn btn-danger" type="button">Buscar</button>
+                    <button class="btn btn-danger" type="button">
+                      <span style="font-size: 12pt;"><i class="fas fa-angle-double-right"></i></span>        
+                      Buscar
+                    </button>
                 </div>
             </div>
-        </div>
+          </form>
 
-        <div class="overflow-scroll" style=" height: 400px;"> 
+        <div class="overflow-auto" style=" height: 400px;"> 
             <table class="table table-bordered" >
-              <thead class="table" style="background-color: tomato;">
+              <thead class="table thead-fixo" style="background-color: tomato;">
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Nome</th>
@@ -88,10 +130,10 @@
                   <th scope="col">Tipo</th>
                   <th scope="col">Preço</th>
                   <th scope="col">Quantidade</th>
-                  
+                  <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="table" class="text-center">
                 <tr>
                   <th scope="row">82</th>
                   <td>Halo 2</td>
@@ -99,14 +141,13 @@
                   <td>Jogo</td>
                   <td>R$200,14</td>
                   <td>44</td>
-                  <td>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <button type="button" class="btn btn-warning">editar</button>
-                    </div>
-                    </div>
+                  <td>       
+                      <a class="d-grid mx-auto col-8 text-decoration-none " href="<%- link %>">
+                        <button type="button" class="btn btn-secondary btn-sm">Editar</button>
+                      </a>                
                   </td>
                 </tr>
+
                 <tr>
                   <th scope="row">75</th>
                   <td>Halo 3</td>
@@ -231,6 +272,8 @@
             </table>
             </div>
     </div>
+
+        <script src="../js/produtos.js"></script>
 
         <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="plugins/fontawesome/js/all.min.js"></script>
