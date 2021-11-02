@@ -10,6 +10,7 @@ const vendaController = require('./src/controllers/vendaController');
 const editarController = require('./src/controllers/editarController')
 const detailController = require('./src/controllers/detailsController');
 const produtosController = require('./src/controllers/produtosController');
+const dashBordController = require('./src/controllers/dashbordController');
 
 router.get('/', homeController.index);
 //Login
@@ -50,6 +51,8 @@ router.get('/detalhe-venda/:id', detailController.index);
 router.get('/produtos', produtosController.index);
 router.post('/produtoSearch', produtosController.search);
 router.post('/produtoPriceSearch', produtosController.searchPrices);
+//DashBord
+router.get('/dashbord/venda', dashBordController.venda);
 
 router.get('/404', (req, res)=>{
     res.render('404')

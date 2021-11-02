@@ -44,7 +44,7 @@ Produto.prototype.create = async function(){
             [this.body.nome,this.body.tipo,this.body.plataforma,
                 this.body.estoque,this.body.preco,this.body.descricao]);
         if(result[0].affectedRows === 1){
-                console.log('Cliente Adicionado com sucesso!');
+                console.log('Produto Adicionado com sucesso!');
         }else{
                 this.erros.push('Estamos com instabilidade, o cliente não foi adicionado');
                 return

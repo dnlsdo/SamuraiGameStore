@@ -50,7 +50,6 @@ exports.orderClientes = async (req, res) =>{
         return obj;
     });
 
-    console.log('Result =>', result);
     return res.status(200).json(result);
 
 }
@@ -78,7 +77,6 @@ exports.orderFuncionario = async (req, res) =>{
             break;
     }
 
-    console.log('Result =>', result);
     return res.status(200).json(result);
 
 }
@@ -111,7 +109,6 @@ exports.orderVenda = async (req, res) =>{
         return obj;
     });
 
-    console.log('Result =>', result);
     return res.status(200).json(result);
 
 }

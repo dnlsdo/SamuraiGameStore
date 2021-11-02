@@ -14,7 +14,6 @@
     <a href="/user" class="col-3 usuario">
         <span id="icon"><i  class="far fa-user-circle"></i></span>
         <% if(user){
-            console.log(user);
             let firstName = user.nome.split(' ')[0];
         %>
           <div id="welcome">Olá <%= firstName %> </div>

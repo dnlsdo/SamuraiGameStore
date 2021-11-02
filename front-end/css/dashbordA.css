@@ -1,0 +1,75 @@
+.grid-parent{
+    padding: 15px 50px;
+    height: 82%;
+    background-color: #dfdfdf;
+    
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-auto-rows: minmax(150px, auto);
+    grid-template-rows: 1fr 4fr;
+    row-gap: 10px;
+    column-gap: 90px;
+
+    grid-template-areas: 
+    "sidebar header"
+    "sidebar content";
+
+    align-content: center;
+}
+
+.nav-grid{
+    background-color: rgb(255, 255, 255);
+    grid-area: sidebar;
+    border-radius: 5px;
+}
+
+.values-grid{
+    grid-area: header;
+    display: flex;
+    justify-content: space-around;
+
+    background-color: #dfdfdf;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.chart-grid{
+    background-color: white;
+    grid-area: content;
+    border-radius: 5px;
+    padding: 15px;
+
+}
+
+.grid-item{
+    border: 2px solid rgb(206, 206, 206);
+    padding: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+
+.box{
+    border-radius: 10px;
+    border: 2px solid rgb(206, 206, 206);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    
+    background-color: white;
+    max-width: 20%;
+}
+
+.box-header{
+    text-align: center;
+    background-color: rgb(189, 72, 72);
+    border-radius: 6px 6px 0px 0px;
+}
+.box-content{
+    padding: 12px 0;
+    text-align: center;
+}
+
+.container-chart{
+    position: relative;
+    margin:auto;
+    height: 400px;
+    width: 800px;
+}

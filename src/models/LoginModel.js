@@ -96,7 +96,6 @@ Login.prototype.alter = async function(){
         
        
     if(this.erros.length > 0) return
-    console.log(cmd_put);
     try{
         const result = await db.connection.query(cmd_put);
     }
