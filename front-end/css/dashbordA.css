@@ -1,6 +1,6 @@
 .grid-parent{
     padding: 15px 50px;
-    height: 82%;
+    
     background-color: #dfdfdf;
     
 
@@ -63,8 +63,8 @@
     border-radius: 6px 6px 0px 0px;
 }
 .box-content{
-    padding: 12px 0;
     text-align: center;
+    padding-top: 1vw;
 }
 
 .container-chart{

@@ -78,6 +78,45 @@ Venda.prototype.productsDetails = async function(){
         console.log('Erro na consulta do banco', ex.message);
     }
 }
+// Get Informações como Quantidade de Clientes, Produto mais vendido e total vendido no mês
+Venda.prototype.GeneralInfo = async function(){
+    const now =  new Date().toISOString();
+    const cmd_info1 =  "SELECT COUNT(DISTINCT id_cliente) as maxCliente, SUM(valor) as totalVendido FROM venda WHERE DATE_FORMAT(`data`, '%m/%Y') = DATE_FORMAT(?, '%m/%Y')";
+    const cmd_info2 = "SELECT produto.nome as produto FROM venda  JOIN produto ON venda.id_produto = produto.id_produto  WHERE DATE_FORMAT(`data`, '%m/%Y') = DATE_FORMAT(?, '%m/%Y') GROUP BY venda.id_produto ORDER BY SUM(venda.quantidade) DESC LIMIT 1"
+    let result = {};
+    try{
+        let [info1] = await db.connection.query(cmd_info1, [now]);
+        let [info2] = await db.connection.query(cmd_info2, [now]);
+        const temp1 = JSON.parse(JSON.stringify(info1[0]))
+        const temp2 = JSON.parse(JSON.stringify(info2[0]));
+        result = Object.assign(temp1, temp2);
+
+    }catch(ex){
+        console.log('ERRO NO BANCO - falha ao pegar informações gerais2', ex.message);
+    }
+    console.log('Result:',result);
+    return result;
+}
+
+Venda.prototype.ComparativeYear = async function(){
+    const now =  new Date().getFullYear();
+    const cmd_year = "SELECT SUM(valor) as total FROM VENDA WHERE YEAR(venda.data) = ? group by MONTH(venda.data)";
+    let result = {actual:[], past:[]};
+    try{
+        let [year1] = await db.connection.query(cmd_year, [now]);
+        let [year2] = await db.connection.query(cmd_year, [now - 1]);
+        const temp1 = JSON.parse(JSON.stringify(year1));
+        const temp2 = JSON.parse(JSON.stringify(year2));
+        temp1.forEach( item =>result.actual.push(item.total));
+        temp2.forEach( item =>result.past.push(item.total));
+
+        console.log('Resul:', temp1);
+    }catch(ex){
+        console.log('ERRO NO BANCO - falha ao pegar dados do ano', ex.message);
+    }
+    console.log('YEAR:',result);
+    return result;
+}
 
 Venda.prototype.allVendas = async function(){
     const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
