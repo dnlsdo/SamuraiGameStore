@@ -1,8 +1,7 @@
 .grid-parent{
     padding: 15px 50px;
-    
     background-color: #dfdfdf;
-    
+
 
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -16,6 +15,9 @@
     "sidebar content";
 
     align-content: center;
+}
+.height82{
+    height: 82%;
 }
 
 .nav-grid{
@@ -38,8 +40,14 @@
     grid-area: content;
     border-radius: 5px;
     padding: 15px;
-
 }
+.chart-grid-complete{
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    grid-row: 1/3;
+}
+
 
 .grid-item{
     border: 2px solid rgb(206, 206, 206);
