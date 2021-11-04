@@ -8,7 +8,7 @@ exports.middlewareGlobal = (req, res, next) => {
 
 exports.loginRequired= (req, res, next) =>{
   if(!req.session.user) {
-    res.redirect('/403');
+    res.status(403).render('403');
     return
   }
   next();

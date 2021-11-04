@@ -1,0 +1,83 @@
+<%- include('./includes/head') %>
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+
+
+<main class="grid-parent height82">
+    <div class="grid-item nav-grid">
+        <ul class="nav flex-column nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="/dashbord/venda">Venda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashbord/categoria">Categoria</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Vendedores</a>
+            </li>
+          </ul>
+    </div>
+
+    <div class="grid-item chart-grid-complete">
+        <div class="container-chart">
+            <canvas id="chart-venda"></canvas>
+        </div>
+    </div>
+
+</main>
+<script src="/plugins/chart.js-3.6.0/package/dist/chart.js"></script>
+<script>
+    const canvas = document.querySelector('#chart-venda').getContext('2d');
+    const valores = [];
+    const vendedores = '<%= data.vendedores %>'.split(',');
+    const temp = '<%= data.vendas %>'.split(',');
+    temp.forEach( venda =>{
+            const temp = Number.parseFloat(venda);
+            valores.push(temp.toFixed(2)) 
+        });
+        console.log(temp);
+        const chart = new Chart(canvas, {
+        type: 'bar',
+        data:{
+            labels: vendedores,
+            datasets:[{
+                label:'Vendas 2021',
+                data: valores,
+                backgroundColor: ['#F2C879', '#D95F43','#A61F1F','#0D0D0D','#F2C879', '#D95F43','#A61F1F','#0D0D0D','#F2C879', '#D95F43','#A61F1F','#0D0D0D','#F2C879', '#D95F43','#A61F1F','#0D0D0D'],
+            }]
+        },
+        options:{
+            animation:{
+                duration : 1000,
+                easing: 'easeOutQuad'
+            },
+            layout:{
+                padding: {
+                    top: 35,
+                }
+            },
+            scales:{
+                yAxis:{
+                    ticks:{
+                        font:{
+                            size:12
+                        }
+                    }
+                }
+            },
+            plugins:{
+                legend:{
+                    display: false,
+                },
+                title:{
+                    display: true,
+                    text:'Vendas por vendedor no mês',
+                    font:{
+                        size: 14
+                    }
+                },
+            }
+        }
+    });
+</script>
+<%- include('./includes/footer') %> 

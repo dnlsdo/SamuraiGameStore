@@ -1,4 +1,16 @@
-<%- include('./includes/head') %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/cadas.css">
+  <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+  
+  <title>Samurai Games Store</title>
+</head>
+<body>
 <%- include('./includes/menu') %>
 <%- include('./includes/nav') %>
 
@@ -48,7 +60,7 @@
                     <label for="qtd-input" class="col-form-label">Quantidade:</label>
                 </div>
                 <div class="col-auto">
-                    <input name="qtd" type="number" id="qtd-input"  class="form-control" required>
+                    <input name="estoque" type="number" id="qtd-input"  class="form-control" required>
                 </div>
                 <div class="col-auto">
                     <label for="preco-input" class="col-form-label">Preço:</label>

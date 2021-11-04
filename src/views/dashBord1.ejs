@@ -1,0 +1,120 @@
+<%- include('./includes/head') %>
+<%- include('./includes/menu') %>
+<%- include('./includes/nav') %>
+<% if(data){
+    const tempActual = data.actual;
+    const tempast = data.past;
+} %> 
+
+
+<main class="grid-parent">
+    <div class="grid-item nav-grid">
+        <ul class="nav flex-column nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Venda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashbord/categoria">Categoria</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashbord/funcionario">Vendedores</a>
+            </li>
+          </ul>
+    </div>
+    <div class="values-grid">
+        <% if(info){ %> 
+        <div class="box">
+            <div class="box-header">
+                CLIENTES
+            </div>
+            <div class="box-content h4">
+                <%- info.maxCliente %> 
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header">
+                Mais vendido
+            </div>
+            <div class="box-content">
+                <%- info.produto.slice(0, 40); %>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header">
+                TOTAL
+            </div>
+            <div class="box-content h4">
+                R$ <%- info.totalVendido.toFixed(2); %> 
+            </div>
+        </div>
+        <% } %> 
+    </div>
+    <div class="grid-item chart-grid">
+        <div class="container-chart">
+            <canvas id="chart-venda"></canvas>
+        </div>
+    </div>
+
+</main>
+<script src="/plugins/chart.js-3.6.0/package/dist/chart.js"></script>
+<script>
+    const canvas = document.querySelector('#chart-venda').getContext('2d');
+    const tempActual = "<%= data.actual %>";
+    const tempPast = "<%= data.past %>";
+    const actual = [];
+    const past = [];
+    tempActual.split(',').forEach( item => {
+        const value = Number.parseFloat(item);
+        actual.push(value.toFixed(2));
+    })  
+    tempPast.split(',').forEach( item => {
+        const value = Number.parseFloat(item);
+        past.push(value.toFixed(2));
+    });
+
+    console.log('Atual',actual);
+    console.log('past', past);
+
+    const chart = new Chart(canvas, {
+        type: 'line',
+        data:{
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun','Jul','Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            datasets:[{
+                label:'Vendas 2021',
+                data: actual,
+                borderWidth: 6,
+                borderColor: 'rgba(77,166,253, 0.85)',
+                backgroundColor: 'transparent',
+                tension: 0.4
+            },
+            {
+                label:'Vendas 2020',
+                data: past,
+                borderWidth: 6,
+                borderColor: 'rgba(230, 153, 52, 0.85)',
+                backgroundColor: 'transparent',
+                tension: 0.4
+            }],
+
+        },
+        options:{
+            animation:{
+                duration : 1000,
+                easing: 'easeOutQuad'
+            },
+            plugins:{
+                legend:{
+                    position: 'bottom'
+                },
+                title:{
+                    display: true,
+                    text:'Comparação de Vendas por mês',
+                    font:{
+                        size: 14
+                    }
+                }
+            }
+        }
+    });
+</script>
+<%- include('./includes/footer') %> 

@@ -96,7 +96,6 @@ Login.prototype.alter = async function(){
         
        
     if(this.erros.length > 0) return
-    console.log(cmd_put);
     try{
         const result = await db.connection.query(cmd_put);
     }
@@ -104,6 +103,29 @@ Login.prototype.alter = async function(){
     //Retirar Senha do body para não aparacer no usuario de sessao
     if(!this.body.passoword) delete this.body.passowrd;
     Object.assign(this.user, this.body);
+}
+
+Login.prototype.comparativeVendedores = async function(){
+    const result = {vendedores: [], vendas: []}; 
+    const now = new Date().toISOString();
+    const cmd_vendas = `SELECT u.nome as vendedor, SUM(v.valor) as venda
+    FROM venda as v
+    INNER JOIN usuario as u
+    ON v.id_vendedor = u.id_usuario
+    WHERE DATE_FORMAT(v.data, '%m/%Y') = DATE_FORMAT(?, '%m/%Y')
+    GROUP BY v.id_vendedor;`
+
+    try{
+        const [rows] = await db.connection.query(cmd_vendas, [now]);
+        const temp = JSON.parse(JSON.stringify(rows));
+        temp.forEach( item =>{
+            result.vendedores.push(item.vendedor)
+            result.vendas.push(item.venda);
+        });
+        return result;
+    }catch(ex){
+        console.log('Erro na consulta dos dados comparativos', ex.message);
+    }
 }
 
 Login.prototype.getByID = async function(){
