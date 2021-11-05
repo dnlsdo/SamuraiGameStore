@@ -1,3 +1,5 @@
+
+
 <!-- Menu Lateral -->
 <input type="checkbox" id="chec">
 <label for="chec" class="control-menu">
@@ -9,11 +11,15 @@
     <ul>
       <li><a href="/">HOME</a></li>
       <li><a href="/login">LOGIN</a></li>
-      <li><a href="/vendas">VENDAS</a></li>
-      <li><a href="/cadastro/cliente">CADASTROS</a></li>
-      <li><a href="/relatorio/venda">RELATÓRIOS</a></li>
-      <li><a href="/produtos">PRODUTOS</a></li>
-      <li><a href="/dashbord/venda">DASHBOARD</a></li>
+      <% if(acesso < 2){ %>
+        <li><a href="/vendas">VENDAS</a></li>
+        <li><a href="/cadastro/cliente">CADASTROS</a></li>
+        <li><a href="/produtos">PRODUTOS</a></li>
+      <% } %>
+      <% if(acesso < 1){ %>
+        <li><a href="/relatorio/venda">RELATÓRIOS</a></li>
+        <li><a href="/dashbord/venda">DASHBOARD</a></li>
+      <% } %>
     </ul>
 
   </nav>
