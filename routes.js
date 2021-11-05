@@ -54,7 +54,7 @@ router.post('/produtoPriceSearch', produtosController.searchPrices);
 //DashBord
 router.get('/dashbord/venda', dashBordController.venda);
 router.get('/dashbord/funcionario', dashBordController.funcionario);
-
+router.get('/dashbord/categoria', dashBordController.categoria);
 
 router.get('/404', (req, res)=>{
     res.render('404')
