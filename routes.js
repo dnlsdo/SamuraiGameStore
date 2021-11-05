@@ -20,45 +20,42 @@ router.post('/login/login', loginController.login);
 router.get('/user', middleware.loginRequired, userController.index);
 router.post('/user/alter', middleware.loginRequired, loginController.alter);
 //Cadastros
-router.get('/cadastro/funcionario', middleware.loginRequired, cadastroController.funcionario);
-router.post('/cadastro/funcionario', middleware.loginRequired, loginController.create);
+router.get('/cadastro/funcionario', middleware.adminRequired, cadastroController.funcionario);
+router.post('/cadastro/funcionario', middleware.adminRequired, loginController.create);
 router.get('/cadastro/cliente',  middleware.loginRequired, cadastroController.cliente);
 router.post('/cadastro/cliente', middleware.loginRequired, cadastroController.createCliente);
-router.get('/cadastro/produto', cadastroController.produto);
-router.post('/cadastro/produto', cadastroController.createProduto);
+router.get('/cadastro/produto', middleware.adminRequired, cadastroController.produto);
+router.post('/cadastro/produto', middleware.adminRequired, cadastroController.createProduto);
 //Vendas
 router.get('/vendas', middleware.loginRequired, vendaController.index);
 router.post('/vendas', middleware.loginRequired, vendaController.create);
 
-router.get('/search/:produto', vendaController.serch); 
+router.get('/search/:produto', middleware.loginRequired, vendaController.serch); 
 //Relatórios
-router.get('/relatorio/cliente', relatorioController.showClientes);
-router.get('/relatorio/cliente/:order', relatorioController.orderClientes);
-router.get('/relatorio/funcionario', relatorioController.showFuncionario);
-router.get('/relatorio/funcionario/:order', relatorioController.orderFuncionario);
-router.get('/relatorio/venda', relatorioController.showVenda);
-router.get('/relatorio/venda/:order', relatorioController.orderVenda);
+router.get('/relatorio/cliente', middleware.adminRequired, relatorioController.showClientes);
+router.get('/relatorio/cliente/:order', middleware.adminRequired, relatorioController.orderClientes);
+router.get('/relatorio/funcionario', middleware.adminRequired, relatorioController.showFuncionario);
+router.get('/relatorio/funcionario/:order', middleware.adminRequired, relatorioController.orderFuncionario);
+router.get('/relatorio/venda', middleware.adminRequired, relatorioController.showVenda);
+router.get('/relatorio/venda/:order', middleware.adminRequired, relatorioController.orderVenda);
 //EDIÇÃO
-router.get('/editar/cliente/:id', editarController.editClienteIndex);
-router.post('/editar/cliente/:id', editarController.editCliente);
-router.get('/editar/funcionario/:id', editarController.editFuncionarioIndex);
-router.post('/editar/funcionario/:id', editarController.editFuncionario);
-router.get('/editar/produto/:id', editarController.editProdutoIndex);
-router.post('/editar/produto/:id', editarController.editProduto);
+router.get('/editar/cliente/:id', middleware.adminRequired, editarController.editClienteIndex);
+router.post('/editar/cliente/:id', middleware.adminRequired, editarController.editCliente);
+router.get('/editar/funcionario/:id', middleware.adminRequired, editarController.editFuncionarioIndex);
+router.post('/editar/funcionario/:id', middleware.adminRequired, editarController.editFuncionario);
+router.get('/editar/produto/:id', middleware.adminRequired, editarController.editProdutoIndex);
+router.post('/editar/produto/:id', middleware.adminRequired, editarController.editProduto);
 //Detelhe Venda
-router.get('/detalhe-venda/:id', detailController.index);
+router.get('/detalhe-venda/:id', middleware.loginRequired, detailController.index);
 //Produtos
-router.get('/produtos', produtosController.index);
-router.post('/produtoSearch', produtosController.search);
-router.post('/produtoPriceSearch', produtosController.searchPrices);
+router.get('/produtos', middleware.loginRequired, produtosController.index);
+router.post('/produtoSearch', middleware.loginRequired, produtosController.search);
+router.post('/produtoPriceSearch', middleware.loginRequired, produtosController.searchPrices);
 //DashBord
-router.get('/dashbord/venda', dashBordController.venda);
-router.get('/dashbord/funcionario', dashBordController.funcionario);
+router.get('/dashbord/venda', middleware.adminRequired, dashBordController.venda);
+router.get('/dashbord/funcionario', middleware.adminRequired, dashBordController.funcionario);
+router.get('/dashbord/categoria', middleware.adminRequired, dashBordController.categoria);
 
-
-router.get('/404', (req, res)=>{
-    res.render('404')
-});
 router.get('/403', (req, res) =>{
     res.render('403')
 })

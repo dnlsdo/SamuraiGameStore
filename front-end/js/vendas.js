@@ -78,7 +78,7 @@ function insertInLine(obj){
     insertInCol(obj.nome, tr);
     insertInCol(obj.plataforma, tr);
     insertInCol(obj.tipo, tr);
-    insertInCol(obj.preco, tr);
+    insertInCol(obj.preco.toFixed(2), tr);
     insertInCol(obj.estoque, tr);
     return tr;
 }

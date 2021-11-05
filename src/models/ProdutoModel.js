@@ -75,6 +75,30 @@ Produto.prototype.alter = async function(){
     }
 }
 
+Produto.prototype.comparativeTipo = async function(){
+    const result = {tipos: [], vendas: []}; 
+    const now = new Date().toISOString();
+    const cmd_tipo = `SELECT p.tipo as tipo, SUM(v.valor) as total 
+    FROM venda as v
+    INNER JOIN produto as p
+    ON p.id_produto = v.id_produto
+    WHERE DATE_FORMAT(v.data, '%m/%Y') = DATE_FORMAT(?, '%m/%Y')
+    GROUP BY p.tipo; `
+
+    try{
+        const [rows] = await db.connection.query(cmd_tipo, [now]);
+        const temp = JSON.parse(JSON.stringify(rows));
+        temp.forEach( item =>{
+            result.tipos.push(item.tipo)
+            result.vendas.push(item.total);
+        });
+        console.log(result);
+        return result;
+    }catch(ex){
+        console.log('Erro na consulta dos dados comparativos', ex.message);
+    }
+}
+
 Produto.prototype.getByFieldValue = async function(field, value){
     const cmd_search = `SELECT * FROM produto WHERE ${field} LIKE('%${value}%')`;
     try{

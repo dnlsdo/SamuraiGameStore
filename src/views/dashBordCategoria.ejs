@@ -10,16 +10,16 @@
               <a class="nav-link" href="/dashbord/venda">Venda</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/dashbord/categoria">Categoria</a>
+              <a class="nav-link active" href="/dashbord/categoria">Categoria</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">Vendedores</a>
+              <a class="nav-link" href="/dashbord/funcionario">Vendedores</a>
             </li>
           </ul>
     </div>
 
-    <div class="grid-item chart-grid-complete">
-        <div class="container-chart-vendedores">
+    <div class="grid-item chart-grid-complete-pie">
+        <div class="container-chart-pie">
             <canvas id="chart-venda"></canvas>
         </div>
     </div>
@@ -29,54 +29,59 @@
 <script>
     const canvas = document.querySelector('#chart-venda').getContext('2d');
     const valores = [];
-    const vendedores = '<%= data.vendedores %>'.split(',');
+    const tipos = '<%= data.tipos %>'.split(',');
     const temp = '<%= data.vendas %>'.split(',');
-    temp.forEach( venda =>{
-            const temp = Number.parseFloat(venda);
-            valores.push(temp.toFixed(2)) 
-        });
-        console.log(temp);
+    temp.forEach( item =>{
+        const value = Number.parseFloat(item).toFixed(2);
+        valores.push(value);
+    })
         const chart = new Chart(canvas, {
-        type: 'bar',
+        type: 'doughnut',
         data:{
-            labels: vendedores,
+            labels: tipos,
             datasets:[{
-                label:'Vendas 2021',
+                label:'Categoria:',
                 data: valores,
                 backgroundColor: ['#F2C879', '#D95F43','#A61F1F','#0D0D0D','#F2C879', '#D95F43','#A61F1F','#0D0D0D','#F2C879', '#D95F43','#A61F1F','#0D0D0D','#F2C879', '#D95F43','#A61F1F','#0D0D0D'],
-            }]
+                hoverOffset: 10
+            }],
         },
         options:{
+            scales:{
+                y:{
+                    ticks:{
+                        display:false
+                    },
+                    grid:{
+                        display:true,
+                        drawTicks: false,
+                        offset: true,
+                        drawBorder: false,
+                    }
+                },
+            },
             animation:{
                 duration : 1000,
-                easing: 'easeOutQuad'
-            },
-            layout:{
-                padding: {
-                    top: 35,
-                }
+                easing: 'easeOutCirc'
             },
             plugins:{
-                legend:{                 
-                    display: false,
+                legend:{
+                    position:'top',
+                labels:{
+                    font:{
+                        size:16
+                    }
                 },
                 title:{
                     display: true,
-                    text:'Vendas por vendedor no mês',
+                    text:'Comparação de Vendas por Cartegoria',
                     font:{
-                        size: 14
+                        size: 16
                     }
-                },
+                }
             },
-            scales:{
-                x:{
-                    ticks:{
-                        font:{
-                            size:14
-                        }
-                    }
-                },
             }
+           
         }
     });
 </script>
