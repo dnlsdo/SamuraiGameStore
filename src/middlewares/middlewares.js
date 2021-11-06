@@ -8,6 +8,7 @@ exports.middlewareGlobal = (req, res, next) => {
     }else{
       res.locals.acesso = 2;
     }
+    
     next();
   };
 
@@ -19,7 +20,7 @@ exports.loginRequired= (req, res, next) =>{
   next();
 }
 exports.adminRequired = (req, res, next)=>{
-  if(!req.session.user || !req.session.acesso !== 0){
+  if(!req.session.user || req.session.user.acesso !== 0){
     res.status(403).render('403');
     return
   }

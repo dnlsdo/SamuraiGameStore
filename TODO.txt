@@ -71,9 +71,9 @@ Produto
 |=-=-=-=-=-=-=-=-=-=-=-= TO DO =-=-=-=-=-=-=-=-=-=-=-=-=|
 |1. Gerar JSON XML                                      |
 |2. Produto Relatório (amarelo caso em falta)  [FEITO]  |
-|3. Gráfico                                             |
+|3. Gráfico     [Feito]                                 |
 |4. Limpeza de BUGS                                     |
-|5. Bloquear links para usuários vendedor               |
+|5. Bloquear links para usuários vendedor    [Feito]    |
 |=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-|
 
 MINHAS QUERYS

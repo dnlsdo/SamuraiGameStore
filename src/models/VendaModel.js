@@ -24,7 +24,7 @@ Venda.prototype.create = async function(){
         const produto = new Produto();
 
         //Subtrai a quantidade vendida de cada item da tabela produto
-        await produto.subtractItens(this.itens);
+        await produto.subtractAll(this.itens);
         if(produto.erros.length > 0) return this.erros.push(produto.erros[0]);
     
         //Cria INSERT de multiplas linhas com os itens
@@ -110,7 +110,6 @@ Venda.prototype.ComparativeYear = async function(){
         temp1.forEach( item =>result.actual.push(item.total));
         temp2.forEach( item =>result.past.push(item.total));
 
-        console.log('Resul:', temp1);
     }catch(ex){
         console.log('ERRO NO BANCO - falha ao pegar dados do ano', ex.message);
     }
