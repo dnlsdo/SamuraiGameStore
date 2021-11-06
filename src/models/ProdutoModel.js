@@ -92,7 +92,6 @@ Produto.prototype.comparativeTipo = async function(){
             result.tipos.push(item.tipo)
             result.vendas.push(item.total);
         });
-        console.log(result);
         return result;
     }catch(ex){
         console.log('Erro na consulta dos dados comparativos', ex.message);

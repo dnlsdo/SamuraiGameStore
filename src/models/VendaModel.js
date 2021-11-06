@@ -110,7 +110,6 @@ Venda.prototype.ComparativeYear = async function(){
         temp1.forEach( item =>result.actual.push(item.total));
         temp2.forEach( item =>result.past.push(item.total));
 
-        console.log('Resul:', temp1);
     }catch(ex){
         console.log('ERRO NO BANCO - falha ao pegar dados do ano', ex.message);
     }
