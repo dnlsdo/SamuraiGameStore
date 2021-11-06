@@ -78,7 +78,7 @@ function insertInLine(obj){
     insertInCol(obj.nome, tr);
     insertInCol(obj.plataforma, tr);
     insertInCol(obj.tipo, tr);
-    insertInCol(obj.preco.toFixed(2), tr);
+    insertInCol(obj.preco, tr);
     insertInCol(obj.estoque, tr);
     return tr;
 }
@@ -116,7 +116,8 @@ function loadVenda(){
         subtractEstoque(qtd);
 
         const item = criaItemCarrinho(id,nome,plataforma,tipo,preco,qtd);
-        itens.push(item);
+        //verifica se item já está no carrinho
+        if(!checkCarrinho(item)) itens.push(item);
         console.log(itens);
         reloadCarrinho();
     }catch(e){
@@ -142,6 +143,17 @@ function getSelectedRow(){
     });
     return tr;
 }
+//Verifica se item já exite no carrinho
+function checkCarrinho(item){
+    for (let i = 0; i < itens.length; i++) {
+        if(itens[i].id == item.id){
+            itens[i].qtdItem += item.qtdItem;
+            return true
+        }
+    }
+    return false
+}
+
 
 //Gerencia o Carrinho
 //Atauliza carrinho com base na variavel itens

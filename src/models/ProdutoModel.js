@@ -176,19 +176,32 @@ Produto.prototype.getAllAmount = async function(){
 }
 // Verifica se a quantidade de produto é menor que a que se deseja extrair, false para maior que o estoque
 Produto.prototype.checkAmount = function(id, qtd){
-    this.produtoAmount.forEach( p =>{
-        if(p.id_produto == id && p.estoque < qtd) return false;
-    })
-    return true;
+    console.log(this.produtoAmount);
+    let str = [];
+    for (let i = 0; i < this.produtoAmount.length; i++) {
+        const p = this.produtoAmount[i];
+        if(p.id_produto == id){
+            if(p.estoque < qtd) return false;
+            p.estoque -= qtd;
+            return true;
+        }
+    }
 }
 
-Produto.prototype.subtractItens = async function(itens){
+Produto.prototype.subtractAll = async function(itens){
     /*
         itens é um vetor de objeto, cada item deve ter ao menos 2 propriedades: id e qtd
         id: representa id do produto
         qtdItem: quantidade a ser subtraido
     */
+   //Verificar se é possível subrair itens sem ficar com estoque negativo
     await this.getAllAmount();
+    itens.forEach( item =>{
+        if(!this.checkAmount(item.id, item.qtdItem)) this.erros.push('Produto está fora de estoque, por favor atualize a página');
+    })
+    if(this.erros.length > 0) return;
+    
+    //Realizar a subtração dos itens
     try{
         itens.forEach(async (item) =>{
             this.setId(item.id);
@@ -201,8 +214,6 @@ Produto.prototype.subtractItens = async function(itens){
 }
 
 Produto.prototype.subtractQtd = async function(qtd){
-    if(!this.checkAmount(this.body.id, qtd)) return this.erros.push('Produto está fora de estoque, por favor atualize a página');
-
     try{
         const produt_id = this.body.id;
         const cmd_put = `UPDATE produto SET estoque = estoque - ? WHERE id_produto = ?`;

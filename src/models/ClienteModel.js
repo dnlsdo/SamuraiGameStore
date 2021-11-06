@@ -11,6 +11,7 @@ function Cliente (body){
 
         if(this.body.email){
             if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
+            this.body.email = this.body.email.toLowerCase();
         }
         if(this.body.nome){
             if(this.body.nome.length <=4) this.erros.push('Nome precisa ter mais de 4 Carácteres');
@@ -34,7 +35,7 @@ function Cliente (body){
         if(!this.body.nascimento){
              this.body.nascimento = null;
         }else{
-            this.body.nascimento = dateModel(this.body.nascimento);
+            this.body.nascimento = new Date(this.body.nascimento);
         }
         if(!this.body.email) this.body.email = null;
         
@@ -263,21 +264,21 @@ Cliente.prototype.validaCNPJ = function(cnpj){
 
 
 // Para garantir que data seja no modelo aaaa-mm-dd
-function dateModel(date){
-    let vet = [];
+// function dateModel(date){
+//     let vet = [];
 
-    if(date.indexOf('/') !== -1) vet = date.split('/');
-    else vet = date.split('-');
+//     if(date.indexOf('/') !== -1) vet = date.split('/');
+//     else vet = date.split('-');
     
-    vet.reverse();
-    return vet.join('-');
-}
+//     vet.reverse();
+//     return vet.join('-');
+// }
 
 
 
 function toUpCamelCase(str){
     let res = "";
-    const vetStr = str.split(' ');
+    const vetStr = str.toLowerCase().split(' ');
     vetStr.forEach(word => {
         res += word[0].toUpperCase() + word.slice(1) + " ";
     });

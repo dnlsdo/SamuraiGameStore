@@ -24,7 +24,7 @@ Venda.prototype.create = async function(){
         const produto = new Produto();
 
         //Subtrai a quantidade vendida de cada item da tabela produto
-        await produto.subtractItens(this.itens);
+        await produto.subtractAll(this.itens);
         if(produto.erros.length > 0) return this.erros.push(produto.erros[0]);
     
         //Cria INSERT de multiplas linhas com os itens
