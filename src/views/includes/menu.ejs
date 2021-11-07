@@ -11,11 +11,13 @@
     <ul>
       <li><a href="/">HOME</a></li>
       <li><a href="/login">LOGIN</a></li>
+      <%# Verifica se nível de acesso do usuário é de vendedor %>
       <% if(acesso < 2){ %>
         <li><a href="/vendas">VENDAS</a></li>
         <li><a href="/cadastro/cliente">CADASTROS</a></li>
         <li><a href="/produtos">PRODUTOS</a></li>
       <% } %>
+      <%# Verifica o usuário tem acesso a recursos de admin%>
       <% if(acesso < 1){ %>
         <li><a href="/relatorio/venda">RELATÓRIOS</a></li>
         <li><a href="/dashbord/venda">DASHBOARD</a></li>

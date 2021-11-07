@@ -1,38 +1,11 @@
 
 const Login = require('../models/LoginModel');
-
+//Renderiza tela de Login
 exports.index = (req, res) =>{
     if(req.session.user) req.session.destroy();
     res.render('login');
 }
-
-exports.create = async (req, res) =>{
-    // Validação de Acesso
-    const acesso = req.body.cargo === 'Gerente' ? 0 : 1;
-    req.body.acesso = acesso;
-
-    const user = new Login(req.body);
-    try{
-        await user.create();
-    }catch(e){
-        console.log('Erro ao tentar criar o usuário', e)
-    }
-    
-
-    if(user.erros.length > 0){
-        req.flash('erros', user.erros);
-        req.session.save( function(){
-            return res.redirect('back');
-        });
-        return;
-    }
-    req.flash('success', 'Usuario criado com sucesso');
-    req.session.save( function(){
-        return res.redirect('back');
-    });
-}
-
-
+// Altera Usuário logado através da tela 'Meu usuario'
 exports.alter = async (req, res) =>{
     const login = new Login(req.body);
     login.user = req.session.user;
@@ -66,7 +39,7 @@ exports.alter = async (req, res) =>{
     }); 
 }
 
-
+//Responsável por efetuar o Login e carregar a nova sessão
 exports.login = async (req, res) =>{
     const login = new Login(req.body);
     await login.login();

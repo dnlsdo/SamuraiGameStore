@@ -2,9 +2,13 @@ const db = require('../../server');
 const validator = require('validator');
 
 function Cliente (body){
+    //Body - Corpo da requisisão, receberá um objeto com os parametros
+    //Possíveis parametros: cpf, email, nome, data_nasc
     this.body = body;
+    //Responsável por acumular os erros de validação e de buscas
     this.erros = [];
 
+    //Responsável por validar campos existentes em body
     this.valida = function(){
         this.cleanUp();
         if(!this.body.cpf) return this.erros.push('Necessário informar CPF/CNPJ');
@@ -25,7 +29,7 @@ function Cliente (body){
             this.erros.push('Insira um CPF/CNPJ válidos');
         }
     }
-
+    //Responsável por formatar os dados
     this.cleanUp = function(){
         if(!this.body.nome){
             this.body.nome = null;
@@ -42,26 +46,7 @@ function Cliente (body){
         
     }
 }
-//Register vale para Venda onde caso cliente não exista criar e retornar seu ID
-
-Cliente.prototype.register = async function(){
-    this.valida();
-    if(this.erros.length >0) return
-    if(!await this.cpfExists()){
-        await this.create();
-        console.log('Cliente Criado');
-    }
-    const id = await this.getId(this.body.cpf);
-    console.log('ID DO CLIENTE: ', id.id_cliente)
-    return id.id_cliente;
-}
-
-Cliente.prototype.getId = async function(cpf){
-    const cmd_select = `SELECT id_cliente FROM cliente where cpf = ?`
-    const [rows] = await db.connection.query(cmd_select, [cpf]);
-    return rows[0];
-}
-
+// Cria o cliente
 Cliente.prototype.create = async function(){
     this.valida();
     //Verifica se há cpf informado no body
@@ -87,6 +72,20 @@ Cliente.prototype.create = async function(){
     }    
 }
 
+//Register vale para Venda onde o cliente não existe então cria e retorna seu ID
+
+Cliente.prototype.register = async function(){
+    this.valida();
+    if(this.erros.length >0) return
+    if(!await this.cpfExists()){
+        await this.create();
+        console.log('Cliente Criado');
+    }
+    const id = await this.getId(this.body.cpf);
+    console.log('ID DO CLIENTE: ', id.id_cliente)
+    return id.id_cliente;
+}
+//Altera cliente
 Cliente.prototype.alter = async function (){
     const cmd_alter = `UPDATE cliente SET nome = ?, email = ?, data_nasc = ? WHERE id_cliente = ?`
     this.valida();
@@ -99,7 +98,13 @@ Cliente.prototype.alter = async function (){
         console.log('Erro na atualização do Cliente');
     }
 }
-
+//Busca o id do cliente pelo cpf
+Cliente.prototype.getId = async function(cpf){
+    const cmd_select = `SELECT id_cliente FROM cliente where cpf = ?`
+    const [rows] = await db.connection.query(cmd_select, [cpf]);
+    return rows[0];
+}
+//Busca cliente por id
 Cliente.prototype.getClienteByID = async function(){
     const cmd_select = `SELECT id_cliente, cpf, nome, email, data_nasc FROM cliente WHERE id_cliente = ?`
     try{
@@ -109,7 +114,7 @@ Cliente.prototype.getClienteByID = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Retorna todos os clientes
 Cliente.prototype.allClientes = async function(){
     // IS NULL para deixar os nulls por ultimo
     const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
@@ -124,7 +129,7 @@ Cliente.prototype.allClientes = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Retorna todos cliente por ordem decrescente de venda
 Cliente.prototype.allClientesBySoldDesc = async function(){
     const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
     FROM cliente c
@@ -138,7 +143,7 @@ Cliente.prototype.allClientesBySoldDesc = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Retorna todos cliente por ordem de venda
 Cliente.prototype.allClientesBySold = async function(){
     const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
     FROM cliente c
@@ -152,7 +157,7 @@ Cliente.prototype.allClientesBySold = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Retorna todos cliente por ordem do mais recente a faser alguma compra
 Cliente.prototype.allClientesByRecent = async function(){
     // IS NULL para deixar os nulls por ultimo
     const cmd_all = `SELECT c.id_cliente, c.cpf, c.nome, c.email, c.data_nasc, sum(v.valor) AS totalCompra
@@ -167,7 +172,7 @@ Cliente.prototype.allClientesByRecent = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Verifica se o CPF já existe no banco
 Cliente.prototype.cpfExists = async function(){
     const cmd_exists = `SELECT cpf FROM cliente WHERE cpf = '${this.body.cpf}'`;
     const [rows] = await db.connection.query(cmd_exists);
@@ -175,7 +180,7 @@ Cliente.prototype.cpfExists = async function(){
     return false;
 }
 
-
+//Calcula CPF
 Cliente.prototype.calculaCpf = function(values){
     let max = values.length +1;
     const calc = (x) => {
@@ -197,7 +202,7 @@ Cliente.prototype.calculaCpf = function(values){
     }
     return values.slice(-2);
 }
-
+//Valida CPf
 Cliente.prototype.validaCpf = function(cpf){
     if(typeof cpf === 'number') return ;
     if(isNaN(cpf)) return false;
@@ -209,7 +214,7 @@ Cliente.prototype.validaCpf = function(cpf){
     if(temp !== digito) return false;
     return true
 }
-
+//Valida CNPJ
 Cliente.prototype.validaCNPJ = function(cnpj){
     cnpj = cnpj.replace(/[^\d]+/g,'');
  
@@ -261,21 +266,7 @@ Cliente.prototype.validaCNPJ = function(cnpj){
            
     return true;
 }
-
-
-// Para garantir que data seja no modelo aaaa-mm-dd
-// function dateModel(date){
-//     let vet = [];
-
-//     if(date.indexOf('/') !== -1) vet = date.split('/');
-//     else vet = date.split('-');
-    
-//     vet.reverse();
-//     return vet.join('-');
-// }
-
-
-
+//Formata textos para que toda primeira letra seja maiuscula
 function toUpCamelCase(str){
     let res = "";
     const vetStr = str.toLowerCase().split(' ');

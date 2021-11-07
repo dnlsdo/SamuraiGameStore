@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+//Importando todos os controladores
 const middleware = require('./src/middlewares/middlewares')
 const homeController = require('./src/controllers/homeController');
 const loginController = require('./src/controllers/loginController');
@@ -21,7 +22,7 @@ router.get('/user', middleware.loginRequired, userController.index);
 router.post('/user/alter', middleware.loginRequired, loginController.alter);
 //Cadastros
 router.get('/cadastro/funcionario', middleware.adminRequired, cadastroController.funcionario);
-router.post('/cadastro/funcionario', middleware.adminRequired, loginController.create);
+router.post('/cadastro/funcionario', middleware.adminRequired, cadastroController.createFuncionario);
 router.get('/cadastro/cliente',  middleware.loginRequired, cadastroController.cliente);
 router.post('/cadastro/cliente', middleware.loginRequired, cadastroController.createCliente);
 router.get('/cadastro/produto', middleware.adminRequired, cadastroController.produto);
@@ -29,7 +30,6 @@ router.post('/cadastro/produto', middleware.adminRequired, cadastroController.cr
 //Vendas
 router.get('/vendas', middleware.loginRequired, vendaController.index);
 router.post('/vendas', middleware.loginRequired, vendaController.create);
-
 router.get('/search/:produto', middleware.loginRequired, vendaController.serch); 
 //Relatórios
 router.get('/relatorio/cliente', middleware.adminRequired, relatorioController.showClientes);
@@ -38,6 +38,9 @@ router.get('/relatorio/funcionario', middleware.adminRequired, relatorioControll
 router.get('/relatorio/funcionario/:order', middleware.adminRequired, relatorioController.orderFuncionario);
 router.get('/relatorio/venda', middleware.adminRequired, relatorioController.showVenda);
 router.get('/relatorio/venda/:order', middleware.adminRequired, relatorioController.orderVenda);
+//JSON e XML > Requisitos de Tópicos Especiais em Desenvolvimento de Sitema
+router.get('/relatorio/xml/funcionario',relatorioController.xmlFuncionario);
+router.get('/relatorio/json/cliente',relatorioController.jsonCliente);
 //EDIÇÃO
 router.get('/editar/cliente/:id', middleware.adminRequired, editarController.editClienteIndex);
 router.post('/editar/cliente/:id', middleware.adminRequired, editarController.editCliente);
@@ -56,6 +59,7 @@ router.get('/dashbord/venda', middleware.adminRequired, dashBordController.venda
 router.get('/dashbord/funcionario', middleware.adminRequired, dashBordController.funcionario);
 router.get('/dashbord/categoria', middleware.adminRequired, dashBordController.categoria);
 
+// Erro 403 - Não autorizado
 router.get('/403', (req, res) =>{
     res.render('403')
 })

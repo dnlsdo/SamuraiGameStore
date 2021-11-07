@@ -162,7 +162,7 @@ function reloadCarrinho(){
     itens.forEach( item =>{
         const p = createItem();
         p.id = item.id;
-        p.innerText = `${item.nome.slice(0, 11)} ${item.qtdItem}X - R$${item.totalVenda()}`
+        p.innerText = `${item.nome.slice(0, 20)} ${item.qtdItem}X - R$${item.totalVenda()}`
         carrinho.appendChild(p);
     })
     reloadSutTotal();

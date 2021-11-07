@@ -2,12 +2,14 @@ const Cliente = require('../models/ClienteModel');
 const Funcionario = require('../models/LoginModel');
 const Produto = require('../models/ProdutoModel');
 
+//Renderiza tela de edição de cliente, trazendo os dados do cliente
 exports.editClienteIndex = async function(req, res){
     const cliente = new Cliente(req.params);
     await cliente.getClienteByID();
     console.log('cliente', cliente.body)
     return res.render('editarCliente', {cliente});
 }
+//Altera dados do cliente
 exports.editCliente = async function(req, res){
     const body = Object.assign(req.params, req.body);
     console.log('BODY:',body);
@@ -27,14 +29,14 @@ exports.editCliente = async function(req, res){
         return res.redirect('back');
     }); 
 }
-
+// Renderiza tela de edição de Funcionários
 exports.editFuncionarioIndex = async function(req, res){
     const body = Object.assign(req.params, req.body);
     const funcionario = new Funcionario(body);
     await funcionario.getByID();
     return res.render('editarFuncionario', {funcionario});
 }
-
+//Altera Funcionário
 exports.editFuncionario = async function(req, res){
     const body = Object.assign(req.params, req.body);
     console.log('BODY:',body);
@@ -60,7 +62,7 @@ exports.editFuncionario = async function(req, res){
         return res.redirect('back');
     }); 
 }
-
+//Renderiza editar produto
 exports.editProdutoIndex = async (req, res)=>{
     const p = new Produto();
     console.log('Params', req.params);
@@ -78,6 +80,7 @@ exports.editProdutoIndex = async (req, res)=>{
     console.log('Produtos:', produto);
     return res.render('editarProduto', {produto});
 }
+//Altera Produto
 exports.editProduto = async (req, res)=>{
     const p = new Produto(req.body);
     

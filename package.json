@@ -26,7 +26,8 @@
     "express-session": "^1.17.2",
     "mysql2": "^2.3.0",
     "promise-mysql2": "^1.0.0",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

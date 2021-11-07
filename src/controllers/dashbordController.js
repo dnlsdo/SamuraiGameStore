@@ -2,6 +2,7 @@ const Venda = require('../models/VendaModel');
 const Funcionario = require('../models/LoginModel');
 const Produto = require('../models/ProdutoModel');
 
+//Renderiza telas dos dashbords, enviando as informações para criar o gráfico
 exports.venda = async (req, res)=>{
     const v = new Venda();
     const info = await v.GeneralInfo();
