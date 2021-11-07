@@ -337,7 +337,7 @@ descontoInput.addEventListener('change', ()=>{
 
 //COMUNICAÇÃO COM O SERVIDOR
 
-// ENVIA FORMULARIO criar venda
+//Ao Buscar um criar uma venda (Fetch-API)
 formCarrinho.addEventListener('submit', async e=>{
     e.preventDefault();
     clearMessage();
@@ -362,7 +362,7 @@ formCarrinho.addEventListener('submit', async e=>{
     showMessage(data.type, data.message);
     clearForm();
 })
-//Ao Buscar um produto na serch bar
+//Ao Buscar um produto na serch bar (Fetch-API)
 formSerch.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const serchInput = formSerch.querySelector('.input-pesquisa')

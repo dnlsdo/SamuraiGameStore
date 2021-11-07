@@ -16,7 +16,7 @@ const formProduto = document.querySelector('#serchProduto');
 
 
 select.selectedIndex = 0;
-
+//Esconde todos inputs
 function hiddenAll(){
     priceBox.setAttribute('hidden', true);
     idNameBox.setAttribute('hidden', true);
@@ -24,7 +24,7 @@ function hiddenAll(){
     typeBox.setAttribute('hidden', true);
     message.setAttribute('hidden', true);
 }
-
+//Carega produtos na tabela
 function tableLoad(produtos){
     table.innerHTML = '';
     produtos.forEach( produto =>{
@@ -42,7 +42,7 @@ function tableLoad(produtos){
         table.appendChild(tr);
     })
 }
-
+//Cria um elemetno de coluna com um valor dentro
 function criaTD(content, prefix){
     let temp = '';
     if(prefix) temp = prefix.toString();
@@ -51,7 +51,7 @@ function criaTD(content, prefix){
     td.textContent = temp + content;
     return td;
 }
-
+//Cria link para editar produto
 function criaLink(id){
     const link = `/editar/produto/${id}`;
     const a = document.createElement('a');
@@ -67,8 +67,7 @@ function messageShow(mensagem){
     message.textContent = mensagem;
 }
 
-//-- Search 
-
+//Faz um request de produto por campo inserido
 async function serchOthers(inputField){
     const obj ={
         field: select.value,
@@ -87,7 +86,7 @@ async function serchOthers(inputField){
     if(result.status === 400) return messageShow('Não Encotrado Resultados');
     tableLoad(data);
 }
-
+//Faz um requeste por produtos por faixa de preços
 async function serchPrices(){
     const inicial = Number.parseFloat(priceInicial.value)
     const final = Number.parseFloat(priceFinal.value);
