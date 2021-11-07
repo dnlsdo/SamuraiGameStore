@@ -1,5 +1,5 @@
 const Venda = require('../models/VendaModel');
-
+//Renderiza tela de detlahes de venda, pelo id da venda
 exports.index = async (req, res)=>{
     
     const venda = new Venda();

@@ -3,8 +3,7 @@ const btnAlterar = document.querySelector('#btn-alterar');
 const senha = document.querySelector('#user-password');
 const senha2 = form.querySelector('#user-password2');
 
-console.log('oi')
-
+//Disponibilizar o input de senha caso o usuário deseje altera-la
 btnAlterar.addEventListener('click', function(e){
     if(btnAlterar.textContent !== 'SALVAR'){
         const allInputs = form.querySelectorAll('.blocked');

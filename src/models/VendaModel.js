@@ -1,18 +1,24 @@
 const db = require('../../server');
 const Produto = require('./ProdutoModel');
-
+/*OBS:
+Diferente dos outros models este não tem um campo body para guardas todas as variaveis da requisisão,
+foi separado cada coisa por que esse objeto é uma composisão, o que torna mais complexo
+*/
 function Venda(itens, idCliente, idVendedor){
     this.id = undefined;
+    //produtos vendidos
     this.itens = itens;
     this.cliente = {id_cliente:idCliente};
     this.vendedor = {id_usuario:idVendedor};
     this.date = new Date();
+    //Acumula os erros de validação e buscas
     this.erros = [];
-
+    //Validações
     this.valida = function(){
         if(this.itens.length === 0) return this.erros.push('Necessário Adicionar ao menos um produto');
     }
 }
+//Cria Venda
 Venda.prototype.create = async function(){
     console.log('Venda-Itens:', this.itens);
     this.valida();
@@ -25,6 +31,7 @@ Venda.prototype.create = async function(){
 
         //Subtrai a quantidade vendida de cada item da tabela produto
         await produto.subtractAll(this.itens);
+        //Se houber algum erro na subtração retornar
         if(produto.erros.length > 0) return this.erros.push(produto.erros[0]);
     
         //Cria INSERT de multiplas linhas com os itens
@@ -48,7 +55,7 @@ Venda.prototype.create = async function(){
         console.log('Erro Critico no banco de Dados: ', ex.message);
     }  
 }
-
+//Buscas detalhes gerais de uma venda
 Venda.prototype.generalDetails = async function(){
     const cmd_detail = `
     SELECT v.id_venda, v.data, Sum(v.quantidade) as quantidade, SUM(v.desconto) as desconto, SUM(v.valor) as total, u.id_usuario, u.nome as vendedor, c.cpf, c.nome as cliente
@@ -64,7 +71,7 @@ Venda.prototype.generalDetails = async function(){
         console.log('Erro na consulta do banco', ex.message);
     }
 }
-
+//Buscas produtos de uma venda realizada
 Venda.prototype.productsDetails = async function(){
     const cmd_details = `
     SELECT p.id_produto, p.nome, p.tipo, p.plataforma, v.quantidade, p.preco
@@ -97,7 +104,7 @@ Venda.prototype.GeneralInfo = async function(){
     console.log('Result:',result);
     return result;
 }
-
+//Busca os dados de venda por mês no ano vigente e passado
 Venda.prototype.ComparativeYear = async function(){
     const now =  new Date().getFullYear();
     const cmd_year = "SELECT SUM(valor) as total FROM VENDA WHERE YEAR(venda.data) = ? group by MONTH(venda.data)";
@@ -105,6 +112,7 @@ Venda.prototype.ComparativeYear = async function(){
     try{
         let [year1] = await db.connection.query(cmd_year, [now]);
         let [year2] = await db.connection.query(cmd_year, [now - 1]);
+        //Formatação do resultado
         const temp1 = JSON.parse(JSON.stringify(year1));
         const temp2 = JSON.parse(JSON.stringify(year2));
         temp1.forEach( item =>result.actual.push(item.total));
@@ -116,7 +124,7 @@ Venda.prototype.ComparativeYear = async function(){
     console.log('YEAR:',result);
     return result;
 }
-
+//Busca todas as vendas
 Venda.prototype.allVendas = async function(){
     const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
     FROM venda as v
@@ -131,7 +139,7 @@ Venda.prototype.allVendas = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Busca todas as vendas ordenda por feita recentemente
 Venda.prototype.allVendasByRecent = async function(){
     const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
     FROM venda as v
@@ -146,7 +154,7 @@ Venda.prototype.allVendasByRecent = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Busca todas as vendas por valor crescente
 Venda.prototype.allVendasByValue = async function(){
     const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
     FROM venda as v
@@ -161,7 +169,7 @@ Venda.prototype.allVendasByValue = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Busca todas as vendas por valor decrescente
 Venda.prototype.allVendasByValueDesc = async function(){
     const cmd_all = `SELECT v.id_venda, u.nome as vendedor, c.nome as cliente, v.data, SUM(v.quantidade) as quantidade, SUM(v.valor) as valorTotal
     FROM venda as v
@@ -176,14 +184,14 @@ Venda.prototype.allVendasByValueDesc = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Cria Novo id de venda
 Venda.prototype.newId = async function(){
     //TODO gerar um novo id, com base no valor máximo já existente
     const cmd_new_id = `SELECT MAX(id_venda)+1 as id FROM venda`;
     const [rows] = await db.connection.query(cmd_new_id);
     return rows[0].id;
 }
-
+//Formata data
 function dateModel(date){
     return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 }

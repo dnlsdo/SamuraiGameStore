@@ -1,6 +1,6 @@
 const orderby = document.querySelector('.orderby')
 const table = document.querySelector('.table-relatorio')
-
+//Redireciona qual tipo de dado é para ser apresentado na tabela
 function writeTable(data, tipo){
     eraseTable();   
     console.log('data:',data);
@@ -17,7 +17,7 @@ function writeTable(data, tipo){
             break;
     }
 }
-
+//Cria Linha na tabela de cliente
 function createCliente(obj){
     //Deleta a propriedade ID de Cliente
     const id = obj.id_cliente
@@ -29,7 +29,7 @@ function createCliente(obj){
     tr.appendChild(createButtonEdit(id, 'cliente'));
     table.appendChild(tr);
 }
-
+//Cria linha na tebela de funcionario
 function createFuncionario(obj){
     const id = Object.values(obj)[0];
     if(obj.totalVenda) obj.totalVenda = obj.totalVenda.toFixed(2);
@@ -38,7 +38,7 @@ function createFuncionario(obj){
     tr.appendChild(createButtonEdit(id, 'funcionario'));
     table.appendChild(tr);
 }
-
+//Cria linha na tabela de venda
 function createVenda(obj){
     const id = Object.values(obj)[0];
     obj.valorTotal = obj.valorTotal.toFixed(2);
@@ -47,7 +47,7 @@ function createVenda(obj){
     tr.appendChild(createButtonDetails(id));
     table.appendChild(tr);
 }
-
+//Popula uma linha com os paramentros de um objeto
 function createDataRow(obj){
     const tr = document.createElement('tr');
     for (const key in obj) {
@@ -57,7 +57,7 @@ function createDataRow(obj){
     }
     return tr;
 }
-
+//Cria o botado edit
 function createButtonEdit(id, tipo){             
     const a = document.createElement('a');
     const btn = document.createElement('button');
@@ -69,7 +69,7 @@ function createButtonEdit(id, tipo){
     a.appendChild(btn);
     return a;
 }
-
+//Cria o botado detalhes
 function createButtonDetails(id){             
     const a = document.createElement('a');
     const btn = document.createElement('button');
@@ -81,7 +81,7 @@ function createButtonDetails(id){
     a.appendChild(btn);
     return a;
 }
-
+//Apaga conteudo da tabela
 function eraseTable(){
     table.innerHTML = "";
 }

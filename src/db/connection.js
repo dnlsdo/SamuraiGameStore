@@ -1,7 +1,7 @@
 const mysql = require("promise-mysql2");    
 const dotenv = require('dotenv');
 dotenv.config();
-
+//Cria conexão com o Banco de dados através das váriaveis de ambiente
 async function connect(){
     if(global.connection && global.connection.state !== 'disconnected')
         return global.connection;

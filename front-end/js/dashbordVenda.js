@@ -1,1 +1,0 @@
-const canvas = document.querySelector('#chart-venda')

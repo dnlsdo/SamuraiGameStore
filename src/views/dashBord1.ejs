@@ -11,7 +11,7 @@
     <div class="grid-item nav-grid">
         <ul class="nav flex-column nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Venda</a>
+              <a class="nav-link active" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on left" aria-current="page" href="#">Venda</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/dashbord/categoria">Categoria</a>
@@ -23,7 +23,7 @@
     </div>
     <div class="values-grid">
         <% if(info){ %> 
-        <div class="box">
+        <div class="box" data-bs-toggle="tooltip" data-bs-placement="left" title="Quantidade de clientes Distintos que fizeram compra nesse mês" >
             <div class="box-header">
                 CLIENTES
             </div>
@@ -31,7 +31,7 @@
                 <%- info.maxCliente %> 
             </div>
         </div>
-        <div class="box auto-margin">
+        <div class="box auto-margin" data-bs-toggle="tooltip" data-bs-placement="top" title="Produto mais vendido no mês" >
             <div class="box-header ">
                 Mais vendido
             </div>
@@ -39,7 +39,7 @@
                 <%- info.produto.slice(0, 40); %>
             </div>
         </div>
-        <div class="box">
+        <div class="box" data-bs-toggle="tooltip" data-bs-placement="right" title="Total da venda realizada no mês" >
             <div class="box-header">
                 TOTAL
             </div>
@@ -117,5 +117,7 @@
             }
         }
     });
+    //Tooltips
+
 </script>
 <%- include('./includes/footer') %> 

@@ -1,7 +1,8 @@
 const Cliente = require('../models/ClienteModel');
 const Funcionario = require('../models/LoginModel');
 const Venda = require('../models/VendaModel');
-
+const convert = require('xml-js');
+// Renderiza Telas de relatório com seus respectivos dados
 exports.showClientes = async (req, res) =>{
     const cliente = new Cliente();
     const clientes = await cliente.allClientes();
@@ -21,7 +22,7 @@ exports.showVenda = async (req, res) =>{
 
     res.render('relatorioVenda', {vendas});
 }
-
+// Busca dados para ordenar cliente 
 exports.orderClientes = async (req, res) =>{
     const order = req.params.order;
     const cliente = new Cliente();
@@ -110,5 +111,20 @@ exports.orderVenda = async (req, res) =>{
     });
 
     return res.status(200).json(result);
+}
+// Gera XML dos dados do funcionário > Requisito de tópicos
+exports.xmlFuncionario = async (req, res) =>{
+    const funcionario = new Funcionario();
+    const data = await funcionario.allUser();
+    const body = {'Funcionario':data}
+    const result = convert.js2xml(body, { compact: true, spaces:4});
 
+    return res.send(result);
+}
+// Gera JSON dos dados de cliente > Requisito de tópicos
+exports.jsonCliente = async (req, res) =>{
+    const cliente = new Cliente();
+    const data = await cliente.allClientes();
+    
+    return res.send(data);
 }

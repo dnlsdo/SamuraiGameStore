@@ -1,12 +1,15 @@
 const db = require('../../server');
 
 function Produto(body){
+    //Body - Corpo da requisisão, receberá um objeto com os parametros
+    //Parametros esperados: nome, tipo, plataforma, descricao, preco e estoque
     this.body = body;
+    //Responsável por acumular os erros de validação e busca
     this.erros = [];
-    // id | qtd
+    // Lista de produtos id e sua quantidade (inportante para checar o processo de subtração)
     this.produtoAmount = [];
 
-    
+    //Realiza validações dos campos
     this.valida = function(){
         if(!(this.body.nome && this.body.tipo && this.body.plataforma && this.body.descricao && this.body.preco && this.body.estoque)){
             this.erros.push('Por favor preencher todos os parametros');
@@ -19,6 +22,7 @@ function Produto(body){
         if(this.body.preco < 0 || this.body.estoque <0)  this.erros.push('Valores abaixo de 0, não são permitidos')   
         
     }
+    //realiza formtação dos campos
     this.cleanUp = function(){
         this.body.nome = toUpCamelCase(this.body.nome);
         this.body.tipo = toUpCamelCase(this.body.tipo);
@@ -27,14 +31,15 @@ function Produto(body){
         this.body.estoque = Number.parseInt(this.body.estoque);
     }
 }
-
+//Seta o campo id
 Produto.prototype.setId = function(id){
     if(!this.body) this.body = {};
     this.body.id = Number.parseInt(id);
 }
-
+//Cria um produto
 Produto.prototype.create = async function(){
     this.valida();
+    //Verifica se produto já exite
     if(await this.produtoExists()) this.erros.push('Produto já está cadastrado no banco de dados');
     if(this.erros.length > 0) return
 
@@ -53,7 +58,7 @@ Produto.prototype.create = async function(){
         console.log("ERRO CRITICO NO BANCO:", ex.message);
     }
 }
-
+// Edita produto
 Produto.prototype.alter = async function(){
     this.valida();
     //TODO Produto alterado é igual a outro sem ser ele mesmo?
@@ -74,7 +79,7 @@ Produto.prototype.alter = async function(){
         console.log("ERRO NO BANCO AO ALTERAR PRODUTO:", ex.message);
     }
 }
-
+//Busca dados de tipo de produto por seu valor, para popular gráfico
 Produto.prototype.comparativeTipo = async function(){
     const result = {tipos: [], vendas: []}; 
     const now = new Date().toISOString();
@@ -87,6 +92,7 @@ Produto.prototype.comparativeTipo = async function(){
 
     try{
         const [rows] = await db.connection.query(cmd_tipo, [now]);
+        //Formata resultado
         const temp = JSON.parse(JSON.stringify(rows));
         temp.forEach( item =>{
             result.tipos.push(item.tipo)
@@ -97,29 +103,27 @@ Produto.prototype.comparativeTipo = async function(){
         console.log('Erro na consulta dos dados comparativos', ex.message);
     }
 }
-
+//Busca produtos por campo selecionado pelo usuário
 Produto.prototype.getByFieldValue = async function(field, value){
     const cmd_search = `SELECT * FROM produto WHERE ${field} LIKE('%${value}%')`;
     try{
         const [rows] = await db.connection.query(cmd_search);
-        console.log('DATA:', rows);
         return rows;
     }catch(ex){
         console.log('Campo desconhecido', ex.message);
     }
 }
-
+//Busca produtos por faixa de preço
 Produto.prototype.getProdutoByPrice = async function(inicial, final){
     const cmd_search = `SELECT * FROM produto WHERE preco >= ? AND preco <= ? `;
     try{
         const [rows] = await db.connection.query(cmd_search, [inicial, final]);
-        console.log('DATA:', rows);
         return rows;
     }catch(ex){
         console.log('Erro na consulta de produtos por preço', ex.message);
     }
 }
-
+//Busca todas as plataformas (para filtro)
 Produto.prototype.getPlataforma = async function(){
     const [rows, fields] = await db.connection.query('SELECT DISTINCT plataforma FROM produto')
     const plataformas = [];
@@ -128,7 +132,7 @@ Produto.prototype.getPlataforma = async function(){
     });
     return plataformas;
 }
-
+//Busca todos os tipos (para filtro)
 Produto.prototype.getTipo = async function(){
     const [rows] = await db.connection.query('SELECT DISTINCT tipo FROM produto')
     const tipos = [];
@@ -137,7 +141,7 @@ Produto.prototype.getTipo = async function(){
     });
     return tipos;
 }
-
+//Busca todos os produtos
 Produto.prototype.getProdutos = async function(){
     const cmd_select = `SELECT * FROM produto`;
     try{
@@ -147,19 +151,18 @@ Produto.prototype.getProdutos = async function(){
         console.log('Ocorreu um erro na consulta de Produtos',ex.message);
     }
 }
-
+//Busca produto pelo id informado
 Produto.prototype.getByID = async function(id){
     const cmd_select = 'SELECT * FROM produto WHERE id_produto = ?';
     try{
         const [rows] = await db.connection.query(cmd_select, [id]);
         if(rows.length === 0) return this.erros.push('Nenhum produto encontrado com essas especificações');
-        console.log('DATA',rows[0]);
         return [rows[0]];
     }catch(ex){
         console.log('Erro na cosulta de Produto por ID', ex.message);
     }
 }
-
+//Busca produto por nome
 Produto.prototype.getByName = async function(name){
     if(name.length < 3) return this.erros.push('Insira ao menos 3 carácteres para a pesquisa');
 
@@ -176,8 +179,6 @@ Produto.prototype.getAllAmount = async function(){
 }
 // Verifica se a quantidade de produto é menor que a que se deseja extrair, false para maior que o estoque
 Produto.prototype.checkAmount = function(id, qtd){
-    console.log(this.produtoAmount);
-    let str = [];
     for (let i = 0; i < this.produtoAmount.length; i++) {
         const p = this.produtoAmount[i];
         if(p.id_produto == id){
@@ -190,11 +191,13 @@ Produto.prototype.checkAmount = function(id, qtd){
 
 Produto.prototype.subtractAll = async function(itens){
     /*
-        itens é um vetor de objeto, cada item deve ter ao menos 2 propriedades: id e qtd
+        itens é um vetor de objeto dos quais terão sua quantidade subtraida, 
+        cada item deve ter ao menos 2 propriedades: id e qtdItem
         id: representa id do produto
         qtdItem: quantidade a ser subtraido
     */
-   //Verificar se é possível subrair itens sem ficar com estoque negativo
+
+   //Verificar se é seguro subrair itens sem ficar com estoque negativo
     await this.getAllAmount();
     itens.forEach( item =>{
         if(!this.checkAmount(item.id, item.qtdItem)) this.erros.push('Produto está fora de estoque, por favor atualize a página');
@@ -212,7 +215,7 @@ Produto.prototype.subtractAll = async function(itens){
         throw new TypeError(`Erro na subtração dos produtos > ${ex.message}`);
     }
 }
-
+//Executa a query de subtração de quantidade
 Produto.prototype.subtractQtd = async function(qtd){
     try{
         const produt_id = this.body.id;
@@ -228,7 +231,7 @@ Produto.prototype.subtractQtd = async function(qtd){
         TypeError(`> Subtração do Item ${this.body.id}`)
     }
 }
-
+//Verifca se produto já exite pelo seu nome e plataforma
 Produto.prototype.produtoExists = async function(){
     const cmd_select = `SELECT id_produto FROM produto WHERE nome = ? AND plataforma = ?`;
 
@@ -237,7 +240,7 @@ Produto.prototype.produtoExists = async function(){
     return false;
 }
 
-
+//Formata as primeiras letras para maiusculo
 function toUpCamelCase(str){
     let res = "";
     const vetStr = str.split(' ');
@@ -246,6 +249,7 @@ function toUpCamelCase(str){
     });
     return res.slice(0, -1);
 }
+//Formata floats para duas casas decimais
 function currencyModel(value){
     const currency = Number.parseFloat(value).toFixed(2);
     return currency;

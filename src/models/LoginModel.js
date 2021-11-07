@@ -1,10 +1,18 @@
 const db = require('../../server');
 const validator = require('validator');
 
+/* 
+!!! MODEL Login referencia-se ao USUÁRIO (do sistema) o qual também é um FUNCIONÁRIO (da loja), dado o contexto
+o controlador pode chama-lo como Funcionário ou Usuário
+*/
 function Login (body){
+    //Body - Corpo da requisisão, receberá um objeto com os parametros
+    //Possíveis parametros: email, nome, password
     this.body = body;
     this.erros = [];
     this.user = null;
+
+    //Valida os atributos da requisisão
     this.valida = function(){
         if(!validator.isEmail(this.body.email)) this.erros.push('E-mail Inválido');
         if(this.body.password){
@@ -19,7 +27,7 @@ function Login (body){
             this.body.nome = toUpCamelCase(this.body.nome);
         }
     }
-
+    //Formata principais campos
     this.cleanUp = function(){
         for(const key in this.body){
             if(typeof this.body[key] !== 'string'){
@@ -31,17 +39,15 @@ function Login (body){
             }
         }
     }
-    
-
 }
-
+//Realiza Login
 Login.prototype.login = async function(){
     const cmd_serch = `SELECT * FROM usuario WHERE email = '${this.body.email}' AND senha = md5('${this.body.password}')`;
     this.cleanUp();
     this.valida();
     
     if(this.erros.length > 0) return
-    
+    //Vericfica se há um usuário em que os campos e-mail se senha coincidem com o da requisisão
     const [rows, fields] = await db.connection.query(cmd_serch);
     
     if(rows.length > 0) this.user = {... rows[0]};
@@ -52,7 +58,7 @@ Login.prototype.login = async function(){
     }
     return;
 }
-
+//Cria um novo usuário
 Login.prototype.create = async function(){
     this.valida();
     if(await this.emailExists()) this.erros.push('E-mail já está sendo utilizado por outro usuário');
@@ -71,12 +77,13 @@ Login.prototype.alter = async function(){
 
     //Validações
     this.valida();
+    //Caso usuário a alterar seja o logado
     if(this.user){
         if(this.user.email !== this.body.email && await this.emailExists()) {
             return  this.erros.push('Email já está sendo utilizado por outra conta.')
         }
     }
-    //Caso editando pelo relatório
+    //Caso o usuário a editar seja outro, que não o logado
     else{
         this.user = {id_usuario:this.body.id}
         const tempId =  await this.getIDByEmail()
@@ -86,15 +93,16 @@ Login.prototype.alter = async function(){
     }
     
 
-    //QUERY MD5 PARA SENHA
+    //QUERY sem alterar a senha
     let cmd_put= `UPDATE usuario SET acesso = ${this.body.acesso}, nome = '${this.body.nome}', email='${this.body.email}',
      cargo='${this.body.cargo}'  WHERE id_usuario = ${this.user.id_usuario}`;
-    if(this.body.password){
+    //Query alterando a senha
+     if(this.body.password){
         cmd_put = `UPDATE usuario SET acesso = ${this.body.acesso}, nome = '${this.body.nome}', email='${this.body.email}',
         cargo='${this.body.cargo}', senha = MD5('${this.body.password}')  WHERE id_usuario = ${this.user.id_usuario}`;
     }
         
-       
+    //Caso qualquer erro de validação retornar   
     if(this.erros.length > 0) return
     try{
         const result = await db.connection.query(cmd_put);
@@ -104,7 +112,7 @@ Login.prototype.alter = async function(){
     if(!this.body.passoword) delete this.body.passowrd;
     Object.assign(this.user, this.body);
 }
-
+// Query para popular gráfico em Dashbord, retorna vendedores e valores de suas vendas no mês referente 
 Login.prototype.comparativeVendedores = async function(){
     const result = {vendedores: [], vendas: []}; 
     const now = new Date().toISOString();
@@ -127,7 +135,7 @@ Login.prototype.comparativeVendedores = async function(){
         console.log('Erro na consulta dos dados comparativos', ex.message);
     }
 }
-
+//Busca usuário por id
 Login.prototype.getByID = async function(){
     const cmd_select = `SELECT id_usuario, nome, cargo, email FROM usuario WHERE id_usuario = ?`
     try{
@@ -137,7 +145,7 @@ Login.prototype.getByID = async function(){
         console.log('Erro na consulta do banco',ex.message);
     }
 }
-
+//Busca todos usuários
 Login.prototype.allUser = async function(){
     const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
     FROM usuario AS u
@@ -152,7 +160,7 @@ Login.prototype.allUser = async function(){
         console.log(ex.message);
     }
 }
-
+//Busca todos usuários ordenado por venda mais recente
 Login.prototype.allUserByRecent = async function(){
     const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
     FROM usuario AS u
@@ -167,7 +175,7 @@ Login.prototype.allUserByRecent = async function(){
         console.log(ex.message);
     }
 }
-
+//Busca todos usuários ordenado por compras
 Login.prototype.allUserBySold= async function(){
     const cmd_all = `SELECT u.id_usuario, u.nome, u.cargo, u.email, SUM(v.valor) as totalVenda
     FROM usuario AS u
@@ -197,7 +205,7 @@ Login.prototype.allUserBySoldDesc= async function(){
         console.log(ex.message);
     }
 }
-
+//Busca todos os cargos criados
 Login.prototype.cargos = async function(){
     const [rows, fields] = await db.connection.query('SELECT DISTINCT cargo FROM usuario')
     const cargos = [];
@@ -208,7 +216,7 @@ Login.prototype.cargos = async function(){
     this.user.cargos = cargos;
     return;
 }
-
+//Verifica se o e-mail já exites
 Login.prototype.emailExists = async function(){
     
     const cmd_exists = `SELECT email FROM usuario WHERE email = '${this.body.email}'`;
@@ -216,7 +224,7 @@ Login.prototype.emailExists = async function(){
     if(rows.length > 0) return true;
     return false;
 }
-
+//Retorna id do usuário por email
 Login.prototype.getIDByEmail = async function(){
     const cmd_exists = `SELECT id_usuario FROM usuario WHERE email = '${this.body.email}'`;
     const [rows] = await db.connection.query(cmd_exists);

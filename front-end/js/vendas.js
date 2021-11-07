@@ -162,7 +162,7 @@ function reloadCarrinho(){
     itens.forEach( item =>{
         const p = createItem();
         p.id = item.id;
-        p.innerText = `${item.nome.slice(0, 11)} ${item.qtdItem}X - R$${item.totalVenda()}`
+        p.innerText = `${item.nome.slice(0, 20)} ${item.qtdItem}X - R$${item.totalVenda()}`
         carrinho.appendChild(p);
     })
     reloadSutTotal();
@@ -337,7 +337,7 @@ descontoInput.addEventListener('change', ()=>{
 
 //COMUNICAÇÃO COM O SERVIDOR
 
-// ENVIA FORMULARIO criar venda
+//Ao Buscar um criar uma venda (Fetch-API)
 formCarrinho.addEventListener('submit', async e=>{
     e.preventDefault();
     clearMessage();
@@ -362,7 +362,7 @@ formCarrinho.addEventListener('submit', async e=>{
     showMessage(data.type, data.message);
     clearForm();
 })
-//Ao Buscar um produto na serch bar
+//Ao Buscar um produto na serch bar (Fetch-API)
 formSerch.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const serchInput = formSerch.querySelector('.input-pesquisa')
