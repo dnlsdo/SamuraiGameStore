@@ -56,7 +56,7 @@
                   <td> <%- cliente.cpf %> </th>
                   <td> <%- cliente.nome %> </td>
                   <td> <%- cliente.email %> </td>
-                  <td> <% if(cliente.data_nasc){ %>
+                  <td> <% if(cliente.data_nasc && typeof cliente.data_nasc.getMonth === 'function'){ %>
                     <%- cliente.data_nasc.toLocaleDateString('pt-BR') %>
                   <% } %> </td>
                   <td> <% if(cliente.totalCompra){ %>
