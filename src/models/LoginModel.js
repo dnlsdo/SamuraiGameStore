@@ -45,13 +45,11 @@ Login.prototype.login = async function(){
     const cmd_serch = `SELECT * FROM usuario WHERE email = '${this.body.email}' AND senha = md5('${this.body.password}')`;
     this.cleanUp();
     this.valida();
-    
     if(this.erros.length > 0) return
     //Vericfica se há um usuário em que os campos e-mail se senha coincidem com o da requisisão
     const [rows, fields] = await db.connection.query(cmd_serch);
     
     if(rows.length > 0) this.user = {... rows[0]};
-
     if(!this.user) {
         this.erros.push('Email ou Senha Inválidos');
         return;
@@ -64,9 +62,8 @@ Login.prototype.create = async function(){
     if(await this.emailExists()) this.erros.push('E-mail já está sendo utilizado por outro usuário');
 
     if(this.erros.length > 0) return
-    
     const cmd_insert = `INSERT INTO usuario (NOME, EMAIL, CARGO, SENHA, ACESSO)
-     VALUES ('${this.body.nome}', '${this.body.email}', '${this.body.cargo}', MD5('${this.body.password}'), ${this.body.acesso})`;
+     VALUES ('${this.body.nome}', '${this.body.email}', '${this.body.cargo}', md5('${this.body.password}'), ${this.body.acesso})`;
 
     const result = await db.connection.query(cmd_insert); 
 
