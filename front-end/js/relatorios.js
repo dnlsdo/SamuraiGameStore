@@ -65,7 +65,7 @@ function createButtonEdit(id, tipo){
     a.setAttribute('href', `/editar/${tipo}/${id}`);
     btn.setAttribute('type','button');
     btn.setAttribute('class', 'btn btn-secondary');
-    btn.innerText = 'Detalhes';
+    btn.innerText = 'Editar';
     a.appendChild(btn);
     return a;
 }
@@ -77,7 +77,7 @@ function createButtonDetails(id){
     a.setAttribute('href', `/detalhe-venda/${id}`);
     btn.setAttribute('type','button');
     btn.setAttribute('class', 'btn btn-secondary');
-    btn.innerText = 'Editar';
+    btn.innerText = 'Detalhes';
     a.appendChild(btn);
     return a;
 }

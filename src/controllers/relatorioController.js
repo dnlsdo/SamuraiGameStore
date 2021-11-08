@@ -27,7 +27,6 @@ exports.orderClientes = async (req, res) =>{
     const order = req.params.order;
     const cliente = new Cliente();
     let result = [];
-
     switch (order) {
         case 'name':
             result = await cliente.allClientes();
@@ -59,7 +58,6 @@ exports.orderFuncionario = async (req, res) =>{
     const order = req.params.order;
     const funcionario = new Funcionario();
     let result = [];
-
     switch (order) {
         case 'name':
             result = await funcionario.allUser();
@@ -86,7 +84,6 @@ exports.orderVenda = async (req, res) =>{
     const order = req.params.order;
     const venda = new Venda();
     let result = [];
-
     switch (order) {
         case 'name':
             result = await venda.allVendas();
