@@ -1,4 +1,4 @@
-Como executar no Visual Studio Code:
+###Como executar no Visual Studio Code:
 1. Abra o terminal, certifique-se que o diretório do terminal esteja na pasta raiz do projeto
 2. Execute o comando:
     npm i
